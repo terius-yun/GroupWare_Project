@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+  	<display-name>portfolio_Ex</display-name>
+  
+  	<servlet>
+        <description>Controller</description>
+        <display-name>MemberController</display-name>
+        <servlet-name>MemberController</servlet-name>
+        <servlet-class>jsp.member.action.MemberController</servlet-class>
+   	</servlet>
+   	
+   	<servlet-mapping>
+        <servlet-name>MemberController</servlet-name>
+        <url-pattern>*.do</url-pattern>
+   	</servlet-mapping>
+
+	<resource-ref>
+    	<description>connection</description><!-- 설명 -->
+    	<res-ref-name>jdbc/sign</res-ref-name><!-- server의 context.xml파일의 name과 동일 -->
+    	<res-type>javax.sql.DataSource</res-type><!-- server의 context.xml파일의 type과 동일 -->
+    	<res-auth>Container</res-auth><!-- server의 context.xml파일의 auth과 동일 -->
+ 	</resource-ref>
+
+  	<!--
+  	<welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+	 -->
+</web-app>
