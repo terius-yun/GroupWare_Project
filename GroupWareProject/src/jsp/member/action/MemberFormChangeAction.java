@@ -34,10 +34,11 @@ public class MemberFormChangeAction implements Action{
         // 메인화면일 경우 MainForm.jsp만 경로로 지정한다.
         if(path.equals("main.jsp")) {
             forward.setNextPath(path);
-        }else if(path.equals("signUpCompleteForm.")){
+        }else if(path.equals("signUpCompleteForm.jsp")){
             forward.setNextPath("main.jsp?contentPage="+path);
-        }
-        else {
+        }else if(path.equals("myPage.jsp")) {
+        	forward.setNextPath("main.jsp?contentPage=mypage/"+path);
+        }else {
             forward.setNextPath(form+path);
         }
         return forward;

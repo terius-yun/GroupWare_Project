@@ -9,17 +9,17 @@
 			function changeView(value){
 				if(value == "0"){//홈페이지 이동
 					location.href="main.do";
-				}else if(value == "1"){//로그인 버튼 클릭시 로그인 화면 이동
+				}else if(value == "1"){//일정
 					location.href="#";
-				}else if(value == "2"){//회원가입 버튼 클릭시 회원가입 화면으로 이동
+				}else if(value == "2"){//게시판
 					location.href="#";
-				}else if(value == "3"){
+				}else if(value == "3"){//출결,연차
 					location.href="#";
-				}else if(value == "4"){
+				}else if(value == "4"){//주소록
 					location.href="#";
-				}else if(value == "5"){
-					location.href="#";
-				}else if (value == "6") {
+				}else if(value == "5"){//마이페이지
+					location.href="MemberLoadMyPageAction.do";
+				}else if (value == "6") {//로그아웃
 					location.href="MemberLogoutAction.do";
 				}
 			}
