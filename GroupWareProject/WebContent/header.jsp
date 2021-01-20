@@ -9,10 +9,10 @@
 			function changeView(value){
 				if(value == "0"){//홈페이지 이동
 					location.href="main.do";
-				}else if(value == "1"){//로그인 버튼 클릭시 로그인 화면 이동
+				}else if(value == "1"){
 					location.href="#";
-				}else if(value == "2"){//회원가입 버튼 클릭시 회원가입 화면으로 이동
-					location.href="#";
+				}else if(value == "2"){//게시판 이동
+					location.href="freeboard.bo";
 				}else if(value == "3"){
 					location.href="#";
 				}else if(value == "4"){

@@ -100,7 +100,7 @@ public class MemberDAO {
                 dbPW = rs.getString("member_pw"); // DB의 비번을 변수에 넣는다.
  
                 if (dbPW.equals(member_pw)) 
-                    x = 1; // 넘겨받은 비번과 꺼내온 배번 비교. 같으면 인증성공
+                    x = 1; // 넘겨받은 비번과 꺼내온 비번 비교. 같으면 인증성공
                 else                  
                     x = 0; // DB의 비밀번호와 입력받은 비밀번호 다름, 인증실패
                 
@@ -121,4 +121,8 @@ public class MemberDAO {
             }
         }
     } // end loginCheck()
+    public void Boardjoin(MemberDAO dao) {
+    	
+    }
+    	
 }
