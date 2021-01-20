@@ -64,10 +64,13 @@ public class MemberController extends HttpServlet{
             // 명령어에 해당하는 Action 클래스 이름을 가져온다.
             String className = rb.getString(command); 
             
+            System.out.println("command = " +command);
+            System.out.println("className = " +className);
+            
             try {
                  Class actionClass = Class.forName(className); // 클래스 생성
                  Action actionInstance = (Action)actionClass.newInstance(); // 클래스의 객체를 생성
-                 
+      
                  // 화면전환 Action 인지 확인한다. 화면전환 Action이면 명령어를 전달한다.
                  if(className.equals("jsp.member.action.MemberFormChangeAction")){
                      MemberFormChangeAction mf = (MemberFormChangeAction)actionInstance;

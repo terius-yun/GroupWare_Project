@@ -1,12 +1,19 @@
-package Gp.calendar.dto;
+package Gp.calendar.db;
 
-public class calendarVO {
+public class CalendarVO {
 	String cal_title;
 	String cal_member;
 	String cal_content;
 	String cal_start_date;
 	String cal_end_date;
+	String emp_num;
 	
+	public String getEmp_num() {
+		return emp_num;
+	}
+	public void setEmp_num(String emp_num) {
+		this.emp_num = emp_num;
+	}
 	public String getCal_title() {
 		return cal_title;
 	}
@@ -41,8 +48,10 @@ public class calendarVO {
 	@Override
 	public String toString() {
 		return "calendarVO [cal_title=" + cal_title + ", cal_member=" + cal_member + ", cal_content=" + cal_content
-				+ ", cal_start_date=" + cal_start_date + ", cal_end_date=" + cal_end_date + "]";
+				+ ", cal_start_date=" + cal_start_date + ", cal_end_date=" + cal_end_date + ", emp_num=" + emp_num
+				+ "]";
 	}
+	
 	
 	
 	

@@ -5,10 +5,10 @@
  <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>calendar</title>
-  <link rel="stylesheet" type="text/css" href="../css/mainCalendar.css">
+  <link rel="stylesheet" type="text/css" href="./css/mainCalendar.css">
   <script type="text/javascript">
   	function openPopup(){
-  		var url="addUpdate.jsp";
+  		var url="http://localhost:8081/GroupWareProject/CalAddForm.cal";
 		window.open( url, "addUpdate", "top=150, left=650, toolbar=no, menubar=no, scrollbars=yes, resizable=no, width=600, height=600" );
   	}
   </script>
@@ -85,12 +85,36 @@
    </tr>
   </table>
   </center>
-  <br><br><br><br>
+  <br><br>
   <form>
   <input type="button" value="일정변경" onclick="openPopup()"> 
   </form>
- 
-
   
+  <p>
+  <h3>상세보기</h3>
+  <div id="detail">
+  <table>
+  	<tr>
+  		<td>팀명</td>
+  		<td>~~~</td>
+  	</tr>
+  	<tr>
+  		<td>프로젝트 이름</td>
+  		<td>~~~</td>
+  	</tr>
+  	<tr>
+  		<td>참여인원</td>
+  		<td>~~~</td>
+  	</tr>
+  	<tr>
+  		<td>프로젝트 내용</td>
+  		<td>~~~</td>
+  	</tr>
+  	<tr>
+  		<td>프로젝트 기간</td>
+  		<td>~~~</td>
+  	</tr> 	
+  </table>
+  </div>
  </body>
 </html>

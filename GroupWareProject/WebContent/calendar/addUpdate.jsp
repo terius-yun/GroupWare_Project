@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="calendar.cal" method="get">
+<form action="CalendarAddUpdateAction.cal" method="get">
 <table>
 	<tr>
 		<td><label for="pName">프로젝트 이름</label></td>

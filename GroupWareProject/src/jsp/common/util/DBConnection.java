@@ -1,7 +1,11 @@
 package jsp.common.util;
  
+
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -23,4 +27,28 @@ public class DBConnection {
             Connection conn = ds.getConnection();
             return conn;
     }
+    
+    
+    //자원반환 메소드
+    public static void close(Statement stmt, ResultSet rs, Connection conn) {
+    	try {
+    		rs.close();
+    		stmt.close();
+    		conn.close();
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    }
+    
+    //자원반환 메소드
+    public static void close(Statement stmt, Connection conn) {
+    	try {
+    		stmt.close();
+    		conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    }
+ 
+    
 } 
