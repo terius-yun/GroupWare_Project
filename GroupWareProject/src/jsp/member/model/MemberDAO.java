@@ -2,7 +2,6 @@ package jsp.member.model;
  
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.naming.NamingException;
 
@@ -43,7 +42,7 @@ public class MemberDAO {
             // 가입일의 경우 자동으로 세팅되게 하기 위해 sysdate를 사용
             StringBuffer sql = new StringBuffer();
             sql.append("insert into GW_MEMBER values");
-            sql.append("(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, systimestamp)");      
+            sql.append("(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, systimestamp)");      
 
             pstmt = conn.prepareStatement(sql.toString());
             pstmt.setString(1, member.getEmp_num());
@@ -166,5 +165,56 @@ public class MemberDAO {
 		}
     	
 		return informations;
-    }//마이페이지 정보불러오기 끝
+    }//프로필 정보불러오기 끝
+    
+    //프로필 정보 수정하기
+    public void updateProfile(MemberVO member) throws SQLException{
+    	Connection conn = null;
+        PreparedStatement pstmt = null;
+        
+        try {
+            // 커넥션을 가져온다.
+            conn = DBConnection.getConnection();
+            
+            // 자동 커밋을 false로 한다.
+            conn.setAutoCommit(false);
+         // 쿼리 생성한다.
+            // 가입일의 경우 자동으로 세팅되게 하기 위해 sysdate를 사용
+            StringBuffer sql = new StringBuffer();
+            sql.append("UPDATE GW_MEMBER ");
+            sql.append(" SET");
+            sql.append(" MEMBER_PW = ?, ");
+            sql.append(" MEMBER_NAME = ?, ");
+            sql.append(" MEMBER_PNUM = ?, ");
+            sql.append(" MEMBER_EMAIL = ?, ");
+            sql.append(" MEMBER_BANK_ACCOUNT = ? ");
+            sql.append(" WHERE");
+            sql.append(" EMP_NUM = ?");
+            pstmt = conn.prepareStatement(sql.toString());
+            pstmt.setString(1, member.getMember_pw());
+            pstmt.setString(2, member.getMember_name());
+            pstmt.setString(3, member.getMember_pNum());
+            pstmt.setString(4, member.getMember_email());
+            pstmt.setString(5, member.getMember_bank_account());
+            pstmt.setString(6, member.getEmp_num());
+            
+            // 쿼리 실행
+            pstmt.executeUpdate();
+            // 완료시 커밋
+            conn.commit(); 
+        }catch (ClassNotFoundException | NamingException | SQLException sqle) {
+            // 오류시 롤백
+            conn.rollback(); 
+            
+            throw new RuntimeException(sqle.getMessage());
+        } finally {
+            // Connection, PreparedStatement를 닫는다.
+            try{
+                if ( pstmt != null ){ pstmt.close(); pstmt=null; }
+                if ( conn != null ){ conn.close(); conn=null;    }
+            }catch(Exception e){
+                throw new RuntimeException(e.getMessage());
+            }
+        } // end try~catch 
+    } 
 }

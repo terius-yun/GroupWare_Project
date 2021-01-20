@@ -5,7 +5,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title></title>
+<title>마이페이지 프로필</title>
+<script type="text/javascript">
+	function updateProfile() {
+		location.href="updateProfile.do";
+	}
+</script>
+
 </head>
 <body>
 	<h1>마이페이지~</h1>
@@ -57,5 +63,6 @@
 		</tr>
 		</c:forEach>
 	</table>
+	<button id="updateBtn" onclick="updateProfile()">수정</button>
 </body>
 </html>

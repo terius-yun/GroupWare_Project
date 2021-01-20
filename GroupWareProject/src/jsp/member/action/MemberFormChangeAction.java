@@ -36,8 +36,8 @@ public class MemberFormChangeAction implements Action{
             forward.setNextPath(path);
         }else if(path.equals("signUpCompleteForm.jsp")){
             forward.setNextPath("main.jsp?contentPage="+path);
-        }else if(path.equals("myPage.jsp")) {
-        	forward.setNextPath("main.jsp?contentPage=mypage/"+path);
+        }else if(path.equals("profile.jsp")||path.equals("updateProfile.jsp")) {
+        	forward.setNextPath("main.jsp?contentPage=profile/"+path);
         }else {
             forward.setNextPath(form+path);
         }

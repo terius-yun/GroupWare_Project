@@ -13,6 +13,7 @@ public class MemberVO {
 	private String member_team;				//부서
 	private String member_rank;				//직급
 	private String member_administrator;	//관리자권한
+	private int member_board_count;			//게시글 수
 	private Date member_regdate;			//가입일
 	
 	
@@ -81,6 +82,12 @@ public class MemberVO {
 	}
 	public void setMember_regdate(Date member_regdate) {
 		this.member_regdate = member_regdate;
+	}
+	public int getMember_board_count() {
+		return member_board_count;
+	}
+	public void setMember_board_count(int member_board_count) {
+		this.member_board_count = member_board_count;
 	}
 	
 	

@@ -11,10 +11,11 @@ import jsp.common.action.ActionForward;
 import jsp.member.model.MemberDAO;
 import jsp.member.model.MemberVO;
 
-public class MemberLoadMyPageAction implements Action{
+public class MemberLoadProfileAction implements Action{
 
 	@Override//마이페이지 정보 불러오기
-	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ActionForward execute(HttpServletRequest request, 
+			HttpServletResponse response) throws Exception {
 		ActionForward forward = new ActionForward();
 		 HttpSession session=request.getSession();
 		 
@@ -27,7 +28,7 @@ public class MemberLoadMyPageAction implements Action{
 	        request.setAttribute("memberInfo", informations);
 	        
 	        forward.setRedirect(false);
-	        forward.setNextPath("myPage.do");
+	        forward.setNextPath("profile.do");
 	        
 		return forward;
 	}

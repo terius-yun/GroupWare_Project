@@ -18,7 +18,7 @@
 				}else if(value == "4"){//주소록
 					location.href="#";
 				}else if(value == "5"){//마이페이지
-					location.href="MemberLoadMyPageAction.do";
+					location.href="MemberLoadProfileAction.do";
 				}else if (value == "6") {//로그아웃
 					location.href="MemberLogoutAction.do";
 				}
