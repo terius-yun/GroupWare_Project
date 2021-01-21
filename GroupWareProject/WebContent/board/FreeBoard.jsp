@@ -18,14 +18,31 @@
 	 <input type="button" value="개발팀 게시판" id="asd">
 	 <input type="button" value="css팀 게시판 " id="dsa">
 	 <table >
-	  <tr>
-	  	<td>글번호</td><td>글제목</td>
-	  	<td>작성날짜</td><td>조회수</td>
-	   </tr>
+	  <tr align="center" valign="middle">
+			<td colspan="5">자유 게시판</td>
+		</tr>
+
+		<tr align="center" valign="middle" bordercolor="#333333">
+			<td><div align="center">번호</div></td>
+			<td><div align="center">제목</div></td>
+			<td><div align="center">작성자</div></td>
+			<td><div align="center">날짜</div></td>
+			<td><div align="center">조회수</div></td>
+		</tr>
+		<c:forEach var="list.bo" items="${어디서 받아와서 나열해}" varStatus="">
+			<tr>
+			<td>${varstatus}</td>
+			<td>${title.bo}</td>
+			<td>${name.bo}</td>
+			<td>${writedate.bo}</td>
+			<td>${board_num.bo}</td>
+			</tr>
+		</c:forEach>
 	 </table>
 	 <input type="submit" value="등록">
 	 <input type="button" value="삭제" id="delete.bo">
 	 </div>
 	 </form>
+	 
 </body>
 </html>

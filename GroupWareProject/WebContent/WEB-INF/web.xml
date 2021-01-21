@@ -16,13 +16,13 @@
    	
    	  	<servlet>
         <description>Controller</description>
-        <display-name>BoardController</display-name>
-        <servlet-name>BoardController</servlet-name>
-        <servlet-class>jsp.board.action.BoardController</servlet-class>
+        <display-name>Board_Controller</display-name>
+        <servlet-name>Board_Controller</servlet-name>
+        <servlet-class>jsp.board.action.Board_Controller</servlet-class>
    	</servlet>
    	
    	<servlet-mapping>
-        <servlet-name>BoardController</servlet-name>
+        <servlet-name>Board_Controller</servlet-name>
         <url-pattern>*.bo</url-pattern>
    	</servlet-mapping>
 

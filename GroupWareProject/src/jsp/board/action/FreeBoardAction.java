@@ -13,7 +13,7 @@ import jsp.member.model.MemberDAO;
 import jsp.member.model.MemberVO;
 
 public class FreeBoardAction implements Action{
-/* 만든 이유 정보를 불러오기 위해서  */
+/* 만든 이유 = 생성   */
 	@Override
 	public ActionForward execute(HttpServletRequest request, 
 		HttpServletResponse response) throws Exception {

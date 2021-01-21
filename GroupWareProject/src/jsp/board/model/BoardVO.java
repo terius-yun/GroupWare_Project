@@ -10,6 +10,42 @@ public class BoardVO {
 	private int board_readcount;			//읽기 계정
 	private Timestamp board_writedate;		//작성일
 	
+	private String member_name;				//이름
+	private String member_pNum;				//전화번호
+	private String member_email;			//이메일
+	private String member_team;				//부서
+	private String member_rank;				//직급
+	
+	public String getMember_name() {
+		return member_name;
+	}
+	public void setMember_name(String member_name) {
+		this.member_name = member_name;
+	}
+	public String getMember_pNum() {
+		return member_pNum;
+	}
+	public void setMember_pNum(String member_pNum) {
+		this.member_pNum = member_pNum;
+	}
+	public String getMember_email() {
+		return member_email;
+	}
+	public void setMember_email(String member_email) {
+		this.member_email = member_email;
+	}
+	public String getMember_team() {
+		return member_team;
+	}
+	public void setMember_team(String member_team) {
+		this.member_team = member_team;
+	}
+	public String getMember_rank() {
+		return member_rank;
+	}
+	public void setMember_rank(String member_rank) {
+		this.member_rank = member_rank;
+	}
 	public int getBoard_num() {
 		return board_num;
 	}
