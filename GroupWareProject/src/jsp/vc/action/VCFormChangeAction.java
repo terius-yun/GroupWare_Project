@@ -1,17 +1,13 @@
-package jsp.member.action;
- 
+package jsp.vc.action;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import jsp.common.action.Action;
 import jsp.common.action.ActionForward;
- 
-/**
- * 화면 전환을 처리하는 Action
- *
- */
-public class MemberFormChangeAction implements Action{
-    private String form = "main.jsp?contentPage=member/";
+
+public class VCFormChangeAction implements Action{
+    private String form = "main.jsp?contentPage=vc/";
     private String path;
     
     /**
@@ -34,10 +30,6 @@ public class MemberFormChangeAction implements Action{
         // 메인화면일 경우 MainForm.jsp만 경로로 지정한다.
         if(path.equals("main.jsp")) {
             forward.setNextPath(path);
-        }else if(path.equals("signUpCompleteForm.jsp")){
-            forward.setNextPath("main.jsp?contentPage="+path);
-        }else if(path.equals("myPage.jsp")) {
-        	forward.setNextPath("main.jsp?contentPage=mypage/"+path);
         }else {
             forward.setNextPath(form+path);
         }

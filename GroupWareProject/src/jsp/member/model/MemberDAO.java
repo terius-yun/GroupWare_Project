@@ -1,6 +1,7 @@
 package jsp.member.model;
  
 import java.sql.*;
+import java.util.ArrayList;
 import javax.naming.NamingException;
 
 import jsp.common.util.DBConnection;
@@ -121,4 +122,47 @@ public class MemberDAO {
             }
         }
     } // end loginCheck()
+    
+    //마이페이지 정보불러오기
+    public ArrayList<MemberVO> getMemberInfo(String emp_num){
+    	Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+    	ArrayList<MemberVO> informations = new ArrayList<MemberVO>();
+    	try {
+    		conn = DBConnection.getConnection();
+    		StringBuffer sql = new StringBuffer();
+    		
+    		sql.append("select * from GW_MEMBER ");
+    		sql.append(" where EMP_NUM=?");
+    		
+    		pstmt = conn.prepareStatement(sql.toString());
+    		pstmt.setString(1, emp_num);
+    		
+    		// StringBuffer를 비우기
+    		sql.delete(0, sql.toString().length());
+    		
+    		rs = pstmt.executeQuery();
+    		while(rs.next()) {
+    			MemberVO member = new MemberVO();
+    			member.setEmp_num(rs.getString("EMP_NUM"));
+    			member.setMember_pw(rs.getString("MEMBER_PW"));
+    			member.setMember_name(rs.getString("MEMBER_NAME"));
+    			member.setMember_birth(rs.getString("MEMBER_BIRTH"));
+    			member.setMember_pNum(rs.getString("MEMBER_PNUM"));
+    			member.setMember_email(rs.getString("MEMBER_EMAIL"));
+    			member.setMember_bank_account(rs.getString("MEMBER_BANK_ACCOUNT"));
+    			member.setMember_team(rs.getString("MEMBER_TEAM"));
+    			member.setMember_rank(rs.getString("MEMBER_RANK"));
+    			member.setMember_administrator(rs.getString("MEMBER_ADMINISTRATOR"));
+    			member.setMember_regdate(rs.getDate("MEMBER_REGDATE"));
+    			
+    			informations.add(member);
+    		}
+		} catch (Exception e) {
+			throw new RuntimeException(e.getMessage());
+		}
+    	
+		return informations;
+    }//마이페이지 정보불러오기 끝
 }

@@ -13,6 +13,18 @@
         <servlet-name>MemberController</servlet-name>
         <url-pattern>*.do</url-pattern>
    	</servlet-mapping>
+   	
+   	<servlet>
+	      <description>Controller</description>
+	      <display-name>VCController</display-name>
+	      <servlet-name>VCController</servlet-name>
+	      <servlet-class>jsp.vc.controller.VCController</servlet-class>
+	</servlet>
+	   	
+	<servlet-mapping>
+	      <servlet-name>VCController</servlet-name>
+	      <url-pattern>*.vc</url-pattern>
+	</servlet-mapping>
 
 	<resource-ref>
     	<description>connection</description><!-- 설명 -->
