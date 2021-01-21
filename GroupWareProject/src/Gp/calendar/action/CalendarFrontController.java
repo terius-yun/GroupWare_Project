@@ -49,7 +49,21 @@ public class CalendarFrontController extends HttpServlet {
 				
 				e.printStackTrace();
 			}
-			
+			//detail
+		}else if(command.equals("/CalendarDetail.cal")) {
+			action = new CalendarDetailAction();
+			try {
+				forward=action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/Closing.cal")) {
+			action=new CalendarClosingForm();
+			try {
+				forward=action.execute(request, response);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
 		

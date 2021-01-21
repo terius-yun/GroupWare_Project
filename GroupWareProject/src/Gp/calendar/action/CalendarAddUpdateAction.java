@@ -22,15 +22,14 @@ public class CalendarAddUpdateAction implements Action {
 		calendardate.setCal_end_date(request.getParameter("cal_end_date"));
 		calendardate.setEmp_num(emp_num);
 		
-		System.out.println(request.getParameter("cal_title")+request.getParameter("cal_member")+request.getParameter("cal_content")+
-				request.getParameter("cal_start_date")+request.getParameter("cal_end_date")+emp_num);
+		System.out.println(request.getParameter("cal_title")+", "+request.getParameter("cal_member")+", "+request.getParameter("cal_content")+", "+
+				request.getParameter("cal_start_date")+", "+request.getParameter("cal_end_date")+emp_num);
 		
 		
 		CalendarDAO cDao = CalendarDAO.getInstance();
 		cDao.CalendarInsert(calendardate);
-		
 		foward.setRedirect(true);
-		foward.setPath("calendar/sss.jsp");
+		foward.setPath("Closing.cal");
 		
 		return foward;
 	}

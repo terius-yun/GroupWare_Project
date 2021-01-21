@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
  <head>
@@ -8,8 +9,21 @@
   <link rel="stylesheet" type="text/css" href="./css/mainCalendar.css">
   <script type="text/javascript">
   	function openPopup(){
-  		var url="http://localhost:8081/GroupWareProject/CalAddForm.cal";
+  		window.name="win_pay";
+  		var url="CalAddForm.cal";
 		window.open( url, "addUpdate", "top=150, left=650, toolbar=no, menubar=no, scrollbars=yes, resizable=no, width=600, height=600" );
+  	}
+  	
+  	function detailOpen(){
+  		location.href="CalendarDetail.cal";
+  		
+  	}
+  	function detailView(){
+  		if(document.getElementById("detail").style.display=="none"){
+  			document.getElementById("detail").style="display=inline;";
+  		}else{
+  			document.getElementById("detail").style.display=="none";
+  		}
   	}
   </script>
  </head>
@@ -37,14 +51,14 @@
   <table border=0> <!-- 달력 상단 부분, -->
    <tr>
     <td align=left width=200> <!-- 년 도-->
-    <a href="mainCalendar.jsp?year=<%out.print(year-1);%>&month=<%out.print(month);%>">◀</a>
+    <a href="calendar/mainCalendar.jsp?year=<%out.print(year-1);%>&month=<%out.print(month);%>">◀</a>
     <% out.print(year); %>년
-    <a href="mainCalendar.jsp?year=<%out.print(year+1);%>&month=<%out.print(month);%>">▶</a>
+    <a href="calendar/mainCalendar.jsp?year=<%out.print(year+1);%>&month=<%out.print(month);%>">▶</a>
     </td>
     <td align=center width=300> <!-- 월 -->
-    <a href="mainCalendar.jsp?year=<%out.print(year);%>&month=<%out.print(month-1);%>">◀</a>
+    <a href="calendar/mainCalendar.jsp?year=<%out.print(year);%>&month=<%out.print(month-1);%>">◀</a>
     <% out.print(month+1); %>월
-    <a href="mainCalendar.jsp?year=<%out.print(year);%>&month=<%out.print(month+1);%>">▶</a>
+    <a href="calendar/mainCalendar.jsp?year=<%out.print(year);%>&month=<%out.print(month+1);%>">▶</a>
     </td>
     <td align=right width=200><% out.print(currentYear + "-" + (currentMonth+1) + "-" + currentDate); %></td>
    </tr>
@@ -91,28 +105,29 @@
   </form>
   
   <p>
-  <h3>상세보기</h3>
-  <div id="detail">
-  <table>
+  <h3 onclick="detailOpen()">상세보기</h3>
+  <input type="button" value="확인" onclick="detailView()">
+  <div id="detail" style="display:none">
+  		<table>
   	<tr>
   		<td>팀명</td>
-  		<td>~~~</td>
+  		<td>금요일날 가져오도록 함</td>
   	</tr>
   	<tr>
   		<td>프로젝트 이름</td>
-  		<td>~~~</td>
+  		<td>${calendardates.cal_title}</td>
   	</tr>
   	<tr>
   		<td>참여인원</td>
-  		<td>~~~</td>
+  		<td>${calendardates.cal_member}</td>
   	</tr>
   	<tr>
   		<td>프로젝트 내용</td>
-  		<td>~~~</td>
+  		<td>${calendardates.cal_content}</td>
   	</tr>
   	<tr>
   		<td>프로젝트 기간</td>
-  		<td>~~~</td>
+  		<td>${calendardates.cal_start_date} - ${calendardates.cal_end_date}</td>
   	</tr> 	
   </table>
   </div>

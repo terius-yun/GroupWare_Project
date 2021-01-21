@@ -4,11 +4,12 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Insert title here</title>
+<title>^^</title>
+<script>
+window.close();
+</script>
 </head>
 <body>
-<%
-response.sendRedirect("CalMainCalendar.cal");
-%>
+^^
 </body>
 </html>
