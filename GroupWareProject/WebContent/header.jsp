@@ -16,7 +16,7 @@
 				}else if(value == "3"){//출결,연차
 					location.href="#";
 				}else if(value == "4"){//주소록
-					location.href="#";
+					location.href="memberList.do";
 				}else if(value == "5"){//마이페이지
 					location.href="MemberLoadProfileAction.do";
 				}else if (value == "6") {//로그아웃
@@ -29,12 +29,12 @@
 		<div id = "wrap">
 			<p>
 				<button id="homeBtn"class = "btn btn-primary" onclick = "changeView(0)">HOME</button>
-		        <button id="logoutBtn" class="btn btn-primary" onclick="changeView(1)">일정</button>
-		        <button id="updateBtn" class="btn btn-primary" onclick="changeView(2)">게시판</button>
-		        <button id="homeBtn" class="btn btn-primary" onclick = "changeView(3)">출결,연차</button>
-		        <button id="logoutBtn" class="btn btn-primary" onclick="changeView(4)">주소록</button>
-		        <button id="updateBtn" class="btn btn-primary" onclick="changeView(5)">마이페이지</button>
-		        <button id="homeBtn" class="btn btn-primary" onclick = "changeView(6)">로그아웃</button>
+		        <button id="calBtn" class="btn btn-primary" onclick="changeView(1)">일정</button>
+		        <button id="boardBtn" class="btn btn-primary" onclick="changeView(2)">게시판</button>
+		        <button id="hrBtn" class="btn btn-primary" onclick = "changeView(3)">출결,연차</button>
+		        <button id="memberBtn" class="btn btn-primary" onclick="changeView(4)">주소록</button>
+		        <button id="profileBtn" class="btn btn-primary" onclick="changeView(5)">마이페이지</button>
+		        <button id="logoutBtn" class="btn btn-primary" onclick = "changeView(6)">로그아웃</button>
 			</p>
 		</div>
 	</body>
