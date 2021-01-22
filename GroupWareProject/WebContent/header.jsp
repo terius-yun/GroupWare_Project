@@ -16,7 +16,7 @@
 				}else if(value == "3"){//출결,연차
 					location.href="#";
 				}else if(value == "4"){//주소록
-					location.href="memberList.do";
+					location.href="MemberListAction.do";
 				}else if(value == "5"){//마이페이지
 					location.href="MemberLoadProfileAction.do";
 				}else if (value == "6") {//로그아웃

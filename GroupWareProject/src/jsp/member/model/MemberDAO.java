@@ -15,6 +15,10 @@ import jsp.common.util.DBConnection;
  * 회원 데이터를 처리하는 클래스이다.
  */
 public class MemberDAO {
+	private Connection conn;
+    private PreparedStatement pstmt;
+    private ResultSet rs;
+
     private static MemberDAO instance;
     
     // 싱글톤 패턴
@@ -28,8 +32,6 @@ public class MemberDAO {
     // 회원정보를 JSP_MEMBER 테이블에 저장하는 메서드
     public void insertMember(MemberVO member) throws SQLException
     {
-        Connection conn = null;
-        PreparedStatement pstmt = null;
         
         try {
             // 커넥션을 가져온다.
@@ -80,9 +82,6 @@ public class MemberDAO {
     // 로그인시 아이디, 비밀번호 체크 메서드
     // 아이디, 비밀번호를 인자로 받는다.
     public int loginCheck(String emp_num, String member_pw) {
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
  
         String dbPW = ""; //db에서 꺼낸 비밀번호를 담을 변수
         int x = -1;
@@ -126,9 +125,7 @@ public class MemberDAO {
     
     //마이페이지 정보불러오기
     public ArrayList<MemberVO> getMemberInfo(String emp_num){
-    	Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
+
     	ArrayList<MemberVO> informations = new ArrayList<MemberVO>();
     	try {
     		conn = DBConnection.getConnection();
@@ -169,9 +166,7 @@ public class MemberDAO {
     
     //프로필 정보 수정하기
     public void updateProfile(MemberVO member) throws SQLException{
-    	Connection conn = null;
-        PreparedStatement pstmt = null;
-        
+
         try {
             // 커넥션을 가져온다.
             conn = DBConnection.getConnection();
@@ -216,5 +211,96 @@ public class MemberDAO {
                 throw new RuntimeException(e.getMessage());
             }
         } // end try~catch 
-    } 
+    }
+    
+    //주소록 불러오기 및 검색기능
+	public ArrayList<MemberVO> getMemberList(String condition) {
+		
+		ArrayList<MemberVO> list = new ArrayList<MemberVO>();
+		
+		try {
+			conn = DBConnection.getConnection();
+			StringBuffer sql = new StringBuffer();
+			if(condition == null) {
+				sql.append("select MEMBER_NAME, MEMBER_PNUM, MEMBER_EMAIL ");
+				sql.append(" , MEMBER_TEAM, MEMBER_RANK, MEMBER_ADMINISTRATOR ");
+				sql.append(" from GW_MEMBER ");
+				
+				pstmt = conn.prepareStatement(sql.toString());
+				
+				sql.delete(0, sql.toString().length());
+			}else {
+				sql.append("select MEMBER_NAME, MEMBER_PNUM, MEMBER_EMAIL ");
+				sql.append(" , MEMBER_TEAM, MEMBER_RANK, MEMBER_ADMINISTRATOR ");
+				sql.append(" from (select * from GW_MEMBER where ");
+				sql.append(" MEMBER_NAME like ? OR MEMBER_TEAM like ? OR MEMBER_RANK like ?)");
+				
+				pstmt = conn.prepareStatement(sql.toString());
+				
+				pstmt.setString(1, condition);
+				pstmt.setString(2, condition);
+				pstmt.setString(3, condition);
+				
+				sql.delete(0, sql.toString().length());
+			}
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				MemberVO member = new MemberVO();
+				member.setMember_name(rs.getString("MEMBER_NAME"));
+				member.setMember_pNum(rs.getString("MEMBER_PNUM"));
+				member.setMember_email(rs.getString("MEMBER_EMAIL"));
+				member.setMember_team(rs.getString("MEMBER_TEAM"));
+				member.setMember_rank(rs.getString("MEMBER_RANK"));
+				member.setMember_administrator(rs.getString("MEMBER_ADMINISTRATOR"));
+				list.add(member);
+			}
+		} catch (Exception e) {
+			throw new RuntimeException(e.getMessage());
+		}
+		
+		return list;
+	}//주소록 불러오기 및 검색기능 끝
+	
+	public ArrayList<MemberVO> getMemberTeam(int teamNum){
+		
+		ArrayList<MemberVO> team = new ArrayList<MemberVO>();
+		
+		try {
+			conn = DBConnection.getConnection();
+			StringBuffer sql = new StringBuffer();
+			
+			if(teamNum == 1) {
+				sql.append("select MEMBER_NAME, MEMBER_TEAM ");
+				sql.append(" from (select * from GW_MEMBER where ");
+				sql.append(" MEMBER_TEAM like '대표') ");
+			}else if(teamNum == 2){
+				sql.append("select MEMBER_NAME, MEMBER_TEAM ");
+				sql.append(" from (select * from GW_MEMBER where ");
+				sql.append(" MEMBER_TEAM like '기획팀') ");
+			}else if(teamNum == 3){
+				sql.append("select MEMBER_NAME, MEMBER_TEAM ");
+				sql.append(" from (select * from GW_MEMBER where ");
+				sql.append(" MEMBER_TEAM like '개발팀') ");
+			}else if(teamNum == 4){
+				sql.append("select MEMBER_NAME, MEMBER_TEAM ");
+				sql.append(" from (select * from GW_MEMBER where ");
+				sql.append(" MEMBER_TEAM like '디자인팀') ");
+			}
+				pstmt = conn.prepareStatement(sql.toString());
+				
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				MemberVO member = new MemberVO();
+//				member.setMember_name(rs.getString("MEMBER_NAME"));
+				member.setMember_team(rs.getString("MEMBER_TEAM"));
+				team.add(member);
+			}
+		} catch (Exception e) {
+			throw new RuntimeException(e.getMessage());
+		}
+		
+		return team;
+	}
 }

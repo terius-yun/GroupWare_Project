@@ -20,9 +20,13 @@ CREATE TABLE GW_MEMBER
   )
   );
   
-  INSERT INTO GW_MEMBER VALUES 
-  ('test1', 'test1', 'test1', '11/11/11', 
-  'test1', 'test1', 'test1', 'test1', 'test1', 'test1', 1, SYSDATE);
-  
-  INSERT INTO GW_MEMBER VALUES ('GW0001', '1234', '홍길동', '11/11/11', 
-'010-0000-0000', 'gildong@naver.com', '000-0000-00000', '개발팀', '팀장', '3', 1, SYSDATE)
+INSERT INTO GW_MEMBER VALUES ('gd0','1234','김길동','11/11/11','010-0000-0000','ooo@ooo.ooo','000-0000-00000','개발팀','팀장','2',0,SYSDATE);
+INSERT INTO GW_MEMBER VALUES ('gd1','1234','이길동','11/11/11','010-0000-0000','ooo@ooo.ooo','000-0000-00000','개발팀','사원','1',0,SYSDATE);
+INSERT INTO GW_MEMBER VALUES ('gd2','1234','박길동','11/11/11','010-0000-0000','ooo@ooo.ooo','000-0000-00000','개발팀','사원','1',0,SYSDATE);
+INSERT INTO GW_MEMBER VALUES ('gd3','1234','김길동','11/11/11','010-0000-0000','ooo@ooo.ooo','000-0000-00000','기획팀','팀장','2',0,SYSDATE);
+INSERT INTO GW_MEMBER VALUES ('gd4','1234','이길동','11/11/11','010-0000-0000','ooo@ooo.ooo','000-0000-00000','기획팀','사원','1',0,SYSDATE);
+INSERT INTO GW_MEMBER VALUES ('gd5','1234','박길동','11/11/11','010-0000-0000','ooo@ooo.ooo','000-0000-00000','기획팀','사원','1',0,SYSDATE);
+INSERT INTO GW_MEMBER VALUES ('gd6','1234','김길동','11/11/11','010-0000-0000','ooo@ooo.ooo','000-0000-00000','디자인팀','팀장','2',0,SYSDATE);
+INSERT INTO GW_MEMBER VALUES ('gd7','1234','이길동','11/11/11','010-0000-0000','ooo@ooo.ooo','000-0000-00000','디자인팀','사원','1',0,SYSDATE);
+INSERT INTO GW_MEMBER VALUES ('gd8','1234','박길동','11/11/11','010-0000-0000','ooo@ooo.ooo','000-0000-00000','디자인팀','사원','1',0,SYSDATE);
+INSERT INTO GW_MEMBER VALUES ('gd9','1234','홍길동','11/11/11','010-0000-0000','ooo@ooo.ooo','000-0000-00000','대표','대표','3',0,SYSDATE);
