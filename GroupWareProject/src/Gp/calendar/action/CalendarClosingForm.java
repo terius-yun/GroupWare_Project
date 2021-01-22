@@ -1,11 +1,7 @@
 package Gp.calendar.action;
 
-import java.io.PrintWriter;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.sun.java.swing.plaf.windows.resources.windows;
 
 public class CalendarClosingForm implements Action {
 

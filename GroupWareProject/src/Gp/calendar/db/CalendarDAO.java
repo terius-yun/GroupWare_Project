@@ -30,7 +30,7 @@ public class CalendarDAO {
 		try {
 			conn=DBConnection.getConnection();
 			
-			String sql = "insert into gw_calendar(cal_title, cal_member, cal_content, cal_start_date,cal_end_date,emp_num) values(?,?,?,?,?,?)";
+			String sql = "insert into gw_calendar(cal_title, cal_member, cal_content, cal_start_date,cal_end_date,emp_num,cal_num) values(?,?,?,?,?,?,cal_seq.nextval)";
 			pstmt=conn.prepareStatement(sql);
 	
 			pstmt.setString(1,calendardata.getCal_title());
@@ -52,7 +52,11 @@ public class CalendarDAO {
 	
 	//CalendarDetail에서 호출
 	public CalendarVO detail(){
-	    String sql = "select cal_title,cal_member,cal_content,cal_start_date,cal_end_date from gw_calendar";
+	    String sql = "select " + 
+	    		" c.cal_title,c.cal_member,c.cal_content,c.cal_start_date,c.cal_end_date, " + 
+	    		" m.member_team,m.member_administrator " + 
+	    		" from GW_MEMBER m inner join GW_CALENDAR c " + 
+	    		" on m.emp_num=c.emp_num order by c.cal_num asc";
 		CalendarVO calendardate = new CalendarVO();
 		try {
 			conn=DBConnection.getConnection();
@@ -60,13 +64,13 @@ public class CalendarDAO {
 			rs=stmt.executeQuery(sql);
 			
 			while(rs.next()) {
-				
-				
 				calendardate.setCal_title(rs.getString("cal_title"));
 				calendardate.setCal_member(rs.getString("cal_member"));
 				calendardate.setCal_content(rs.getString("cal_content"));
 				calendardate.setCal_start_date(rs.getString("cal_start_date"));
 				calendardate.setCal_end_date(rs.getString("cal_end_date"));
+				calendardate.setMember_team(rs.getString("member_team"));
+				calendardate.setMember_administrator(rs.getString("member_administrator"));
 			}
 			
 		} catch (Exception e) {

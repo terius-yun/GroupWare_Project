@@ -6,11 +6,11 @@
 <meta charset="utf-8">
 <head>
     <title>datepicker example</title>
-    <script src="../datepicker/jquery-3.1.1.min.js"></script> <!-- 값 제어를 위해 jquery -->
-    <link href="../datepicker/css/datepicker.min.css" rel="stylesheet" type="text/css" media="all">
+    <script src="datepicker/jquery-3.1.1.min.js"></script> <!-- 값 제어를 위해 jquery -->
+    <link href="datepicker/css/datepicker.min.css" rel="stylesheet" type="text/css" media="all">
     <!-- Air datepicker css -->
-    <script src="../datepicker/js/datepicker.js"></script> <!-- Air datepicker js -->
-    <script src="../datepicker/js/datepicker.ko.js"></script> <!-- 달력 한글 추가를 위해 커스텀 -->
+    <script src="datepicker/js/datepicker.js"></script> <!-- Air datepicker js -->
+    <script src="datepicker/js/datepicker.ko.js"></script> <!-- 달력 한글 추가를 위해 커스텀 -->
 </head>
 
 <body>

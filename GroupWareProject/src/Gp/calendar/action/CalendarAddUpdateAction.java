@@ -2,6 +2,7 @@ package Gp.calendar.action;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Gp.calendar.db.CalendarDAO;
 import Gp.calendar.db.CalendarVO;
@@ -11,9 +12,15 @@ public class CalendarAddUpdateAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		
 		CalendarVO calendardate = new CalendarVO();
 		ActionForward foward = new ActionForward();
-		String emp_num="1111";
+		
+		HttpSession session = request.getSession();
+		
+		String emp_num= (String) session.getAttribute("sessionID");
+
 		
 		calendardate.setCal_title(request.getParameter("cal_title"));
 		calendardate.setCal_member(request.getParameter("cal_member"));

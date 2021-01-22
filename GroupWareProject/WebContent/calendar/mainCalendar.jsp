@@ -1,6 +1,9 @@
+<%@page import="Gp.calendar.db.CalendarDAO"%>
+<%@page import="Gp.calendar.db.CalendarVO"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
  <head>
@@ -51,14 +54,14 @@
   <table border=0> <!-- 달력 상단 부분, -->
    <tr>
     <td align=left width=200> <!-- 년 도-->
-    <a href="calendar/mainCalendar.jsp?year=<%out.print(year-1);%>&month=<%out.print(month);%>">◀</a>
+    <a href="CalMainCalendar.cal?year=<%out.print(year-1);%>&month=<%out.print(month);%>">◀</a>
     <% out.print(year); %>년
-    <a href="calendar/mainCalendar.jsp?year=<%out.print(year+1);%>&month=<%out.print(month);%>">▶</a>
+    <a href="CalMainCalendar.cal?year=<%out.print(year+1);%>&month=<%out.print(month);%>">▶</a>
     </td>
     <td align=center width=300> <!-- 월 -->
-    <a href="calendar/mainCalendar.jsp?year=<%out.print(year);%>&month=<%out.print(month-1);%>">◀</a>
+    <a href="CalMainCalendar.cal?year=<%out.print(year);%>&month=<%out.print(month-1);%>">◀</a>
     <% out.print(month+1); %>월
-    <a href="calendar/mainCalendar.jsp?year=<%out.print(year);%>&month=<%out.print(month+1);%>">▶</a>
+    <a href="CalMainCalendar.cal?year=<%out.print(year);%>&month=<%out.print(month+1);%>">▶</a>
     </td>
     <td align=right width=200><% out.print(currentYear + "-" + (currentMonth+1) + "-" + currentDate); %></td>
    </tr>
@@ -79,6 +82,55 @@
    int startDay=cal.get(java.util.Calendar.DAY_OF_WEEK); //현재날짜(1일)의 요일
    int end=cal.getActualMaximum(java.util.Calendar.DAY_OF_MONTH); //이 달의 끝나는 날
    int br=0; //7일마다 줄 바꾸기
+   
+   
+   CalendarDAO cDao=CalendarDAO.getInstance();
+   CalendarVO cVo=cDao.detail();
+   String start_date=cVo.getCal_start_date();
+   String end_date=cVo.getCal_end_date();
+   String start_date_day="";
+   String end_date_day="";
+   String start_date_month="";
+   String end_date_month="";
+   String start_date_year="";
+   String end_date_year="";
+   //일
+   if(start_date.substring(8,9).equals("0")){
+	   start_date_day=start_date.substring(9,10);
+   }else{
+	   start_date_day=start_date.substring(8,10);
+   }
+   if(end_date.substring(8,9).equals("0")){
+	   end_date_day=end_date.substring(9,10);
+   }else{
+	   end_date_day=end_date.substring(8,10);
+   }
+   //월
+   if(start_date.substring(5,6).equals("0")){
+	   start_date_month=start_date.substring(6,7);
+   }else{
+	   start_date_month=start_date.substring(5,7);
+   }
+   if(end_date.substring(5,6).equals("0")){
+	   end_date_month=end_date.substring(6,7);
+   }else{
+	   end_date_month=end_date.substring(5,7);
+   }
+   //년
+	start_date_year=start_date.substring(0,4);
+	end_date_year=end_date.substring(0,4);
+	   System.out.println("월"+start_date_month);
+	   System.out.println("year"+start_date_year);
+   
+   int startDateDay=Integer.parseInt(start_date_day);
+   int endDateDay=Integer.parseInt(end_date_day);
+   int startDateMonth=Integer.parseInt(start_date_month);
+   int endDateMonth=Integer.parseInt(end_date_month);
+   int startDateYear=Integer.parseInt(start_date_year);
+   int endDateYear=Integer.parseInt(end_date_year);
+   
+   //시작달과끝나는달 같을때
+   if(startDateMonth==(month+1)&&endDateMonth==(month+1)){
    for(int i=0; i<(startDay-1); i++) { //빈칸출력
     out.println("<td>&nbsp;</td>");
     br++;
@@ -87,7 +139,13 @@
     }
    }
    for(int i=1; i<=end; i++) { //날짜출력
-    out.println("<td>" + i + "</td>");
+	   	   
+	  if(i>=startDateDay&&i<=endDateDay){
+		   out.println("<td style='background-color:yellow'>"+i+"</td>");
+	  }else{
+		out.println("<td>" + i + "</td>");  
+	  }
+    
     br++;
     if((br%7)==0 && i!=end) {
      out.println("</tr><tr height=30>");
@@ -95,6 +153,40 @@
    }
    while((br++)%7!=0) //말일 이후 빈칸출력
     out.println("<td>&nbsp;</td>");
+   
+   //다를때
+   }else if( (startDateMonth==(month+1)&&endDateMonth!=(month+1)) ||( (startDateMonth!=(month+1)&&endDateMonth==(month+1))) ){
+   for(int i=0; i<(startDay-1); i++) { //빈칸출력
+	    out.println("<td>&nbsp;</td>");
+	    br++;
+	    if((br%7)==0) {
+	     out.println("<br>");
+	    }
+	   }
+	   for(int i=1; i<=end; i++) { //날짜출력
+		   
+		   
+		  if(i>=startDateDay){
+			   out.println("<td style='background-color:yellow'>"+i+"</td>");
+		  }else if(i<startDateDay&&i>endDateDay){
+			out.println("<td>" + i + "</td>");  
+		  }else if(i<=endDateDay){
+		   out.println("<td style='background-color:yellow'>"+i+"</td>");
+		  }else{
+			out.println("<td>" + i + "</td>");  
+		  }
+	   
+	   
+	   
+	   
+	    br++;
+	    if((br%7)==0 && i!=end) {
+	     out.println("</tr><tr height=30>");
+	    }
+	   }
+	   while((br++)%7!=0) //말일 이후 빈칸출력
+	    out.println("<td>&nbsp;</td>");
+   }
    %>
    </tr>
   </table>
@@ -105,13 +197,13 @@
   </form>
   
   <p>
-  <h3 onclick="detailOpen()">상세보기</h3>
-  <input type="button" value="확인" onclick="detailView()">
+  <h3 onclick="detailOpen()">상세보기 초기화</h3>
+  <input type="button" value="상세보기" onclick="detailView()">
   <div id="detail" style="display:none">
   		<table>
   	<tr>
   		<td>팀명</td>
-  		<td>금요일날 가져오도록 함</td>
+  		<td>${calendardates.member_team}</td>
   	</tr>
   	<tr>
   		<td>프로젝트 이름</td>
@@ -131,5 +223,6 @@
   	</tr> 	
   </table>
   </div>
+
  </body>
 </html>

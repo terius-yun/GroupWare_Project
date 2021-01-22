@@ -22,6 +22,8 @@ public class CalendarDetailAction implements Action{
 		forward.setRedirect(false);
 		forward.setPath("./calendar/mainCalendar.jsp");
 		
+		
+		
 		return forward;
 	}
 }

@@ -26,16 +26,6 @@
     <Manager pathname="" />
     -->
     
-    
-    
-	 <Resource name="jdbc/sign" auth="Container"
-              type="javax.sql.DataSource" 
-              driverClassName="oracle.jdbc.OracleDriver"
-              url="jdbc:oracle:thin:@127.0.0.1:1521:xe"
-              username="Gw_Project" password="1234" 
-              maxTotal="20" maxIdle="10"
-              maxWaitMillis="-1"/>
-
+    <Resource maxWaitMillis="-1" maxIdle="10" maxTotal="20" password="1234" username="Gw_Project" url="jdbc:oracle:thin:@127.0.0.1:1521:xe" driverClassName="oracle.jdbc.OracleDriver" type="javax.sql.DataSource" auth="Container" name="jdbc/sign"/>
     
 </Context>
-
