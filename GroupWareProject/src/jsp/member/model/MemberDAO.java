@@ -159,7 +159,15 @@ public class MemberDAO {
     		}
 		} catch (Exception e) {
 			throw new RuntimeException(e.getMessage());
-		}
+		}finally {
+            // Connection, PreparedStatement를 닫는다.
+            try{
+                if ( pstmt != null ){ pstmt.close(); pstmt=null; }
+                if ( conn != null ){ conn.close(); conn=null;    }
+            }catch(Exception e){
+                throw new RuntimeException(e.getMessage());
+            }
+        }
     	
 		return informations;
     }//프로필 정보불러오기 끝
@@ -257,11 +265,20 @@ public class MemberDAO {
 			}
 		} catch (Exception e) {
 			throw new RuntimeException(e.getMessage());
-		}
+		}finally {
+            // Connection, PreparedStatement를 닫는다.
+            try{
+                if ( pstmt != null ){ pstmt.close(); pstmt=null; }
+                if ( conn != null ){ conn.close(); conn=null;    }
+            }catch(Exception e){
+                throw new RuntimeException(e.getMessage());
+            }
+        }
 		
 		return list;
 	}//주소록 불러오기 및 검색기능 끝
 	
+	//주소록 - 팀별 사람들 이름 불러오기
 	public ArrayList<MemberVO> getMemberTeam(int teamNum){
 		
 		ArrayList<MemberVO> team = new ArrayList<MemberVO>();
@@ -293,14 +310,123 @@ public class MemberDAO {
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				MemberVO member = new MemberVO();
-//				member.setMember_name(rs.getString("MEMBER_NAME"));
-				member.setMember_team(rs.getString("MEMBER_TEAM"));
+				member.setMember_name(rs.getString("MEMBER_NAME"));
 				team.add(member);
 			}
 		} catch (Exception e) {
 			throw new RuntimeException(e.getMessage());
-		}
+		}finally {
+            // Connection, PreparedStatement를 닫는다.
+            try{
+                if ( pstmt != null ){ pstmt.close(); pstmt=null; }
+                if ( conn != null ){ conn.close(); conn=null;    }
+            }catch(Exception e){
+                throw new RuntimeException(e.getMessage());
+            }
+        }
 		
 		return team;
-	}
+	}// 주소록 - 팀별 사람들 이름불러오기
+	
+	
+	//주소록 - 개개인 정보 불러오기
+	 public ArrayList<MemberVO> getMemberUniqueInfo(String member_name){
+
+	    	ArrayList<MemberVO> information = new ArrayList<MemberVO>();
+	    	try {
+	    		conn = DBConnection.getConnection();
+	    		StringBuffer sql = new StringBuffer();
+	    		
+
+	    		int idx = member_name.indexOf("_");
+	    		
+	    		String member_team = member_name.substring(idx);
+	    		member_name = member_name.substring(0, idx);
+	    		
+	    		if(member_team.equals("_ceo")) {
+	    			member_team ="대표";
+	    		}else if(member_team.equals("_plan")) {
+	    			member_team ="기획팀";
+	    		}else if(member_team.equals("_dev")) {
+	    			member_team ="개발팀";
+	    		}else if(member_team.equals("_desi")) {
+	    			member_team ="디자인팀";
+	    		}
+	    		
+	    		sql.append("select * from GW_MEMBER ");
+	    		sql.append(" where MEMBER_NAME=? AND MEMBER_TEAM=?");
+	    		
+	    		pstmt = conn.prepareStatement(sql.toString());
+	    		pstmt.setString(1, member_name);
+	    		pstmt.setString(2, member_team);
+	    		
+	    		// StringBuffer를 비우기
+	    		sql.delete(0, sql.toString().length());
+	    		
+	    		rs = pstmt.executeQuery();
+	    		while(rs.next()) {
+	    			MemberVO member = new MemberVO();
+	    			member.setMember_name(rs.getString("MEMBER_NAME"));
+	    			member.setMember_pNum(rs.getString("MEMBER_PNUM"));
+	    			member.setMember_email(rs.getString("MEMBER_EMAIL"));
+	    			member.setMember_team(rs.getString("MEMBER_TEAM"));
+	    			member.setMember_rank(rs.getString("MEMBER_RANK"));
+	    			
+	    			information.add(member);
+	    		}
+			} catch (Exception e) {
+				throw new RuntimeException(e.getMessage());
+			}finally {
+	            // Connection, PreparedStatement를 닫는다.
+	            try{
+	                if ( pstmt != null ){ pstmt.close(); pstmt=null; }
+	                if ( conn != null ){ conn.close(); conn=null;    }
+	            }catch(Exception e){
+	                throw new RuntimeException(e.getMessage());
+	            }
+	        }
+	    	
+			return information;
+	    }//주소록 - 개개인 정보 불러오기
+	 
+	 public ArrayList<MemberVO> getMemberSearchInfo(String member_name){
+		 ArrayList<MemberVO> information = new ArrayList<MemberVO>();
+	    	try {
+	    		conn = DBConnection.getConnection();
+	    		StringBuffer sql = new StringBuffer();
+	    		
+	    		sql.append("select * from GW_MEMBER ");
+	    		sql.append(" where MEMBER_NAME=?");
+	    		
+	    		pstmt = conn.prepareStatement(sql.toString());
+	    		pstmt.setString(1, member_name);
+	    		
+	    		// StringBuffer를 비우기
+	    		sql.delete(0, sql.toString().length());
+	    		
+	    		rs = pstmt.executeQuery();
+	    		while(rs.next()) {
+	    			MemberVO member = new MemberVO();
+	    			member.setMember_name(rs.getString("MEMBER_NAME"));
+	    			member.setMember_pNum(rs.getString("MEMBER_PNUM"));
+	    			member.setMember_email(rs.getString("MEMBER_EMAIL"));
+	    			member.setMember_team(rs.getString("MEMBER_TEAM"));
+	    			member.setMember_rank(rs.getString("MEMBER_RANK"));
+	    			
+	    			information.add(member);
+	    		}
+			} catch (Exception e) {
+				throw new RuntimeException(e.getMessage());
+			}finally {
+	            // Connection, PreparedStatement를 닫는다.
+	            try{
+	                if ( pstmt != null ){ pstmt.close(); pstmt=null; }
+	                if ( conn != null ){ conn.close(); conn=null;    }
+	            }catch(Exception e){
+	                throw new RuntimeException(e.getMessage());
+	            }
+	        }
+	    	
+			return information;
+	 }
 }

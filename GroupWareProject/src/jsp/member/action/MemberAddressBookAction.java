@@ -10,7 +10,7 @@ import jsp.common.action.ActionForward;
 import jsp.member.model.MemberDAO;
 import jsp.member.model.MemberVO;
 
-public class MemberListAction implements Action{
+public class MemberAddressBookAction implements Action{
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -34,7 +34,7 @@ public class MemberListAction implements Action{
 		request.setAttribute("team4", team4);
 		
 		forward.setRedirect(false);
-		forward.setNextPath("memberList.do");
+		forward.setNextPath("memberAddressBook.do");
 		return forward;
 	}
 

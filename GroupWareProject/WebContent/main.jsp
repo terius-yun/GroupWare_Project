@@ -5,6 +5,12 @@
 <!DOCTYPE html>
 <html>
 	<head>
+	
+		<style type="text/css">
+			#footer{
+				clear: both;
+			}
+		</style>
 		<meta charset="utf-8">
 		<title>메인 화면</title>
 	</head>
