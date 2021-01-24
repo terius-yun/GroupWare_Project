@@ -14,7 +14,7 @@ public class VcDAO {
 		        return instance;
 	}
 		
-	public void insertVC(VcDTO vto) {
+	public void insertVC(VcVO vvo) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		
@@ -24,14 +24,16 @@ public class VcDAO {
 		
 			StringBuffer sql = new StringBuffer();
 			sql.append("insert into GW_VC values(?,?,?,?)");
+			
 			pstmt = conn.prepareStatement(sql.toString());
 			
-			pstmt.setString(1, vto.getEmp_num());
-			pstmt.setString(2, vto.getVc_start_date());
-			pstmt.setString(3, vto.getVc_end_date());
-			pstmt.setString(4, vto.getVc_content());
+			pstmt.setString(1, vvo.getEmp_num());
+			pstmt.setString(2, vvo.getVc_start_date());
+			pstmt.setString(3, vvo.getVc_end_date());
+			pstmt.setString(4, vvo.getVc_content());
 			pstmt.executeUpdate();
-			
+			conn.commit();
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

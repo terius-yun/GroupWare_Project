@@ -1,7 +1,5 @@
 package jsp.vc.action;
 
-import java.awt.Desktop;
-import java.net.URI;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +12,7 @@ import jsp.member.model.MemberDAO;
 import jsp.member.model.MemberVO;
 
 
-public class addVCFormAction implements Action {
+public class AddVCFormAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -25,10 +23,10 @@ public class addVCFormAction implements Action {
         
 		 //세션에서 아이디(사번) 가져오기
 		 String emp_num = (String) session.getAttribute("sessionID");
-		// DB에서 아이디, 비밀번호 확인
+		// DB에서 아이디 가져오기
 	        MemberDAO dao = MemberDAO.getInstance();
 	        ArrayList<MemberVO> informations = dao.getMemberInfo(emp_num);
-	             
+	    //mainVC에서 휴가 시작일 가져오기         
         String start_date = request.getParameter("YYMMDD");
         System.out.println(start_date);
         

@@ -1,8 +1,7 @@
 package jsp.vc.model;
 
-import java.sql.Timestamp;
 
-public class VcDTO {
+public class VcVO {
 	private String emp_num;
 	private String vc_start_date;
 	private String vc_end_date;

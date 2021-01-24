@@ -5,11 +5,6 @@
 <html>
 	<head>
 		<style>
-			*{
-				margin: 0 auto;
-				width: 970px;
-			}
-			
 			a{
 				text-decoration: none;
 				color:black;
@@ -30,7 +25,7 @@
 			}
 		</style>
 		<script>
-			function openPop(i) {
+			function openPage(i) {
 //  				window.open('addVCForm.vc','addVC', 'top=50px, left=50px, width=400px , height=400px');
 				popYear = document.getElementById('yearP').value;
 				popMonth = document.getElementById('monthP').value;
@@ -46,7 +41,7 @@
 				form.setAttribute("name","popPost");
 
 				form.setAttribute('method', 'post');
-				form.setAttribute('action', window.open('addVCForm.vc','popPost', 'top=50px, left=50px, width=400px , height=400px'));
+				form.setAttribute('action', 'AddVCFormAction.vc');
 
 				document.charset = "utf-8";
 					var hiddenField = document.createElement('input');
@@ -56,7 +51,7 @@
 					form.appendChild(hiddenField);
 				document.body.appendChild(form);
 				form.submit();
-				location.href = "mainVC.vc"
+	//			location.href = "mainVC.vc"
 				return false;
 			}
 		</script>
@@ -85,7 +80,7 @@
 				if(month>11) { month=0; year=year+1; }
 			}
 		%>
-		<form action="addVCFormAction.vc" id="frm">
+		<form action="AddVCFormAction.vc" id="frm">
 			<table id="tab1">
 				<tr>
 				    <td width=200> <!-- 년 도-->
@@ -99,6 +94,7 @@
 				    <a href="mainVC.jsp?year=<%out.print(year);%>&month=<%out.print(month+1);%>">▶</a>
 				    </td>
 				    <td width=200><% out.print(cuyear + "-" + (cumonth+1) + "-" + cuday); %></td>
+				    <td> <input type="button" value="근태"></td>
 			   </tr>
 			   </table>
 			   <table id="tab2">
@@ -128,7 +124,7 @@
 					}
 				}
 				for(int i = 1; i <= end; i++){
-					out.println("<td><a href='#' onclick='openPop("+i+")'>" + i + "</a></td>");
+					out.println("<td><a href='#' onclick='openPage("+i+")'>" + i + "</a></td>");
 					br++;
 					if((br%7) == 0 && i != end){
 						out.println("</tr> <tr height=50>");
