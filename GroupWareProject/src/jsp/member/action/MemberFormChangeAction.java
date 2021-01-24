@@ -2,6 +2,7 @@ package jsp.member.action;
  
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import jsp.common.action.Action;
 import jsp.common.action.ActionForward;
@@ -32,15 +33,21 @@ public class MemberFormChangeAction implements Action{
         forward.setRedirect(false);
         
         // 메인화면일 경우 MainForm.jsp만 경로로 지정한다.
-        if(path.equals("main.jsp")) {
-            forward.setNextPath(path);
-        }else if(path.equals("signUpCompleteForm.jsp")){
-            forward.setNextPath("main.jsp?contentPage="+path);
-        }else if(path.equals("profile.jsp")||path.equals("updateProfile.jsp")) {
-        	forward.setNextPath("main.jsp?contentPage=profile/"+path);
+        HttpSession session=request.getSession();
+        if(session.getAttribute("sessionID")== null) {
+        	forward.setNextPath("security/abnormal_approach.jsp");
         }else {
-            forward.setNextPath(form+path);
+	        if(path.equals("main.jsp")) {
+	            forward.setNextPath(path);
+	        }else if(path.equals("signUpCompleteForm.jsp")){
+	            forward.setNextPath("main.jsp?contentPage="+path);
+	        }else if(path.equals("profile.jsp")||path.equals("updateProfile.jsp")) {
+	        	forward.setNextPath("main.jsp?contentPage=profile/"+path);
+	        }else {
+	            forward.setNextPath(form+path);
+	        }
         }
+        
         return forward;
     }
 }
