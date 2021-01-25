@@ -1,6 +1,7 @@
 <%@page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
 <!DOCTYPE html>
 <html>
 	<head>
@@ -84,14 +85,14 @@
 			<table id="tab1">
 				<tr>
 				    <td width=200> <!-- 년 도-->
-				    	<a href="mainVC.jsp?year=<%out.print(year-1);%>&month=<%out.print(month);%>">◀</a>
+				    	<a href="mainVC.vc?year=<%out.print(year-1);%>&month=<%out.print(month);%>">◀</a>
 				    <% out.print(year); %>년<input type="hidden" id="yearP" value=<%=year%>>
-				    <a href="mainVC.jsp?year=<%out.print(year+1);%>&month=<%out.print(month);%>">▶</a>
+				    <a href="mainVC.vc?year=<%out.print(year+1);%>&month=<%out.print(month);%>">▶</a>
 				    </td>
 				    <td width=300> <!-- 월 -->
-				    <a href="mainVC.jsp?year=<%out.print(year);%>&month=<%out.print(month-1);%>">◀</a>
+				    <a href="mainVC.vc?year=<%out.print(year);%>&month=<%out.print(month-1);%>">◀</a>
 				    <% out.print(month+1); %>월<input type="hidden" id="monthP" value=<%=month+1%>>
-				    <a href="mainVC.jsp?year=<%out.print(year);%>&month=<%out.print(month+1);%>">▶</a>
+				    <a href="mainVC.vc?year=<%out.print(year);%>&month=<%out.print(month+1);%>">▶</a>
 				    </td>
 				    <td width=200><% out.print(cuyear + "-" + (cumonth+1) + "-" + cuday); %></td>
 				    <td> <input type="button" value="근태"></td>
@@ -124,7 +125,9 @@
 					}
 				}
 				for(int i = 1; i <= end; i++){
-					out.println("<td><a href='#' onclick='openPage("+i+")'>" + i + "</a></td>");
+					out.println("<td><a href='#' onclick='openPage("+i+")'>" + i + "</a><br>");
+														
+					out.println("</td>");
 					br++;
 					if((br%7) == 0 && i != end){
 						out.println("</tr> <tr height=50>");

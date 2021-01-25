@@ -38,7 +38,7 @@ public class AddVCAction implements Action {
 		vdao.insertVC(vvo);
 		
 		forward.setRedirect(false);
-        forward.setNextPath("InsertVCFormAction.vc");
+        forward.setNextPath("MainVCFormAction.vc");
 		
 		return forward;
 	}

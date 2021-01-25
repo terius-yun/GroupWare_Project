@@ -14,7 +14,7 @@
 				}else if(value == "2"){//게시판
 					location.href="#";
 				}else if(value == "3"){//출결,연차
-					location.href="mainVC.vc";
+					location.href="MainVCFormAction.vc";
 				}else if(value == "4"){//주소록
 					location.href="#";
 				}else if(value == "5"){//마이페이지

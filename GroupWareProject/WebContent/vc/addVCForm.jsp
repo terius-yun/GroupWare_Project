@@ -5,18 +5,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-	h1 {
-		text-align:center;
-		margin-bottom:0;
-	}
-	div {
-		text-align: center;
-	}
-	#frm {
-		margin: 50px 25px;
-	}
-</style>
 <script>
 	function frmCheck(){
 		if (!document.appVC.vc_content.value){
@@ -26,12 +14,14 @@
 	}
 </script>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insert title here</title>
+   
 </head>
 <body>
 
 	<h1> 연차 신청</h1>
-	<form action="AddVCAction.vc" method="get" id="appVC">
+	<form action="AddVCAction.vc" method="post" id="appVC">
 		<table>
 			<c:forEach var="info" items="${requestScope.memberInfo}">
 				<tr> <td> 이름 : </td> <td><input type="text" name="member_name" value="${info.member_name}"></td></tr>
@@ -40,7 +30,7 @@
 			<c:forEach var="start_date" items="${requestScope.start_date}">
 				<tr>
 					<td> 시작일 :</td> <td><input type="text" name="vc_start_date" value="${start_date}"> </td> 
-					<td>종료일 :</td><td><input type="text" name="vc_end_date" value="${start_date}"></td></tr>
+					<td>종료일 :</td><td><input type="text" name="vc_end_date" value="" placeholder="0000/0/0"></td></tr>
 			</c:forEach>
 			
 			<tr> <td>사유</td> <td><textarea rows="5" cols="35" name="vc_content" placeholder="ex) 연차, 병가, 정기휴가 등 종류와 사유를 입력하세요."></textarea> </td></tr>
