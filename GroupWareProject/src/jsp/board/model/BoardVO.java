@@ -1,14 +1,14 @@
 package jsp.board.model;
 
-import java.sql.Timestamp;
+
 
 public class BoardVO {
-	private int board_num;					//스택
+	private String board_num;					//스택
 	private String emp_num;					//사번
 	private String board_title;				//글 제목
 	private String board_content;			//글 내용
-	private int board_readcount;			//읽기 계정
-	private Timestamp board_writedate;		//작성일
+	private String board_readcount;			//읽기 계정
+	private String board_writedate;		//작성일
 	
 	private String member_name;				//이름
 	private String member_pNum;				//전화번호
@@ -46,10 +46,10 @@ public class BoardVO {
 	public void setMember_rank(String member_rank) {
 		this.member_rank = member_rank;
 	}
-	public int getBoard_num() {
+	public String getBoard_num() {
 		return board_num;
 	}
-	public void setBoard_num(int board_num) {
+	public void setBoard_num(String board_num) {
 		this.board_num = board_num;
 	}
 	public String getEmp_num() {
@@ -70,16 +70,16 @@ public class BoardVO {
 	public void setBoard_content(String board_content) {
 		this.board_content = board_content;
 	}
-	public int getBoard_readcount() {
+	public String getBoard_readcount() {
 		return board_readcount;
 	}
-	public void setBoard_readcount(int board_readcount) {
+	public void setBoard_readcount(String board_readcount) {
 		this.board_readcount = board_readcount;
 	}
-	public Timestamp getBoard_writedate() {
+	public String getBoard_writedate() {
 		return board_writedate;
 	}
-	public void setBoard_writedate(Timestamp board_writedate) {
+	public void setBoard_writedate(String board_writedate) {
 		this.board_writedate = board_writedate;
 	}
 	

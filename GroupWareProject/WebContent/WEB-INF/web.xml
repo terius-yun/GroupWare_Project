@@ -14,15 +14,14 @@
         <url-pattern>*.do</url-pattern>
    	</servlet-mapping>
    	
-   	  	<servlet>
+   <servlet>
         <description>Controller</description>
-        <display-name>Board_Controller</display-name>
-        <servlet-name>Board_Controller</servlet-name>
-        <servlet-class>jsp.board.action.Board_Controller</servlet-class>
+        <display-name>BoardController</display-name>
+        <servlet-name>BoardController</servlet-name>
+        <servlet-class>jsp.board.action.BoardController</servlet-class>
    	</servlet>
-   	
    	<servlet-mapping>
-        <servlet-name>Board_Controller</servlet-name>
+        <servlet-name>BoardController</servlet-name>
         <url-pattern>*.bo</url-pattern>
    	</servlet-mapping>
 

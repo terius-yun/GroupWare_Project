@@ -13,6 +13,7 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
+	
 	<servlet>
 		<servlet-name>BoardFrontController</servlet-name>
 		<servlet-class>net.board.action.BoardFrontController</servlet-class>
@@ -21,6 +22,7 @@
 		<servlet-name>BoardFrontController</servlet-name>
 		<url-pattern>*.bo</url-pattern>
 	</servlet-mapping>
+	
 	<resource-ref>
 		<description>Connection</description>
 		<res-ref-name>jdbc/OracleDB</res-ref-name>
