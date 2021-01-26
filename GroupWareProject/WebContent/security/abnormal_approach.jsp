@@ -7,7 +7,7 @@
 		<title>비정상적인 접근입니다.</title>
 		<script type="text/javascript">
 			function loginBtn(){
-				location.href="/";
+				location.href="index.do";
 			}
 		</script>
 	</head>

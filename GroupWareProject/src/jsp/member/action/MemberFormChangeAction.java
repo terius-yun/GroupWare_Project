@@ -34,13 +34,11 @@ public class MemberFormChangeAction implements Action{
         
         // 메인화면일 경우 MainForm.jsp만 경로로 지정한다.
         HttpSession session=request.getSession();
-        if(session.getAttribute("sessionID")== null) {
+        if(!path.equals("index.jsp")&&session.getAttribute("sessionID")== null) {
         	forward.setNextPath("security/abnormal_approach.jsp");
         }else {
-	        if(path.equals("main.jsp")) {
+	        if(path.equals("main.jsp")||path.equals("index.jsp")) {
 	            forward.setNextPath(path);
-	        }else if(path.equals("signUpCompleteForm.jsp")){
-	            forward.setNextPath("main.jsp?contentPage="+path);
 	        }else if(path.equals("profile.jsp")||path.equals("updateProfile.jsp")) {
 	        	forward.setNextPath("main.jsp?contentPage=profile/"+path);
 	        }else {

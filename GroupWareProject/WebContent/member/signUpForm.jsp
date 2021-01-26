@@ -27,7 +27,7 @@
 // 	        }
 	        
 	        function goLoginForm(){
-	        	location.href = "LoginForm.do";
+	        	location.href = "main.do";
 	        }
 	    </script>
 	</head>
@@ -108,7 +108,7 @@
 	            </table>
 	            <br>
 	            <input type="submit" value="생성"/>
-	            <input type="button" value="취소" onclick="goLoginForm()">
+	            <input type="button" value="취소" onclick="goMain()">
 	        </form>
 	    </div>
 	</body>

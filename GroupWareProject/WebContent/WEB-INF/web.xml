@@ -20,6 +20,20 @@
     	<res-type>javax.sql.DataSource</res-type><!-- server의 context.xml파일의 type과 동일 -->
     	<res-auth>Container</res-auth><!-- server의 context.xml파일의 auth과 동일 -->
  	</resource-ref>
+   <!-- Security-Constraint(JSP 접근제한) -->
+    <security-constraint>
+        <display-name>JSP Pages Protection</display-name>
+        <web-resource-collection>
+            <web-resource-name></web-resource-name>
+            <url-pattern>*.jsp</url-pattern>
+            <http-method>GET</http-method>
+        </web-resource-collection>
+        <auth-constraint/>
+    </security-constraint>
+	<error-page>
+		<error-code>403</error-code>
+		<location>/security/abnormal_approach.jsp</location>
+	</error-page>
 
   	<!--
   	<welcome-file-list>

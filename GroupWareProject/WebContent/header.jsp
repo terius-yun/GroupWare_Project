@@ -22,6 +22,8 @@
 					location.href="MemberLoadProfileAction.do";
 				}else if (value == "6") {//로그아웃
 					location.href="MemberLogoutAction.do";
+				}else if(value == "7"){//회원등록
+					location.href="signUpForm.do";
 				}
 			}
 		</script>
@@ -38,7 +40,7 @@
 		        <c:forEach var="member" items="${sessionScope.memberInfo}">
 					<c:choose>
 				        	<c:when test="${member.member_administrator > 1}">
-				        		<button id="profileBtn" class="btn btn-primary" onclick="changeView()">회원등록</button>
+				        		<button id="profileBtn" class="btn btn-primary" onclick="changeView(7)">회원등록</button>
 				        	</c:when> 
 				    </c:choose>
 				</c:forEach>

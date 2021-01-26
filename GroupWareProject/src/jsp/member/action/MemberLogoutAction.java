@@ -24,7 +24,7 @@ public class MemberLogoutAction implements Action{
         
         // 로그아웃 후 메인화면으로 돌아간다.
         forward.setRedirect(true);
-        forward.setNextPath("/");
+        forward.setNextPath("index.do");
         
         return forward;
     }
