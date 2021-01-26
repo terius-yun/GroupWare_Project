@@ -125,8 +125,7 @@
 					}
 				}
 				for(int i = 1; i <= end; i++){
-					out.println("<td><a href='#' onclick='openPage("+i+")'>" + i + "</a><br>");
-														
+					out.println("<td><a href='#' id='day"+i+"' onclick='openPage("+i+")'>" + i + "</a><br>");
 					out.println("</td>");
 					br++;
 					if((br%7) == 0 && i != end){
@@ -135,6 +134,11 @@
 				}
 				while((br++)%7 != 0)
 					out.println("<td>&nbsp;</td>");
+				
+// 				int startDay = Integer.parseInt((String)request.getAttribute(("startDay")));
+// 				if(i == startDay){
+// 					request.getAttribute("startDay");
+// 				}
 				%>
 				</tr>
 			</table>

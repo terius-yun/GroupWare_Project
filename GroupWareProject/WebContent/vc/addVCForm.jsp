@@ -30,10 +30,20 @@
 			<c:forEach var="start_date" items="${requestScope.start_date}">
 				<tr>
 					<td> 시작일 :</td> <td><input type="text" name="vc_start_date" value="${start_date}"> </td> 
-					<td>종료일 :</td><td><input type="text" name="vc_end_date" value="" placeholder="0000/0/0"></td></tr>
+					<td>종료일 :</td><td><input type="text" name="vc_end_date" value="" placeholder="0000/0/0"></td>
+				</tr>
 			</c:forEach>
 			
-			<tr> <td>사유</td> <td><textarea rows="5" cols="35" name="vc_content" placeholder="ex) 연차, 병가, 정기휴가 등 종류와 사유를 입력하세요."></textarea> </td></tr>
+			<tr> <td>사유</td>
+				 <td>
+				 	<select name="vc_content">
+				 		<option value="오전반차">오전반차</option>
+				 		<option value="오후반차">오후반차</option>  
+				 		<option value="연차">연차</option>
+				 		<option value="병가">병가</option>
+				 	</select>
+				 </td>
+			</tr>
 		</table>
 		<div>
 			<input type="submit" value="등록" onclick="return frmCheck()">

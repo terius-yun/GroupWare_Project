@@ -26,34 +26,70 @@ public class MainVCFormAction implements Action {
 		
 		ActionForward forward = new ActionForward();
 		HttpSession session=request.getSession();
+		
 		//session emp_num 가져오기
 		String emp_num = (String)session.getAttribute("sessionID");
+		
 		//GW_VC 정보 DAO 통해서 가져오기 
 		VcDAO vdao = VcDAO.getInstance();
 		ArrayList<VcVO> list = vdao.VcInfo(emp_num);
-		System.out.println(list.get(3).getVc_start_date());
 		
-		// list에서 start_date 꺼내서 월만 자르기
-		String start_date = list.get(3).getVc_start_date();
-		int start = Integer.parseInt(start_date.substring(5, 7));
-		System.out.println(list.get(3).getVc_end_date());
-		System.out.println("시작 날짜 " + start);
+		//list value값만큼 배열 초기화
+		String [] start_date = new String[list.size()];
+		String [] end_date = new String[list.size()];
+		String [] content = new String[list.size()];	
+		int vcCount = 0;
 		
-		//list에서 end_date 꺼내서 월만 자르기 
-		String end_date = list.get(3).getVc_end_date();
-		int end = Integer.parseInt(end_date.substring(5, 7));
-		System.out.println("종료 날짜 " + end);
-		System.out.println("ddddd: "+year);
-		System.out.println("ddddd: "+month);
-		System.out.println("ddddd: "+endDayOfMonth);	
+		//변수 시작월, 종료월, 시작일, 종료일.
+		int startMonth, endMonth, startDay, endDay;		
+		String cal_start,cal_end;
 		
-		if ( start < month ) {
-			 start_date = year+"/"+month+"/1";
+		for( int i =0; i < list.size(); i++){
+				start_date[i] = list.get(i).getVc_start_date();
+				end_date[i] = list.get(i).getVc_end_date();
+				content[i] =  list.get(i).getVc_content();
+				
+				startMonth = Integer.parseInt(start_date[i].substring(5,7));
+				endMonth = Integer.parseInt(end_date[i].substring(5,7));
+				System.out.println("날짜" + startMonth + "달" + endMonth);
+				
+				startDay = Integer.parseInt(start_date[i].substring(8,10));
+				endDay = Integer.parseInt(end_date[i].substring(8,10));
+				System.out.println(start_date[i] + ":" + end_date[i]);
+				
+				if ( startMonth < month ) {
+					if( month < 10 ) {
+						start_date[i] = year+"-0"+month+"-01";
+					} else {
+						start_date[i] = year+"-"+month+"-01";
+					}
+				}
+				if( endMonth > month) {
+					if( month < 10 ) {
+						end_date[i] = year + "-0" + month + "-" + endDayOfMonth;
+					} else {
+						end_date[i] = year+"-"+month+"-" + endDayOfMonth;
+					}
+				}
+
+				startDay = Integer.parseInt(start_date[i].substring(8,10));
+				endDay = Integer.parseInt(end_date[i].substring(8,10));
+
+				System.out.println("날짜" + startDay + "일" + endDay);
+				
+				cal_start = start_date[i];
+				cal_end = end_date[i];
+				
+				System.out.println("날짜" + cal_start + ":" + cal_end);
+				
+				
+		        request.setAttribute("startDay"+i, startDay);
+		        request.setAttribute("endDay"+i, endDay);				
+		        request.setAttribute("content"+i, content);
+		        vcCount = i;
 		}
-		if( end > month) {
-			end_date = year + "/" + month + "/" + endDayOfMonth;
-		}
- 		
+		request.setAttribute("vcCount", vcCount);
+		
 		forward.setRedirect(false);
 		forward.setNextPath("mainVC.vc");
 		
