@@ -15,7 +15,7 @@
 <body>
 	 <h1><a href="main.do">홈</a>/자유게시판</h1>
 	 <br>
-	 <form action="WriteFormBoard.bo">
+	 <form action="Writer.bo">
 	 <div>
 	 <input type="button" value="개발팀 게시판" id="asd">
 	 <input type="button" value="css팀 게시판 " id="dsa">
