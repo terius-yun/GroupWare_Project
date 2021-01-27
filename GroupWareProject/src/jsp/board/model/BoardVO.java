@@ -3,12 +3,14 @@ package jsp.board.model;
 
 
 public class BoardVO {
-	private String board_num;					//스택
+	private String board_num;				//스택
 	private String emp_num;					//사번
 	private String board_title;				//글 제목
 	private String board_content;			//글 내용
 	private String board_readcount;			//읽기 계정
-	private String board_writedate;		//작성일
+	private String board_writedate;			//작성일
+	private String board_file; 				//파일
+	
 	
 	private String member_name;				//이름
 	private String member_pNum;				//전화번호
@@ -81,6 +83,12 @@ public class BoardVO {
 	}
 	public void setBoard_writedate(String board_writedate) {
 		this.board_writedate = board_writedate;
+	}
+	public String getBoard_file() {
+		return board_file;
+	}
+	public void setBoard_file(String board_file) {
+		this.board_file = board_file;
 	}
 	
 	

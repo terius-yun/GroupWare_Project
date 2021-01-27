@@ -104,16 +104,15 @@ public class BoardDAO {
 			
 			String sql ="";
 			sql="insert into GW_BOARD "+
-			"values(?,?,?,?,?,systimestamp)";
+			"values(?,?,?,?,?,systimestamp,?)";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, board.getBoard_num());
 			pstmt.setString(2, board.getEmp_num());
 			pstmt.setString(3, board.getBoard_title());
 			pstmt.setString(4, board.getBoard_content());
-			//추가해야됨 pstmt.setString(4, board.getBoard_file());
-			pstmt.setString(5, board.getBoard_readcount());
-			
+			pstmt.setString(6, board.getBoard_readcount());
+			pstmt.setString(7, board.getBoard_file());
 			result=pstmt.executeUpdate();
 			if(result==0)return false;
 			return true;

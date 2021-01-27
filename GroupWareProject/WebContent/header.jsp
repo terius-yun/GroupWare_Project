@@ -12,7 +12,7 @@
 				}else if(value == "1"){
 					location.href="#";
 				}else if(value == "2"){//게시판 이동
-					location.href="freeboard.bo";
+					location.href="BoardListForm.bo";
 				}else if(value == "3"){
 					location.href="#";
 				}else if(value == "4"){

@@ -25,3 +25,6 @@ drop table gw_board;
 insert into gw_board values(
 	1,'2','test1타이틀','test1content','test1카운트',sysdate
 );
+
+
+alter table gw_board add  board_file varchar2(100);
