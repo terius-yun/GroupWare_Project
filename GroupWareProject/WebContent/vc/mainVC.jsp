@@ -123,9 +123,24 @@
 					if((br%7)==0){
 						out.println("<br>");
 					}
-				}
+				}	
+				//연차 받아오기
+				int []startDay = (int[])request.getAttribute("startDay");
+				int []endDay = (int[])request.getAttribute("endDay");
+				int vcCount = (int)request.getAttribute("vcCount");
+				System.out.println("총받아와야하는 이달의 연차갯수의 인덱스: "+vcCount);
+				//연차받아오기
 				for(int i = 1; i <= end; i++){
-					out.println("<td><a href='#' id='day"+i+"' onclick='openPage("+i+")'>" + i + "</a><br>");
+					out.println("<td id='day"+i+"><a href='#' onclick='openPage("+i+")'>" + i + "</a><br>");
+					//연차 출력하기
+					for(int j= 0; j<=vcCount; j++){
+						if(startDay[j]== i && startDay[j] <= endDay[j]){ 
+							out.println("<p>오전반차</p>");
+							startDay[j]++;
+						}
+					}
+					//연차 출력하기
+					
 					out.println("</td>");
 					br++;
 					if((br%7) == 0 && i != end){
@@ -135,10 +150,7 @@
 				while((br++)%7 != 0)
 					out.println("<td>&nbsp;</td>");
 				
-// 				int startDay = Integer.parseInt((String)request.getAttribute(("startDay")));
-// 				if(i == startDay){
-// 					request.getAttribute("startDay");
-// 				}
+				
 				%>
 				</tr>
 			</table>

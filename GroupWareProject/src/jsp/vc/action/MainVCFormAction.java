@@ -41,7 +41,9 @@ public class MainVCFormAction implements Action {
 		int vcCount = 0;
 		
 		//변수 시작월, 종료월, 시작일, 종료일.
-		int startMonth, endMonth, startDay, endDay;		
+		int startMonth, endMonth;
+		int []startDay = new int[list.size()];
+		int []endDay = new int[list.size()];		
 		String cal_start,cal_end;
 		
 		for( int i =0; i < list.size(); i++){
@@ -51,11 +53,11 @@ public class MainVCFormAction implements Action {
 				
 				startMonth = Integer.parseInt(start_date[i].substring(5,7));
 				endMonth = Integer.parseInt(end_date[i].substring(5,7));
-				System.out.println("날짜" + startMonth + "달" + endMonth);
+				System.out.println("시작하는 달 : " + startMonth + " 끝나는 달 : " + endMonth);
 				
-				startDay = Integer.parseInt(start_date[i].substring(8,10));
-				endDay = Integer.parseInt(end_date[i].substring(8,10));
-				System.out.println(start_date[i] + ":" + end_date[i]);
+				startDay[i] = Integer.parseInt(start_date[i].substring(8,10));
+				endDay[i] = Integer.parseInt(end_date[i].substring(8,10));
+				System.out.println("일자 변환전 : "+start_date[i] + "//////" + end_date[i]);
 				
 				if ( startMonth < month ) {
 					if( month < 10 ) {
@@ -72,22 +74,21 @@ public class MainVCFormAction implements Action {
 					}
 				}
 
-				startDay = Integer.parseInt(start_date[i].substring(8,10));
-				endDay = Integer.parseInt(end_date[i].substring(8,10));
+				startDay[i] = Integer.parseInt(start_date[i].substring(8,10));
+				endDay[i] = Integer.parseInt(end_date[i].substring(8,10));
 
-				System.out.println("날짜" + startDay + "일" + endDay);
+				System.out.println("시작하는 일 :" + startDay[i] + " 끝나는 일 : " + endDay[i]);
 				
 				cal_start = start_date[i];
 				cal_end = end_date[i];
 				
-				System.out.println("날짜" + cal_start + ":" + cal_end);
+				System.out.println("일자 변환후 시작하는 날짜 : " + cal_start + " 끝나는 날짜 : " + cal_end);
 				
-				
-		        request.setAttribute("startDay"+i, startDay);
-		        request.setAttribute("endDay"+i, endDay);				
-		        request.setAttribute("content"+i, content);
 		        vcCount = i;
 		}
+		request.setAttribute("startDay", startDay);
+	    request.setAttribute("endDay", endDay);				
+	    request.setAttribute("content", content);
 		request.setAttribute("vcCount", vcCount);
 		
 		forward.setRedirect(false);
