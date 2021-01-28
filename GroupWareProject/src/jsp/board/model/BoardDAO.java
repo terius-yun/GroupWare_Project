@@ -7,54 +7,32 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
+
 import jsp.common.util.DBConnection;
 
 public class BoardDAO {
-	private static BoardDAO instance;
+	DataSource ds;
+	Connection conn;
+	PreparedStatement pstmt;
+	ResultSet rs;
 	
-	//싱글톤 패턴
-	private BoardDAO() {}
-	public static BoardDAO getInstanceBoard() {
-		if(instance==null)
-			instance=new BoardDAO();
-		return instance;
-	}
-	// 시퀀스를 가져온다.
-	public String getSeq() {
-		int result = 1;
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs;
+	public BoardDAO(){
 		try {
-			conn = DBConnection.getConnection();
-			
-			//시퀀스 값을 가져온다. (DUAL : 시퀀스 값을 가져오기위한 임시 테이블)
-			StringBuffer sql = new StringBuffer();
-			sql.append("SELECT BOARD_NUM.NEXTVAL FROM  DUAL");
-			
-			pstmt = conn.prepareStatement(sql.toString());
-			//값 뭐가 들어가는지 확인
-			System.out.println("getSeq()-----------------------");
-			System.out.println("sql.toString : "+sql.toString()+"pstmt : "+pstmt.toString());
-			
-			//쿼리 실행
-			rs = pstmt.executeQuery();
-			System.out.println("rs.getInt(1) : "+rs.getInt(1));
-			if(rs.next()) result = rs.getInt(1); // 하나씩 가져오나?
-			
-			System.out.println("getSeq()----------------------");
+			Context init = new InitialContext();
+			ds = (DataSource) init.lookup("java:comp/env/jdbc/OracleDB");
 		} catch (Exception e) {
-			throw new RuntimeException(e.getMessage());
+			System.out.println("board dao e : "+e);
+			return;
 		}
 		
-		return Integer.toString(result);
 	}
 	//게시판 메인 화면 리스트
 	public ArrayList<BoardVO> listBoard(BoardVO board) throws SQLException{
 		ArrayList<BoardVO> list = new ArrayList<BoardVO>();
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+
 		try {
 			conn = DBConnection.getConnection();
 			
@@ -94,8 +72,7 @@ public class BoardDAO {
 	//등록
 	public boolean insertBoard(BoardVO board ) throws SQLException {
 		
-		Connection conn = null;
-		PreparedStatement pstmt = null;
+
 		int result = 0;
 		
 		try {
