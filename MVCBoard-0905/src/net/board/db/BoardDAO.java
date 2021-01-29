@@ -23,20 +23,20 @@ public class BoardDAO {
 	  	    ds = (DataSource) init.lookup("java:comp/env/jdbc/OracleDB");
 	  		
 		}catch(Exception ex){
-			System.out.println("DB ¿¬°á ½ÇÆÐ : " + ex);
+			System.out.println("DB ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ : " + ex);
 			return;
 		}
 		
 	}
-	//±ÛÀÇ °³¼ö ±¸ÇÏ±â, BoardListAction¿¡¼­ È£Ãâ
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï±ï¿½, BoardListActionï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½
 	public int getListCount() { 
-		int x= 0;//·¹ÄÚµåÀÇ °¹¼ö
+		int x= 0;//ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		
 		try{
 			
 			con=ds.getConnection();
 			System.out.println("getConnection");
-			//·¹ÄÚµå¿¡ °¹¼ö±¸ÇÏ±â
+			//ï¿½ï¿½ï¿½Úµå¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
 			pstmt=con.prepareStatement("select count(*) from board");
 			rs = pstmt.executeQuery();
 			
@@ -44,7 +44,7 @@ public class BoardDAO {
 				x=rs.getInt(1);
 			}
 		}catch(Exception ex){
-			System.out.println("getListCount ¿¡·¯: " + ex);			
+			System.out.println("getListCount ï¿½ï¿½ï¿½ï¿½: " + ex);			
 		}finally{
 			if(rs!=null) try{rs.close();}catch(SQLException ex){}
 			if(pstmt!=null) try{pstmt.close();}catch(SQLException ex){}
@@ -53,7 +53,7 @@ public class BoardDAO {
 		return x;
 	}
 	
-	//±Û ¸ñ·Ï º¸±â, BoardListAction¿¡¼­ È£Ãâ
+	//ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, BoardListActionï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½
 	public List getBoardList(int page,int limit){
 	
 		String board_list_sql="select * from "+
@@ -65,8 +65,8 @@ public class BoardDAO {
 		
 		List<BoardBean> list = new ArrayList<BoardBean>();
 		
-		int startrow=(page-1)*10+1; //ÀÐ±â ½ÃÀÛÇÒ row ¹øÈ£.
-		int endrow=startrow+limit-1; //ÀÐÀ» ¸¶Áö¸· row ¹øÈ£.		
+		int startrow=(page-1)*10+1; //ï¿½Ð±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ row ï¿½ï¿½È£.
+		int endrow=startrow+limit-1; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ row ï¿½ï¿½È£.		
 		try{
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(board_list_sql);
@@ -91,7 +91,7 @@ public class BoardDAO {
 			
 			return list;
 		}catch(Exception ex){
-			System.out.println("getBoardList ¿¡·¯ : " + ex);
+			System.out.println("getBoardList ï¿½ï¿½ï¿½ï¿½ : " + ex);
 		}finally{
 			if(rs!=null) try{rs.close();}catch(SQLException ex){}
 			if(pstmt!=null) try{pstmt.close();}catch(SQLException ex){}
@@ -100,7 +100,7 @@ public class BoardDAO {
 		return null;
 	}
 	
-	//±Û ³»¿ë º¸±â. 
+	//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. 
 	public BoardBean getDetail(int num) throws Exception{
 		
 		BoardBean board = null;
@@ -127,7 +127,7 @@ public class BoardDAO {
 			}
 			return board;
 		}catch(Exception ex){
-			System.out.println("getDetail ¿¡·¯ : " + ex);
+			System.out.println("getDetail ï¿½ï¿½ï¿½ï¿½ : " + ex);
 		}finally{
 			if(rs!=null)try{rs.close();}catch(SQLException ex){}
 			if(pstmt !=null)try{pstmt.close();}catch(SQLException ex){}
@@ -136,7 +136,7 @@ public class BoardDAO {
 		return null;
 	}
 	
-	//±Û µî·Ï, BoardAddAction¿¡¼­ È£Ãâ
+	//ï¿½ï¿½ ï¿½ï¿½ï¿½, BoardAddActionï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½
 	public boolean boardInsert(BoardBean board){
 		
 		int num =0;
@@ -166,17 +166,17 @@ public class BoardDAO {
 			pstmt.setString(4, board.getBOARD_SUBJECT());
 			pstmt.setString(5, board.getBOARD_CONTENT());
 			pstmt.setString(6, board.getBOARD_FILE());
-			pstmt.setInt(7, num);//±Û¹øÈ£
-			pstmt.setInt(8, 0);//numÀ» ÂüÁ¶ÇÏ´Â º¯¼ö
-			pstmt.setInt(9, 0);//´äº¯ÀÇ ¼ø¼­
-			pstmt.setInt(10, 0);//Á¶È¸¼ö
+			pstmt.setInt(7, num);//ï¿½Û¹ï¿½È£
+			pstmt.setInt(8, 0);//numï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½
+			pstmt.setInt(9, 0);//ï¿½äº¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			pstmt.setInt(10, 0);//ï¿½ï¿½È¸ï¿½ï¿½
 			
 			result=pstmt.executeUpdate();
 			if(result==0) return false;
 			
 			return true;
 		}catch(Exception ex){
-			System.out.println("boardInsert ¿¡·¯ : "+ex);
+			System.out.println("boardInsert ï¿½ï¿½ï¿½ï¿½ : "+ex);
 		}finally{
 			if(rs!=null) try{rs.close();}catch(SQLException ex){}
 			if(pstmt!=null) try{pstmt.close();}catch(SQLException ex){}
@@ -185,7 +185,7 @@ public class BoardDAO {
 		return false;
 	}
 	
-	//±Û ´äº¯
+	//ï¿½ï¿½ ï¿½äº¯
 	public int boardReply(BoardBean board){
 		
 		String board_max_sql="select max(board_num) from board";
@@ -205,15 +205,15 @@ public class BoardDAO {
 			else num=1;
 			
 			sql="update board set BOARD_RE_SEQ=BOARD_RE_SEQ+1 where BOARD_RE_REF=? ";
-			sql+="and BOARD_RE_SEQ>?";//´äº¯ÀÇ ¼ø¼­ Á¤ÇÏ±â
+			sql+="and BOARD_RE_SEQ>?";//ï¿½äº¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï±ï¿½
 			
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1,re_ref);
 			pstmt.setInt(2,re_seq);
 			result=pstmt.executeUpdate();
 			
-			re_seq = re_seq + 1;//´äº¯ÀÇ ¼ø¼­
-			re_lev = re_lev+1;//´äº¯ÀÇ ´Ü°è
+			re_seq = re_seq + 1;//ï¿½äº¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			re_lev = re_lev+1;//ï¿½äº¯ï¿½ï¿½ ï¿½Ü°ï¿½
 			
 			sql="insert into board (BOARD_NUM,BOARD_NAME,BOARD_PASS,BOARD_SUBJECT,";
 			sql+="BOARD_CONTENT, BOARD_FILE,BOARD_RE_REF,BOARD_RE_LEV,BOARD_RE_SEQ,";
@@ -225,7 +225,7 @@ public class BoardDAO {
 			pstmt.setString(3, board.getBOARD_PASS());
 			pstmt.setString(4, board.getBOARD_SUBJECT());
 			pstmt.setString(5, board.getBOARD_CONTENT());
-			pstmt.setString(6, ""); //´äÀå¿¡´Â ÆÄÀÏÀ» ¾÷·ÎµåÇÏÁö ¾ÊÀ½.
+			pstmt.setString(6, ""); //ï¿½ï¿½ï¿½å¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 			pstmt.setInt(7, re_ref);
 			pstmt.setInt(8, re_lev);
 			pstmt.setInt(9, re_seq);
@@ -233,7 +233,7 @@ public class BoardDAO {
 			pstmt.executeUpdate();
 			return num;
 		}catch(SQLException ex){
-			System.out.println("boardReply ¿¡·¯ : "+ex);
+			System.out.println("boardReply ï¿½ï¿½ï¿½ï¿½ : "+ex);
 		}finally{
 			if(rs!=null)try{rs.close();}catch(SQLException ex){}
 			if(pstmt!=null)try{pstmt.close();}catch(SQLException ex){}
@@ -242,7 +242,7 @@ public class BoardDAO {
 		return 0;
 	}
 	
-	//±Û ¼öÁ¤, BoardModifyAction¿¡¼­ È£Ãâ
+	//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, BoardModifyActionï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½
 	public boolean boardModify(BoardBean modifyboard) throws Exception{
 		
 		String sql="update board set BOARD_SUBJECT=?,BOARD_CONTENT=? where BOARD_NUM=?";
@@ -256,7 +256,7 @@ public class BoardDAO {
 			pstmt.executeUpdate();
 			return true;
 		}catch(Exception ex){
-			System.out.println("boardModify ¿¡·¯ : " + ex);
+			System.out.println("boardModify ï¿½ï¿½ï¿½ï¿½ : " + ex);
 		}finally{
 			if(rs!=null)try{rs.close();}catch(SQLException ex){}
 			if(pstmt!=null)try{pstmt.close();}catch(SQLException ex){}
@@ -265,7 +265,7 @@ public class BoardDAO {
 		return false;
 	}
 	
-	//±Û »èÁ¦, BoardDeleteAction¿¡¼­ È£Ãâ
+	//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, BoardDeleteActionï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½
 	public boolean boardDelete(int num){
 		
 		String board_delete_sql="delete from board where BOARD_num=?";
@@ -281,7 +281,7 @@ public class BoardDAO {
 			
 			return true;
 		}catch(Exception ex){
-			System.out.println("boardDelete ¿¡·¯ : "+ex);
+			System.out.println("boardDelete ï¿½ï¿½ï¿½ï¿½ : "+ex);
 		}	finally{
 			try{
 				if(pstmt!=null)pstmt.close();
@@ -294,7 +294,7 @@ public class BoardDAO {
 		return false;
 	}
 	
-	//Á¶È¸¼ö ¾÷µ¥ÀÌÆ®, BoardDetail¿¡¼­ È£Ãâ
+	//ï¿½ï¿½È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®, BoardDetailï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½
 	public void setReadCountUpdate(int num) throws Exception{
 		
 		String sql="update board set BOARD_READCOUNT = "+
@@ -305,7 +305,7 @@ public class BoardDAO {
 			pstmt=con.prepareStatement(sql);
 			pstmt.executeUpdate();
 		}catch(SQLException ex){
-			System.out.println("setReadCountUpdate ¿¡·¯ : "+ex);
+			System.out.println("setReadCountUpdate ï¿½ï¿½ï¿½ï¿½ : "+ex);
 		}
 		finally{
 			try{
@@ -317,7 +317,7 @@ public class BoardDAO {
 	}
 	}
 	
-	//±Û¾´ÀÌÀÎÁö È®ÀÎ, BoardDeleteAction¿¡¼­ È£Ãâ, BoardModifyAction¿¡¼­ È£Ãâ
+	//ï¿½Û¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½, BoardDeleteActionï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½, BoardModifyActionï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½
 	public boolean isBoardWriter(int num,String pass){
 		
 		String board_sql="select * from board where BOARD_NUM=?";
@@ -333,7 +333,7 @@ public class BoardDAO {
 				return true;
 			}
 		}catch(SQLException ex){
-			System.out.println("isBoardWriter ¿¡·¯ : "+ex);
+			System.out.println("isBoardWriter ï¿½ï¿½ï¿½ï¿½ : "+ex);
 		}
 	finally{
 			try{

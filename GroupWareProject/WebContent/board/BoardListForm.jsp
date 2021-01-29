@@ -48,14 +48,16 @@
                 <td>작성일</td>
                 <td>조회수</td>
             </tr>    
-            <c:forEach var="list" items="${list}">
+            <c:forEach var="list" items="${lists}">
 			<tr>
 			<td><div align="center">${list.board_num}</div></td>
-			<td><div align="center">${list.member_team}</div></td>
-			<td><div align="center">${list.board_title}</div></td>
-			<td><div align="center"><a href="boardModify.bo">${list.member_name}</a></div></td>
+			<!-- 너 수정 -->
+			<td><div align="center"><a href="boardModify.bo">${list.board_title}</a></div></td>
+			<!-- 작성자 정보털림 -->
+			<td><div align="center">${list.member_name}</div></td>
 			<td><div align="center">${list.board_writedate}</div></td>
 			<td><div align="center">${list.board_readcount}</div></td>
+			<td><div align="center"></div></td>
 			</tr>
 		</c:forEach>
         </table>

@@ -22,53 +22,76 @@ public class BoardDAO {
 	public BoardDAO(){
 		try {
 			Context init = new InitialContext();
-			ds = (DataSource) init.lookup("java:comp/env/jdbc/OracleDB");
+			ds = (DataSource) init.lookup("java:comp/env/jdbc/sign");
 		} catch (Exception e) {
 			System.out.println("board dao e : "+e);
 			return;
 		}
 		
 	}
-	//게시판 메인 화면 리스트
-	public ArrayList<BoardVO> listBoard(BoardVO board) throws SQLException{
-		ArrayList<BoardVO> list = new ArrayList<BoardVO>();
-
+	//리스트
+	public int getListCount() {
+		int x= 0;
+		System.out.println("getListCount--------------");
 		try {
-			conn = DBConnection.getConnection();
+			conn=ds.getConnection();
+			System.out.println("getConnection : "+conn);
+			//pstmt 문제될수있음
+			pstmt=conn.prepareStatement("select count(*) from GW_BOARD");
 			
-			String sql = 
-			"select t1.member_name, t1.member_pNum,t2.BOARD_NUM, t2.BOARD_READCOUNT, " + 
-					"t2.BOARD_CONTENT,t2.BOARD_TITLE, t2.BOARD_WRITEDATE, " + 
-					"t1.member_email, t1.member_team,t1.emp_num, t1.member_rank " + 
-					"from gw_member t1 inner join  GW_BOARD t2 on " + 
-					"t1.emp_num=t2.emp_num";
+			rs = pstmt.executeQuery();
+			System.out.println("rs : "+rs.toString());
+			if(rs.next()) {
+				x=rs.getInt(1);
+			}
+			
+		} catch (Exception e) {
+			System.out.println("getListCount e : " + e);
+		}finally {
+			if(rs!=null) try{rs.close();}catch(SQLException ex){}
+			if(pstmt!=null) try{pstmt.close();}catch(SQLException ex){}
+			if(conn!=null) try{conn.close();}catch(SQLException ex){}
+		}
+		System.out.println("getListCount--------------");
+		return x;
+	}
+	
+	public List getBoardList(int page, int limit) {
+		String board_list_sql="select * from " + 
+				"(select rownum rnum,t2.board_num, t2.board_title, t1.member_name, t2.board_writedate, t2.board_readcount " + 
+				"from gw_member t1 inner join gw_board t2 on t1.emp_num=t2.emp_num order by t2.board_num desc) " + 
+				"WHERE rnum>=? and rnum<=?";
 		
-			pstmt = conn.prepareStatement(sql);
+		List<BoardVO> list = new ArrayList<BoardVO>();
+		
+		int startrow=(page-1)*10+1;//이게뭐지?
+		int endrow=startrow+limit-1;//이것도뭐지
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(board_list_sql);
+			pstmt.setInt(1, startrow);
+			pstmt.setInt(2, endrow);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
 				BoardVO bvo = new BoardVO();
-				bvo.setMember_name(rs.getString("member_name"));
-				bvo.setMember_email(rs.getString("member_email"));
-				bvo.setMember_pNum(rs.getString("member_pNum"));
-				bvo.setBoard_num(rs.getString("board_num"));
-				bvo.setBoard_readcount(rs.getString("board_readcount"));
-				bvo.setBoard_content(rs.getString("board_content"));
+				bvo.setBoard_num(rs.getString("rnum"));
 				bvo.setBoard_title(rs.getString("board_title"));
+				bvo.setMember_name(rs.getString("member_name"));
 				bvo.setBoard_writedate(rs.getString("board_writedate"));
-				bvo.setMember_team(rs.getString("member_team"));
-				bvo.setMember_rank(rs.getString("member_rank"));
-				bvo.setEmp_num(rs.getString("emp_num"));
+				bvo.setBoard_readcount(rs.getString("board_readcount"));
 				list.add(bvo);
 			}
-			
+			return list;
 		} catch (Exception e) {
-			System.out.println("");
-			e.printStackTrace();
+			System.out.println("getboardList : "+e);
+		}finally {
+			if(rs!=null) try{rs.close();}catch(SQLException ex){}
+			if(pstmt!=null) try{pstmt.close();}catch(SQLException ex){}
+			if(conn!=null) try{conn.close();}catch(SQLException ex){}
 		}
-		return list;
+		return null;
 	}
-	
 	//등록
 	public boolean insertBoard(BoardVO board ) throws SQLException {
 		
@@ -114,6 +137,5 @@ public class BoardDAO {
 	public void JoinBoard(BoardVO board) {
 		
 	}
-	
-	
+
 }

@@ -28,3 +28,24 @@ insert into gw_board values(
 
 
 alter table gw_board add  board_file varchar2(100);
+
+--1. 게시판 list를 나타내는 수식
+select * from (select ROWNUM rnum,board_num,board_title,emp_num 
+from (select * from gw_board order by board_num desc))
+where rnum>=? and rnum<=?;
+
+--2. 게시판 작성시 이름을 가져오기 위한 수식
+select t1.member_name,t2.BOARD_NUM, t2.BOARD_READCOUNT,
+t2.BOARD_CONTENT,t2.BOARD_TITLE, t2.BOARD_WRITEDATE, t2.board_file
+from gw_member t1 inner join  GW_BOARD t2 on
+t1.emp_num=t2.emp_num;
+
+--3. 게시판에 있는 데이터 값
+insert into GW_BOARD values( 1,'gd0','titel02','content','readcount',sysdate,'');
+insert into gw_board values(3,'gd1','title03','content03','readcount03',SYSDATE,'');
+
+select * from 
+(select rownum rnum,t2.board_num, t2.board_title, t1.member_name
+from gw_member t1 inner join gw_board t2 on t1.emp_num=t2.emp_num order by t2.board_num desc)
+WHERE rnum>=1 and rnum<=3;
+
