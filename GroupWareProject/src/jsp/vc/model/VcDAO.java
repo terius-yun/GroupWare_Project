@@ -53,15 +53,17 @@ public class VcDAO {
 		}
 	}
 	// 연차 정보 출력
-	public ArrayList<VcVO> VcInfo(String emp_num){
+	public ArrayList<VcVO> VcInfo(String emp_num ,String year){
 		ArrayList<VcVO> information = new ArrayList<VcVO>();
+		year = year+ "%";
 		try {
 			conn = DBConnection.getConnection();
 			
 			StringBuffer sql = new StringBuffer();
-			sql.append("select * from GW_VC where emp_num = ?");
+			sql.append("select * from GW_VC where emp_num = ? AND VC_START_DATE LIKE ?");
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setString(1, emp_num);
+			pstmt.setString(2, year);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
