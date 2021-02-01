@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import jsp.board.model.BoardDAO;
 
@@ -14,6 +15,9 @@ public class BoardList implements Action{
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		BoardDAO bdao = new BoardDAO();
 		List boardlist = new ArrayList();
+		
+		HttpSession session = request.getSession();
+		String empNum= (String) session.getAttribute("sessionID");
 		
 		int page=1;
 		int limit =10;//한 페이지에 보여줄 게시글 10개

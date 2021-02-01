@@ -29,7 +29,7 @@ public class BoardController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if(command.equals("/WriteFormBoard.bo")) {
+		}else if(command.equals("/AddBoard.bo")) {
 			action = new BoardAddAction();
 			try {
 				forward = action.execute(request, response);
@@ -37,6 +37,15 @@ public class BoardController extends HttpServlet {
 				e.printStackTrace();
 			}
 			
+		}else if(command.equals("/BoardWrite.bo")) {
+			forward = new ActionForward();
+			
+			forward.setRedirect(false);
+			forward.setPath("board/Boardwrite.jsp");
+			
+		}else if(command.equals("/Updateboard.bo")) {
+			forward = new UpdateBoardAction();
+			//쓰기 boardModify.bo
 		}
 		System.out.println("forwad : "+forward);
 		System.out.println("위에 결과 "+action);

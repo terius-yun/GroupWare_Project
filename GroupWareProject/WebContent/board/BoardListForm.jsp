@@ -24,7 +24,7 @@
     
     <script type="text/javascript">
         function writeForm(){
-            location.href="WriteFormBoard.bo";
+            location.href="BoardWrite.bo";
         }
     </script>
     
@@ -36,6 +36,9 @@
     <div id="topForm">
         <c:if test="${sessionScope.sessionID!=null}"></c:if>   
             <input type="button" value="글쓰기" onclick="writeForm()">
+            <input type="button" value="개발팀" onclick="">
+            <input type="button" value="기획팀" onclick="">
+            <input type="button" value="디자인팀" onclick="">
          
     </div>
     <br>
@@ -45,6 +48,7 @@
                 <td>글번호</td>
                 <td>제목</td>
                 <td>작성자</td>
+                <td>팀명</td>
                 <td>작성일</td>
                 <td>조회수</td>
             </tr>    
@@ -55,9 +59,10 @@
 			<td><div align="center"><a href="boardModify.bo">${list.board_title}</a></div></td>
 			<!-- 작성자 정보털림 -->
 			<td><div align="center">${list.member_name}</div></td>
+			<!-- 팀명 추가해야됨 -->
+			<td><div align="center">${list.member_team }</div></td>
 			<td><div align="center">${list.board_writedate}</div></td>
 			<td><div align="center">${list.board_readcount}</div></td>
-			<td><div align="center"></div></td>
 			</tr>
 		</c:forEach>
         </table>

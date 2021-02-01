@@ -3,13 +3,15 @@ package jsp.board.model;
 
 
 public class BoardVO {
-	private String board_num;				//스택
+	private int board_num;				//스택
 	private String emp_num;					//사번
 	private String board_title;				//글 제목
 	private String board_content;			//글 내용
 	private String board_readcount;			//읽기 계정
 	private String board_writedate;			//작성일
 	private String board_file; 				//파일
+	private String row_num;
+	
 	
 	
 	private String member_name;				//이름
@@ -18,6 +20,14 @@ public class BoardVO {
 	private String member_team;				//부서
 	private String member_rank;				//직급
 	
+	
+	
+	public String getRow_num() {
+		return row_num;
+	}
+	public void setRow_num(String row_num) {
+		this.row_num = row_num;
+	}
 	public String getMember_name() {
 		return member_name;
 	}
@@ -48,10 +58,10 @@ public class BoardVO {
 	public void setMember_rank(String member_rank) {
 		this.member_rank = member_rank;
 	}
-	public String getBoard_num() {
+	public int getBoard_num() {
 		return board_num;
 	}
-	public void setBoard_num(String board_num) {
+	public void setBoard_num(int board_num) {
 		this.board_num = board_num;
 	}
 	public String getEmp_num() {

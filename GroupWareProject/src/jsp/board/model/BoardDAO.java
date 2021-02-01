@@ -58,7 +58,7 @@ public class BoardDAO {
 	
 	public List getBoardList(int page, int limit) {
 		String board_list_sql="select * from " + 
-				"(select rownum rnum,t2.board_num, t2.board_title, t1.member_name, t2.board_writedate, t2.board_readcount " + 
+				"(select rownum rnum,t2.board_num, t2.board_title, t1.member_name, t2.board_writedate, t2.board_readcount, t1.member_team " + 
 				"from gw_member t1 inner join gw_board t2 on t1.emp_num=t2.emp_num order by t2.board_num desc) " + 
 				"WHERE rnum>=? and rnum<=?";
 		
@@ -75,11 +75,12 @@ public class BoardDAO {
 			
 			while(rs.next()) {
 				BoardVO bvo = new BoardVO();
-				bvo.setBoard_num(rs.getString("rnum"));
+				bvo.setBoard_num(rs.getInt("rnum"));
 				bvo.setBoard_title(rs.getString("board_title"));
 				bvo.setMember_name(rs.getString("member_name"));
 				bvo.setBoard_writedate(rs.getString("board_writedate"));
 				bvo.setBoard_readcount(rs.getString("board_readcount"));
+				bvo.setMember_team(rs.getString("member_team"));
 				list.add(bvo);
 			}
 			return list;
@@ -92,40 +93,95 @@ public class BoardDAO {
 		}
 		return null;
 	}
-	//등록
-	public boolean insertBoard(BoardVO board ) throws SQLException {
-		
-
-		int result = 0;
-		
+	//등록 이름, 팀명
+	public BoardVO getNameTeam(String empNum) {
+		BoardVO teamVO = new BoardVO();
 		try {
-			conn = DBConnection.getConnection();
-			conn.setAutoCommit(false);
+			conn = ds.getConnection();
+			pstmt= conn.prepareStatement("select member_name from gw_member where emp_num='?'");
+			pstmt.setString(1, empNum);
+			rs=pstmt.executeQuery();
 			
-			String sql ="";
-			sql="insert into GW_BOARD "+
-			"values(?,?,?,?,?,systimestamp,?)";
 			
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, board.getBoard_num());
-			pstmt.setString(2, board.getEmp_num());
-			pstmt.setString(3, board.getBoard_title());
-			pstmt.setString(4, board.getBoard_content());
-			pstmt.setString(6, board.getBoard_readcount());
-			pstmt.setString(7, board.getBoard_file());
-			result=pstmt.executeUpdate();
-			if(result==0)return false;
-			return true;
-		}catch (Exception e) {
+			while(rs.next()) {
+				teamVO.setMember_name(rs.getString("member_name"));
+				teamVO.setMember_team(rs.getString("member_team"));
+			}
+			
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
+			if(rs!=null) try{rs.close();}catch(SQLException ex){}
 			if(pstmt!=null) try{pstmt.close();}catch(SQLException ex){}
-			if(conn !=null) try{conn.close();}catch(SQLException ex){}
+			if(conn!=null) try{conn.close();}catch(SQLException ex){}
 		}
+		return teamVO;	
+	}
+	//등록 
+	public boolean insertBoard(BoardVO bvo) {
+		
+		int num = 0;
+		String sql="";
+		
+		int result=0;
+		
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement("select max(board_num) from gw_board");
+			rs = pstmt.executeQuery();
+			
+			if(rs.next())
+				num = rs.getInt(1)+1;
+			else
+				num=1;
+			sql="insert into gw_board(board_num,emp_num,board_title,board_content,board_readcount,board_file)"
+					+ " values(?,?,?,?,?,?)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.setString(2, bvo.getEmp_num());
+			pstmt.setString(3, bvo.getBoard_title());
+			pstmt.setString(4, bvo.getBoard_content());
+			pstmt.setInt(5, 0);
+			pstmt.setString(6, bvo.getBoard_file());
+			
+			result=pstmt.executeUpdate();
+			if(result==0) {
+				return false;
+			}
+			return true;
+		} catch (Exception e) {
+			System.out.println("boardInsert : "+e);
+		}finally {
+			if(rs!=null) try{rs.close();}catch(SQLException ex){}
+			if(pstmt!=null) try{pstmt.close();}catch(SQLException ex){}
+			if(conn!=null) try{conn.close();}catch(SQLException ex){}
+		}
+		
 		return false;
 	}
+	
 	//수정
-	public boolean boardModify(){
+	public boolean boardModify(BoardVO bvo) throws Exception{
+		
+		String sql="update gw_board set board_title=?,"
+				+ " board_content=?,board_file=? where board_num=?";
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, bvo.getBoard_title());
+			pstmt.setString(2, bvo.getBoard_content());
+			pstmt.setString(3, bvo.getBoard_file());
+			pstmt.setInt(4,bvo.getBoard_num());
+			pstmt.executeUpdate();
+			
+			return true;
+		} catch (Exception e) {
+			System.out.println("boardModify : "+ e);
+		}finally {
+			if(rs!=null)try{rs.close();}catch(SQLException ex){}
+			if(pstmt!=null)try{pstmt.close();}catch(SQLException ex){}
+			if(conn!=null) try{conn.close();}catch(SQLException ex){}
+		}
 		
 		return false;
 	}
