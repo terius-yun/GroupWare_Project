@@ -190,6 +190,9 @@
 					}
 				}
 			}
+			function hrCal(){
+				location.href="mainHR.vc";
+			}
 		</script>
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
@@ -210,21 +213,23 @@
 				month = Integer.parseInt(cal_month);
 
 		%>
+		<button onclick="hrCal()">근태</button>
 		<form action="AddVCFormAction.vc" id="frm">
 			<table id="tab1">
 				<tr>
 				    <td width=200> <!-- 년 도-->
-				    <a href="#" onclick="changeYear(1)">◀</a>
-				    <% out.print(year); %>년<input type="hidden" id="yearP" value=<%=year%>>
-				    <a href="#"  onclick="changeYear(2)">▶</a>
+					    <a href="#" onclick="changeYear(1)">◀</a>
+					    <% out.print(year); %>년<input type="hidden" id="yearP" value=<%=year%>>
+				    	<a href="#"  onclick="changeYear(2)">▶</a>
 				    </td>
 				    <td width=300> <!-- 월 -->
-				    <a href="#"  onclick="changeMonth(1)">◀</a>
-				    <% out.print(month); %>월<input type="hidden" id="monthP" value=<%=month%>>
-				    <a href="#"  onclick="changeMonth(2)">▶</a>
+				    	<a href="#"  onclick="changeMonth(1)">◀</a>
+				    	<% out.print(month); %>월<input type="hidden" id="monthP" value=<%=month%>>
+				    	<a href="#"  onclick="changeMonth(2)">▶</a>
 				    </td>
-				    <td width=200><% out.print(cuyear + "-" + (cumonth+1) + "-" + cuday); %></td>
-				    <td> <input type="button" value="근태"></td>
+				    <td width=200>
+				    	<% out.print(cuyear + "-" + (cumonth+1) + "-" + cuday); %>
+				    </td>
 			   </tr>
 			   </table>
 			   <table id="tab2">
