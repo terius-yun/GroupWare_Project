@@ -23,8 +23,16 @@
     </style>
     
     <script type="text/javascript">
-        function writeForm(){
-            location.href="BoardWrite.bo";
+        function writeForm(value){
+        	if(value == "0"){//글쓰기
+            	location.href="BoardWrite.bo";
+        	}else if(value == "1"){//개발팀
+        		location.href="Board";
+        		}else if(value=="2"){//기획팀
+        			location.href="Board";
+        		}else{//디자인팀
+        			location.href="Board";
+        		}
         }
     </script>
     
@@ -35,10 +43,10 @@
     <br>
     <div id="topForm">
         <c:if test="${sessionScope.sessionID!=null}"></c:if>   
-            <input type="button" value="글쓰기" onclick="writeForm()">
-            <input type="button" value="개발팀" onclick="">
-            <input type="button" value="기획팀" onclick="">
-            <input type="button" value="디자인팀" onclick="">
+            <input type="button" value="글쓰기" onclick="writeForm(0)">
+            <input type="button" value="개발팀" onclick="writeForm(1)">
+            <input type="button" value="기획팀" onclick="writeForm(2)">
+            <input type="button" value="디자인팀" onclick="writeForm(3)">
          
     </div>
     <br>
@@ -56,10 +64,11 @@
 			<tr>
 			<td><div align="center">${list.board_num}</div></td>
 			<!-- 너 수정 -->
-			<td><div align="center"><a href="boardModify.bo">${list.board_title}</a></div></td>
+			<td><div align="center">
+				<a href="boardDetailAction.bo?num=${list.board_num}">
+				${list.board_title}</a></div></td>
 			<!-- 작성자 정보털림 -->
 			<td><div align="center">${list.member_name}</div></td>
-			<!-- 팀명 추가해야됨 -->
 			<td><div align="center">${list.member_team }</div></td>
 			<td><div align="center">${list.board_writedate}</div></td>
 			<td><div align="center">${list.board_readcount}</div></td>

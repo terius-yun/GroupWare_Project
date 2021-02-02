@@ -44,8 +44,40 @@ public class BoardController extends HttpServlet {
 			forward.setPath("board/Boardwrite.jsp");
 			
 		}else if(command.equals("/Updateboard.bo")) {
-			forward = new UpdateBoardAction();
-			//쓰기 boardModify.bo
+			action = new UpdateBoardAction();
+			try {
+				forward=action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			//게시판 수정 
+		}else if(command.equals("/Updateform.bo")) {
+			action = new BoardUpdateForm();
+			//상세보기 수정
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}else if(command.equals("/boardDetailAction.bo")) {
+			//상세보기
+			action = new BoardDetailaction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/DeleteBoardAction.bo")) {
+			action = new BoardDeleteBoardAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			
 		}
 		System.out.println("forwad : "+forward);
 		System.out.println("위에 결과 "+action);

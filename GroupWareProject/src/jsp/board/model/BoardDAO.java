@@ -75,7 +75,7 @@ public class BoardDAO {
 			
 			while(rs.next()) {
 				BoardVO bvo = new BoardVO();
-				bvo.setBoard_num(rs.getInt("rnum"));
+				bvo.setBoard_num(rs.getInt("board_num"));
 				bvo.setBoard_title(rs.getString("board_title"));
 				bvo.setMember_name(rs.getString("member_name"));
 				bvo.setBoard_writedate(rs.getString("board_writedate"));
@@ -159,6 +159,57 @@ public class BoardDAO {
 		
 		return false;
 	}
+	//조회수
+	public void setReadCountUpdate(int num)throws Exception{
+		
+		String sql="update gw_board set BOARD_READCOUNT = "+
+		"board_readcount+1 where board_num = "+num;
+		
+		try {
+			conn= ds.getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.executeUpdate();
+		}catch (Exception e) {
+			System.out.println("setReadCountUpdate 조회수 : "+e);
+		}finally {
+			try{
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null) conn.close();
+				}
+				catch(Exception e){}
+		}
+		
+	}
+	//글의 내용 상세보기 출력
+	public BoardVO getDetail(int num) throws Exception{
+		BoardVO bvo = null;
+		try {
+			conn = ds.getConnection();
+			pstmt = 
+			conn.prepareStatement("select * from gw_board where board_num = ?");
+			pstmt.setInt(1, num);
+			
+			rs= pstmt.executeQuery();
+			
+			if(rs.next()) {
+				bvo = new BoardVO();
+				bvo.setBoard_num(num);
+				bvo.setBoard_title(rs.getString("board_title"));
+				bvo.setBoard_content(rs.getString("board_content"));
+				bvo.setBoard_writedate(rs.getString("board_writedate"));
+				bvo.setBoard_file(rs.getString("board_file"));
+				}
+			return bvo;
+		}catch (Exception e) {
+			System.out.println("getDetail 상세보기 출력 : "+e);
+		}finally {
+			if(rs!=null)try{rs.close();}catch(SQLException ex){}
+			if(pstmt !=null)try{pstmt.close();}catch(SQLException ex){}
+			if(conn!=null) try{conn.close();}catch(SQLException ex){}
+		}
+		return null;
+	}
+	
 	
 	//수정
 	public boolean boardModify(BoardVO bvo) throws Exception{
@@ -186,12 +237,35 @@ public class BoardDAO {
 		return false;
 	}
 	//삭제
-	public void deleteBoard(BoardVO board) {
+	public boolean boardDelete(int num) {
+		String board_delete_sql="delete from gw_board where board_num=?";
 		
+		int result=0;
+		
+		try {
+			conn = ds.getConnection();
+			pstmt=conn.prepareStatement(board_delete_sql);
+			pstmt.setInt(1, num);
+			result=pstmt.executeUpdate();
+			if(result==0)return false;
+			
+			return true;
+			
+		} catch (Exception e) {
+			System.out.println("boardDelete 지우기 : "+e);
+		}finally {
+			try{
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null) conn.close();
+				}
+				catch(Exception ex){}
+		}
+		return false;
 	}
 	//검색
 	public void JoinBoard(BoardVO board) {
 		
 	}
+	
 
 }

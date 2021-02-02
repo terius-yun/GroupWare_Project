@@ -44,7 +44,7 @@ public class BoardAddAction implements Action{
 			bvo.setEmp_num(empNum);
 			bvo.setBoard_title(multi.getParameter("board_title"));
 			bvo.setBoard_content(multi.getParameter("board_content"));
-			bvo.setBoard_file(multi.getFilesystemName((String)multi.getFileNames().nextElement()));
+			bvo.setBoard_file(multi.getFilesystemName("board_file"));
 			
 			System.out.println("bvo title: "+bvo.getBoard_title()+" bvo content "+bvo.getBoard_content());
 			
