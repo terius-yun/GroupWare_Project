@@ -191,7 +191,7 @@
 				}
 			}
 			function hrCal(){
-				location.href="mainHR.vc";
+				location.href="MainHRFormAction.vc";
 			}
 		</script>
 		<meta charset="UTF-8">

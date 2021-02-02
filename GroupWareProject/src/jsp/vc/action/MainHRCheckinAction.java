@@ -1,6 +1,8 @@
 package jsp.vc.action;
 
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,9 +21,14 @@ public class MainHRCheckinAction implements Action {
 		
 		ActionForward forward = new ActionForward();
 		HttpSession session=request.getSession();
-		
+		//session ID 가져오기
 		String emp_num = (String)session.getAttribute("sessionID");
-		Timestamp hr_checkin = new Timestamp(System.currentTimeMillis());
+		//timestamp 시간 
+		Timestamp checkin = new Timestamp(System.currentTimeMillis());
+		//timestamp 형식 변경
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String hr_checkin = format.format(checkin);
+		System.out.println("date"+checkin);
 		
 		HrVO hvo = new HrVO();
 		
@@ -32,7 +39,7 @@ public class MainHRCheckinAction implements Action {
 		hdao.checkin(hvo);
 		
 		forward.setRedirect(false);
-        forward.setNextPath("mainHR.vc");
+        forward.setNextPath("MainHRFormAction.vc");
 		
 		return forward;
 	}

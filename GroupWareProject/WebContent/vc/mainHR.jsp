@@ -61,7 +61,7 @@ function changeYear(changeValue){// 년도 이동
 		var form = document.createElement('form');
 		form.setAttribute("name","changeYearForm");
 		form.setAttribute('method', 'post');
-		form.setAttribute('action', 'MainVCFormAction.vc');
+		form.setAttribute('action', 'MainHRFormAction.vc');
 		
 		document.charset = "utf-8";
 			var hiddenField = document.createElement('input');//년 정보
@@ -77,7 +77,7 @@ function changeYear(changeValue){// 년도 이동
 		var form = document.createElement('form');
 		form.setAttribute("name","changeYearForm");
 		form.setAttribute('method', 'post');
-		form.setAttribute('action', 'MainVCFormAction.vc');
+		form.setAttribute('action', 'MainHRFormAction.vc');
 		
 		document.charset = "utf-8";
 			var hiddenField = document.createElement('input');//년 정보
@@ -102,7 +102,7 @@ function changeMonth(changeValue){// 월 이동
 			var form = document.createElement('form');
 			form.setAttribute("name","changeMonthForm");
 			form.setAttribute('method', 'post');
-			form.setAttribute('action', 'MainVCFormAction.vc');
+			form.setAttribute('action', 'MainHRFormAction.vc');
 
 			document.charset = "utf-8";
 				var hiddenField = document.createElement('input');//월 정보
@@ -123,7 +123,7 @@ function changeMonth(changeValue){// 월 이동
 			var form = document.createElement('form');
 			form.setAttribute("name","changeMonthForm");
 			form.setAttribute('method', 'post');
-			form.setAttribute('action', 'MainVCFormAction.vc');
+			form.setAttribute('action', 'MainHRFormAction.vc');
 
 			document.charset = "utf-8";
 				var hiddenField = document.createElement('input');
@@ -149,7 +149,7 @@ function changeMonth(changeValue){// 월 이동
 			var form = document.createElement('form');
 			form.setAttribute("name","changeMonthForm");
 			form.setAttribute('method', 'post');
-			form.setAttribute('action', 'MainVCFormAction.vc');
+			form.setAttribute('action', 'MainHRFormAction.vc');
 
 			document.charset = "utf-8";
 				var hiddenField = document.createElement('input');//월 정보
@@ -170,7 +170,7 @@ function changeMonth(changeValue){// 월 이동
 			var form = document.createElement('form');
 			form.setAttribute("name","changeMonthForm");
 			form.setAttribute('method', 'post');
-			form.setAttribute('action', 'MainVCFormAction.vc');
+			form.setAttribute('action', 'MainHRFormAction.vc');
 
 			document.charset = "utf-8";
 				var hiddenField = document.createElement('input');//월 정보
@@ -190,13 +190,42 @@ function changeMonth(changeValue){// 월 이동
 		}
 	}
 }
-   function submit() {
-	   frm.submit();
-   }
+//    function submit(submitvalue) {
+// 	   inbtn = document.getElementById("checkinbtn").value;
+// 	   outbtn = document.getElementById("checkoutbtn").value;
+	   
+// 	   if(submitvalue == 1){
+// 		   var form = document.createElement('form');
+// 		   form.setAttribute("name", "checkout");
+// 		   form.setAttribute("method","post");
+// 		   form.setAttribute("action", "MainHRCheckin.vc" );
+		   
+// 			document.charset="utf-8";
+// 		   	var hiddenField = document.createElement('input');
+// 		   	hiddenField.setAttribute("type", "hidden");
+// 		   	hiddenField.setAttribute("name", "checkin");
+// 		   	hiddenField.setAttribute("value", inbtn);
+// 		   	form.appendChild(hiddenField);
+// 		document.body.appendChild(form);
+// 		form.submit();
+// 	   } else if( submitvalue==2){
+// 		   var form = document.createElement('form');
+// 		   form.setAttribute("name", "checkout");
+// 		   form.setAttribute("method","post");
+// 		   form.setAttribute("action", "MainHRCheckout.vc" );
+		   
+// 		document.charset="utf-8";
+// 		   	var hiddenField = document.createElement('input');
+// 		   	hiddenField.setAttribute("type", "hidden");
+// 		   	hiddenField.setAttribute("name", "checkout");
+// 		   	hiddenField.setAttribute("value", outbtn);
+// 		   	form.appendChild(hiddenField);
+// 		document.body.appendChild(form);
+// 		form.submit();
+// 		return false;
+// 	   }
+//    }
 
-	function checkout() {
-		
-	}
 </script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -207,34 +236,25 @@ function changeMonth(changeValue){// 월 이동
 	Calendar cal = Calendar.getInstance();
 
 	//현재 날짜
-	int NowYear = cal.get(Calendar.YEAR);
-	int NowMonth = cal.get(Calendar.MONTH)+1;
-	int NowDay = cal.get(Calendar.DATE);
-
-	String selectYear = request.getParameter("year");
-	String selectMonth =request.getParameter("month");
+	int nowYear = cal.get(Calendar.YEAR);
+	int nowMonth = cal.get(Calendar.MONTH);
+	int nowDay = cal.get(Calendar.DATE);
+	
+	String cal_year = (String)request.getAttribute("cal_year");
+	String cal_month = Integer.toString((int)request.getAttribute("cal_month"));
 	
 	int year, month;
-	
-	//처음 호출 시 
-	if( selectYear == null & selectMonth == null){
-		year = NowYear;
-		month = NowMonth;
-	} else {
-		year = Integer.parseInt(selectYear);
-		month = Integer.parseInt(selectMonth);
-		if(month<0) { month=11; year=year-1; } 
-        if(month>11) { month=0; year=year+1; }
-	}
+	year = Integer.parseInt(cal_year);
+	month = Integer.parseInt(cal_month);
 %>
 <body>
-<form action="MainHRCheckinAction.vc" method="post" id="frm" name="frm">
+<form action="" method="post" id="frm" name="frm">
 	<table id="tab1">
 		<tr>
 			<td>
 				<td width=200> <!-- 년 도-->
 				    <a href="#" onclick="changeYear(1)">◀</a>
-				    <% out.print(year); %>년<input type="hidden" id="yearP" value=<%=year%>>
+				     <% out.print(year); %>년<input type="hidden" id="yearP" value=<%=year%>>
 				    <a href="#"  onclick="changeYear(2)">▶</a>
 				</td>
 				<td width=300> <!-- 월 -->
@@ -242,11 +262,12 @@ function changeMonth(changeValue){// 월 이동
 				    <% out.print(month); %>월<input type="hidden" id="monthP" value=<%=month%>>
 				    <a href="#"  onclick="changeMonth(2)">▶</a>
 				</td>
-				    <td width=200><% out.print(NowYear + "-" + (NowMonth) + "-" + NowDay); %></td>
+				    <td width=200><%=nowYear + "-" + (nowMonth+1) + "-" + nowDay%></td>
 				<td>
-					<button onclick="submit()">출근</button>
-					<button onclick="submit()">퇴근</button>
-				</td>
+					<input type="submit" value="출근" formaction="MainHRCheckinAction.vc">
+					<input type="submit" value="퇴근" formaction="MainHRCheckoutAction.vc">
+					
+				</td> 
 		</tr>
 	</table>
 	<table id="tab2" border="1">
@@ -263,11 +284,12 @@ function changeMonth(changeValue){// 월 이동
 			<%
 			
 			//날짜 셋팅
-			cal.set(year, month, 1);
+			cal.set(year, month-1, 1);
 			
 			//선택월의 시작요일, 선택월의 마지막날짜
 			int startDay = cal.get(Calendar.DAY_OF_WEEK);
 			int endDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+			System.out.println("이번 달 말일 : " + endDay);
 			int br = 0;
 			
 				//빈칸 	
@@ -278,9 +300,15 @@ function changeMonth(changeValue){// 월 이동
 						out.println("<br>");
 					}
 				}
+				//시간 받아오기
+// 				int[] day = (int[])request.getAttribute("day");
+// 				int[] cal_checkin = (int[])request.getAttribute("cal_checkin");
+// 				int[] cal_checkout = (int[])request.getAttribute("cal_checkout");
+// 				int[] hrCount = (int[])request.getAttribute("hrCount");
+				
 				// 날짜
 				for( int i = 1; i <= endDay; i++){
-					out.println("<td><a href='#'>" + i + "</a></td>");
+					out.println("<td>" + i + "</a></td>");
 					br++;
 					if((br%7)==0 && i != endDay){
 						out.println("</tr><tr height='50'>");
