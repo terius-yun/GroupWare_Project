@@ -287,13 +287,13 @@ function changeMonth(changeValue){// 월 이동
 			cal.set(year, month-1, 1);
 			
 			//선택월의 시작요일, 선택월의 마지막날짜
-			int startDay = cal.get(Calendar.DAY_OF_WEEK);
-			int endDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
-			System.out.println("이번 달 말일 : " + endDay);
+			int start = cal.get(Calendar.DAY_OF_WEEK);
+			int end = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+			System.out.println("이번 달 말일 : " + end);
 			int br = 0;
 			
 				//빈칸 	
-				for( int i = 1; i < startDay; i++){
+				for( int i = 1; i < start; i++){
 					out.println("<td>&nbsp;</td>");
 					br++;
 					if( (br%7) == 0){
@@ -301,16 +301,51 @@ function changeMonth(changeValue){// 월 이동
 					}
 				}
 				//시간 받아오기
-// 				int[] day = (int[])request.getAttribute("day");
-// 				int[] cal_checkin = (int[])request.getAttribute("cal_checkin");
-// 				int[] cal_checkout = (int[])request.getAttribute("cal_checkout");
-// 				int[] hrCount = (int[])request.getAttribute("hrCount");
+				int checkin_null =(int)request.getAttribute("checkin_null");
+				int checkout_null =(int)request.getAttribute("checkout_null");
 				
+				int []startYear = null;
+				int []startMonth = null;
+				int []startDay = null;
+				int []endYear = null;
+				int []endMonth = null;
+				int []endDay = null;
+				String[] cal_checkout = null;
+				String[] cal_checkin = null;
+				if(checkin_null == 1){
+					startYear = (int[])request.getAttribute("startYear");//연차가 시작되는 년
+					startMonth = (int[])request.getAttribute("startMonth");//연차가 시작되는 월
+					startDay = (int[])request.getAttribute("startDay");//연차가 시작되는 일
+					cal_checkin = (String[])request.getAttribute("cal_checkin");
+				}
+				if(checkout_null == 1){
+					endYear = (int[])request.getAttribute("endYear");//연차가 끝나는 년
+					endMonth = (int[])request.getAttribute("endMonth");//연차가 끝나는 월
+					endDay = (int[])request.getAttribute("endDay");
+					cal_checkout = (String[])request.getAttribute("cal_checkout");
+				}
+				int hrCount = (int)request.getAttribute("hrCount");
 				// 날짜
-				for( int i = 1; i <= endDay; i++){
-					out.println("<td>" + i + "</a></td>");
+				for( int i = 1; i <= end; i++){
+					out.println("<td id='day"+i+"'>" + i);
+					if( hrCount != 0 ){
+						for(int j = 0; j <hrCount; j++){
+							if(startYear[j]<= year
+									&& year <= endYear[j]
+									&& startMonth[j]==month 
+									&& endMonth[j]== month
+									&& startDay[j]== i
+									&& startDay[j] <= endDay[j]
+									){
+								out.println("<p> 출근 : " + cal_checkin[j] +"</p>");
+ 								out.println("<p> 퇴근 : " + cal_checkout[j] +"</p>");
+								startDay[j]++;
+							}
+						}
+					}
+					out.println("</td>");
 					br++;
-					if((br%7)==0 && i != endDay){
+					if((br%7)==0 && i != end){
 						out.println("</tr><tr height='50'>");
 					}
 				}

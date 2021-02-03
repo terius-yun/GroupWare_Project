@@ -27,7 +27,7 @@ public class HrDAO {
 			conn.setAutoCommit(false);
 		
 			StringBuffer sql = new StringBuffer();
-			sql.append("insert into GW_HR values(?,?,sysdate)");
+			sql.append("insert into GW_HR(EMP_NUM, HR_CHECKIN) values(?,?)");
 			
 			pstmt = conn.prepareStatement(sql.toString());
 			
@@ -54,7 +54,7 @@ public class HrDAO {
 			conn.setAutoCommit(false);
 		
 			StringBuffer sql = new StringBuffer();
-			sql.append("update gw_hr set hr_checkout=? where emp_num=?");
+			sql.append("update gw_hr set hr_checkout=? where emp_num=? and hr_checkout IS null");
 			
 			pstmt = conn.prepareStatement(sql.toString());
 

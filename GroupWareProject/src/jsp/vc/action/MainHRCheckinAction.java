@@ -1,6 +1,5 @@
 package jsp.vc.action;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 

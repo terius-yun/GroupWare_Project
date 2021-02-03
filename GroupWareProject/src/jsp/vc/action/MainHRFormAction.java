@@ -45,6 +45,7 @@ public class MainHRFormAction implements Action{
 			cal_month = Integer.parseInt(month);
 		}
 		System.out.println("출력되어야 하는 달은? : "+ month);
+
 		
 		cal.set(Integer.parseInt(cal_year),cal_month-1,1);
 		
@@ -54,37 +55,90 @@ public class MainHRFormAction implements Action{
 		
 		HrDAO hdao = HrDAO.getInstance();
 		ArrayList<HrVO> hrinfo = hdao.HrInfo(emp_num);
+		String [] hr_checkin = new String[hrinfo.size()];
+		String [] hr_checkout = new String[hrinfo.size()];
+
+		int hrCount=0;
 		
-		if( hrinfo != null ) {
-			String [] hr_checkin = new String[hrinfo.size()];
-			String [] hr_checkout = new String[hrinfo.size()];
-			int hrCount=0;
-			
-			//i랑 비교할 날짜, 달력에 표시할 시간.
-			int [] day = new int[hrinfo.size()];
-			String [] cal_checkin = new String[hrinfo.size()];
-			String [] cal_checkout = new String[hrinfo.size()];
-			
+		//i랑 비교할 날짜, 달력에 표시할 시간.
+		int [] startYear = new int[hrinfo.size()];
+		int [] endYear = new int[hrinfo.size()];
+		int [] startMonth = new int[hrinfo.size()];
+		int [] endMonth = new int[hrinfo.size()];
+		int [] startDay = new int[hrinfo.size()];
+		int [] endDay = new int[hrinfo.size()];
+		int checkin_null=0;
+		int checkout_null=0;
+		
+		String [] cal_checkin = new String[hrinfo.size()];
+		String [] cal_checkout = new String[hrinfo.size()];
+		for(int j=0; j<hrinfo.size(); j++) {
+			if( hrinfo.get(j).getHr_checkin() != null ) {
+				for( int i = 0; i < hrinfo.size(); i++) {
+					hr_checkin[i] = hrinfo.get(i).getHr_checkin();
+					
+					startYear[i] = Integer.parseInt(hr_checkin[i].substring(0,4));
+					System.out.println("시작하는 년도 : " + startYear[i]);
+					
+					startMonth[i] = Integer.parseInt(hr_checkin[i].substring(5,7));
+					
+					System.out.println("시작하는 월 : " + startMonth[i]);
+					
+					startDay[i]= Integer.parseInt(hr_checkin[i].substring(8,10));
+					
+					System.out.println("in : " +startDay[i]);
+					
+					//달력 내용
+					cal_checkin[i] = hr_checkin[i].substring(11,16);
+					
+					System.out.println("in ++" +cal_checkin[i]);
+	
+					hrCount=i+1;
+				}
+				request.setAttribute("startYear", startYear);
+				
+				request.setAttribute("startMonth", startMonth);
+				
+				request.setAttribute("startDay", startDay);
+						
+				request.setAttribute("cal_checkin", cal_checkin);
+				
+				request.setAttribute("hrCount", hrCount);
+				System.out.println("count" + hrCount);
+				checkin_null =1;
+				request.setAttribute("checkin_null", checkin_null);
+			}else {
+				checkin_null = 0;
+				request.setAttribute("checkin_null", checkin_null);
+			}
+		if(hrinfo.get(j).getHr_checkout() != null) {
 			for( int i = 0; i < hrinfo.size(); i++) {
-				hr_checkin[i] = hrinfo.get(i).getHr_checkin();
+				
 				hr_checkout[i] = hrinfo.get(i).getHr_checkout();
 				
-				day[i]= Integer.parseInt(hr_checkin[i].substring(8,10));
-				System.out.println("in ++" +day[i]);
+				endYear[i] = Integer.parseInt(hr_checkout[i].substring(0,4));
 				
-				cal_checkin[i] = hr_checkin[i].substring(11,16);
+				endMonth[i] = Integer.parseInt(hr_checkout[i].substring(5,7));
+				
+				endDay[i]= Integer.parseInt(hr_checkout[i].substring(8,10));
+				
 				cal_checkout[i] = hr_checkout[i].substring(11,16);
 				
-				System.out.println("in ++" +cal_checkin[i] +"out ++" + cal_checkout[i]);
-				
 				hrCount=i+1;
-
 			}
-			request.setAttribute("day", day);
-			request.setAttribute("cal_checkin", cal_checkin);
+			request.setAttribute("endYear", endYear);
+			request.setAttribute("endMonth", endMonth);
+			request.setAttribute("endDay", endDay);	
 			request.setAttribute("cal_checkout", cal_checkout);
 			request.setAttribute("hrCount", hrCount);
+			checkout_null =1;
+			request.setAttribute("checkin_null", checkout_null);
+		}else {
+			checkout_null =0;
+			request.setAttribute("checkin_null", checkout_null);
 		}
+		
+	}
 		request.setAttribute("cal_year", cal_year);
 		request.setAttribute("cal_month", cal_month);
 	    
