@@ -1,4 +1,4 @@
-package jsp.board.action;
+package jsp.Design.action;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import jsp.board.model.BoardDAO;
 
-public class BoardList implements Action{
+public class DesignList implements Action{
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -41,7 +41,7 @@ public class BoardList implements Action{
  		//request.setAttribute("notices", noticelist);
 		request.setAttribute("lists", boardlist);
 		ActionForward forward = new ActionForward();
-		forward.setPath("./board/BoardListForm.jsp");
+		forward.setPath("./Design/BoardListForm.jsp");
 		forward.setRedirect(false);
 		
 		return forward;

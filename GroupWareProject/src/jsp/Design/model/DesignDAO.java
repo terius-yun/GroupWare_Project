@@ -1,4 +1,4 @@
-package jsp.board.model;
+package jsp.Design.model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,18 +13,18 @@ import javax.sql.DataSource;
 
 import jsp.common.util.DBConnection;
 
-public class BoardDAO {
+public class DesignDAO {
 	DataSource ds;
 	Connection conn;
 	PreparedStatement pstmt;
 	ResultSet rs;
 	
-	public BoardDAO(){
+	public DesignDAO(){
 		try {
 			Context init = new InitialContext();
 			ds = (DataSource) init.lookup("java:comp/env/jdbc/sign");
 		} catch (Exception e) {
-			System.out.println("board dao e : "+e);
+			System.out.println("Design dao e : "+e);
 			return;
 		}
 		
@@ -37,7 +37,7 @@ public class BoardDAO {
 			conn=ds.getConnection();
 			System.out.println("getConnection : "+conn);
 			//pstmt 문제될수있음
-			pstmt=conn.prepareStatement("select count(*) from GW_BOARD");
+			pstmt=conn.prepareStatement("select count(*) from gw_Design_board");
 			
 			rs = pstmt.executeQuery();
 			System.out.println("rs : "+rs.toString());
@@ -56,13 +56,13 @@ public class BoardDAO {
 		return x;
 	}
 	
-	public List getBoardList(int page, int limit) {
+	public List getDesignList(int page, int limit) {
 		String board_list_sql="select * from " + 
-				"(select rownum rnum,t2.board_num, t2.board_title, t1.member_name, t2.board_writedate, t2.board_readcount, t1.member_team " + 
-				"from gw_member t1 inner join gw_board t2 on t1.emp_num=t2.emp_num order by t2.board_num desc) " + 
+				"(select rownum rnum,t2.Design_num, t2.Design_title, t1.member_name, t2.Design_writedate, t2.Design_readcount, t1.member_team " + 
+				"from gw_member t1 inner join gw_Design_board t2 on t1.emp_num=t2.emp_num order by t2.Design_num desc) " + 
 				"WHERE rnum>=? and rnum<=?";
 		
-		List<BoardVO> list = new ArrayList<BoardVO>();
+		List<DesignVO> list = new ArrayList<DesignVO>();
 		
 		int startrow=(page-1)*10+1;//이게뭐지?
 		int endrow=startrow+limit-1;//이것도뭐지
@@ -74,18 +74,18 @@ public class BoardDAO {
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				BoardVO bvo = new BoardVO();
-				bvo.setBoard_num(rs.getInt("board_num"));
-				bvo.setBoard_title(rs.getString("board_title"));
+				DesignVO bvo = new DesignVO();
+				bvo.setDESIGN_NUM(rs.getInt("DESIGN_NUM"));
+				bvo.setDESIGN_TITLE(rs.getString("DESIGN_TITLE"));
 				bvo.setMember_name(rs.getString("member_name"));
-				bvo.setBoard_writedate(rs.getString("board_writedate"));
-				bvo.setBoard_readcount(rs.getString("board_readcount"));
+				bvo.setDESIGN_WRITEDATE(rs.getString("DESIGN_WRITEDATE"));
+				bvo.setDESIGN_READCOUNT(rs.getString("DESIGN_READCOUNT"));
 				bvo.setMember_team(rs.getString("member_team"));
 				list.add(bvo);
 			}
 			return list;
 		} catch (Exception e) {
-			System.out.println("getboardList : "+e);
+			System.out.println("getDesignList : "+e);
 		}finally {
 			if(rs!=null) try{rs.close();}catch(SQLException ex){}
 			if(pstmt!=null) try{pstmt.close();}catch(SQLException ex){}
@@ -94,11 +94,11 @@ public class BoardDAO {
 		return null;
 	}
 	//등록 이름, 팀명
-	public BoardVO getNameTeam(String empNum) {
-		BoardVO teamVO = new BoardVO();
+	public DesignVO getNameTeam(String empNum) {
+		DesignVO teamVO = new DesignVO();
 		try {
 			conn = ds.getConnection();
-			pstmt= conn.prepareStatement("select member_name from gw_member where emp_num='?'");
+			pstmt= conn.prepareStatement("select member_name from gw_Design_board where emp_num='?'");
 			pstmt.setString(1, empNum);
 			rs=pstmt.executeQuery();
 			
@@ -118,7 +118,7 @@ public class BoardDAO {
 		return teamVO;	
 	}
 	//등록 
-	public boolean insertBoard(BoardVO bvo) {
+	public boolean insertDesign(DesignVO bvo) {
 		
 		int num = 0;
 		String sql="";
@@ -127,22 +127,22 @@ public class BoardDAO {
 		
 		try {
 			conn = ds.getConnection();
-			pstmt = conn.prepareStatement("select max(board_num) from gw_board");
+			pstmt = conn.prepareStatement("select max(Design_num) from gw_Design_board");
 			rs = pstmt.executeQuery();
 			
 			if(rs.next())
 				num = rs.getInt(1)+1;
 			else
 				num=1;
-			sql="insert into gw_board(board_num,emp_num,board_title,board_content,board_readcount,board_file)"
+			sql="insert into gw_board(Design_num,emp_num,Design_title,Design_content,Design_readcount,gw_Design_file)"
 					+ " values(?,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
-			pstmt.setString(2, bvo.getEmp_num());
-			pstmt.setString(3, bvo.getBoard_title());
-			pstmt.setString(4, bvo.getBoard_content());
+			pstmt.setString(2, bvo.getEMP_NUM());
+			pstmt.setString(3, bvo.getDESIGN_TITLE());
+			pstmt.setString(4, bvo.getDESIGN_CONTENT());
 			pstmt.setInt(5, 0);
-			pstmt.setString(6, bvo.getBoard_file());
+			pstmt.setString(6, bvo.getDESIGN_FILE());
 			
 			result=pstmt.executeUpdate();
 			if(result==0) {
@@ -162,8 +162,8 @@ public class BoardDAO {
 	//조회수
 	public void setReadCountUpdate(int num)throws Exception{
 		
-		String sql="update gw_board set BOARD_READCOUNT = "+
-		"board_readcount+1 where board_num = "+num;
+		String sql="update GW_Design_BOARD set BOARD_READCOUNT = "+
+		"Design_readcount+1 where Design_num = "+num;
 		
 		try {
 			conn= ds.getConnection();
@@ -181,8 +181,8 @@ public class BoardDAO {
 		
 	}
 	//글의 내용 상세보기 출력
-	public BoardVO getDetail(int num) throws Exception{
-		BoardVO bvo = null;
+	public DesignVO getDetail(int num) throws Exception{
+		DesignVO bvo = null;
 		try {
 			conn = ds.getConnection();
 			pstmt = 
@@ -192,12 +192,12 @@ public class BoardDAO {
 			rs= pstmt.executeQuery();
 			
 			if(rs.next()) {
-				bvo = new BoardVO();
-				bvo.setBoard_num(num);
-				bvo.setBoard_title(rs.getString("board_title"));
-				bvo.setBoard_content(rs.getString("board_content"));
-				bvo.setBoard_writedate(rs.getString("board_writedate"));
-				bvo.setBoard_file(rs.getString("board_file"));
+				bvo = new DesignVO();
+				bvo.setDESIGN_NUM(num);//Design
+				bvo.setDESIGN_TITLE(rs.getString("DESIGN_TITLE"));
+				bvo.setDESIGN_CONTENT(rs.getString("DESIGN_CONTENT"));
+				bvo.setDESIGN_WRITEDATE(rs.getString("DESIGN_WRITEDATE"));
+				bvo.setDESIGN_FILE(rs.getString("DESIGN_FILE"));
 				}
 			return bvo;
 		}catch (Exception e) {
@@ -212,17 +212,17 @@ public class BoardDAO {
 	
 	
 	//수정
-	public boolean boardModify(BoardVO bvo) throws Exception{
+	public boolean DesignModify(DesignVO bvo) throws Exception{
 		
-		String sql="update gw_board set board_title=?,"
-				+ " board_content=?,board_file=? where board_num=?";
+		String sql="update GW_Design_BOARD set Design_title=?,"
+				+ " Design_content=?,gw_Design_file=? where Design_num=?";
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, bvo.getBoard_title());
-			pstmt.setString(2, bvo.getBoard_content());
-			pstmt.setString(3, bvo.getBoard_file());
-			pstmt.setInt(4,bvo.getBoard_num());
+			pstmt.setString(1, bvo.getDESIGN_TITLE());
+			pstmt.setString(2, bvo.getDESIGN_CONTENT());
+			pstmt.setString(3, bvo.getDESIGN_FILE());
+			pstmt.setInt(4,bvo.getDESIGN_NUM());
 			pstmt.executeUpdate();
 			
 			return true;
@@ -237,8 +237,8 @@ public class BoardDAO {
 		return false;
 	}
 	//삭제
-	public boolean boardDelete(int num) {
-		String board_delete_sql="delete from gw_board where board_num=?";
+	public boolean DesignDelete(int num) {
+		String board_delete_sql="delete from gw_Design_BOARD where Design_num=?";
 		
 		int result=0;
 		
@@ -252,7 +252,7 @@ public class BoardDAO {
 			return true;
 			
 		} catch (Exception e) {
-			System.out.println("boardDelete 지우기 : "+e);
+			System.out.println("DesignDelete 지우기 : "+e);
 		}finally {
 			try{
 				if(pstmt!=null)pstmt.close();
@@ -263,10 +263,9 @@ public class BoardDAO {
 		return false;
 	}
 	//검색
-	public void JoinBoard(BoardVO board) {
+	public void JoinBoard(DesignVO board) {
 		
 	}
-	
-	
+
 
 }

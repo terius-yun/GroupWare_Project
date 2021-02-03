@@ -1,6 +1,6 @@
 insert into GW_BOARD VALUES(2,'test1','title','content',44,sysdate);
 alter table gw_board drop primary key;
-alter table gw_board add foreign key(emp_num) references gw_member(emp_num);
+alter table gw_design_board add foreign key(emp_num) references gw_member(emp_num);
 
 select t1.member_name,t2.BOARD_NUM, t2.BOARD_READCOUNT,
 t2.BOARD_CONTENT,t2.BOARD_TITLE, t2.BOARD_WRITEDATE
@@ -12,13 +12,13 @@ select * from GW_BOARD;
 alter table gw_board
 add PRIMARY key (board_num);
 
-create table gw_board(
-	board_num number(4)not null primary key,
+create table gw_design_board(
+	design_num number(4)not null primary key,
 	emp_num varchar2(40),	
-	board_title varchar2(40),
-	board_content varchar2(3000),
-	board_readcount varchar2(40),
-	board_writedate date default sysdate
+	design_title varchar2(40),
+	design_content varchar2(3000),
+	design_readcount varchar2(40),
+	design_writedate date default sysdate
 );
 drop table gw_board;
 
@@ -48,4 +48,13 @@ select * from
 (select rownum rnum,t2.board_num, t2.board_title, t1.member_name
 from gw_member t1 inner join gw_board t2 on t1.emp_num=t2.emp_num order by t2.board_num desc)
 WHERE rnum>=1 and rnum<=3;
+
+--4. 칼럼 추가 file
+alter table GW_DESIGN_BOARD add gw_DESIGN_file varchar2(100);
+alter table GW_DEVELOPER_BOARD add gw_DEVELOPER_file varchar2(100);
+alter table GW_NOTICE_BOARD add gw_NOTICE_file varchar2(100);
+alter table GW_PLAN_BOARD add gw_PLAN_file varchar2(100);
+
+
+
 

@@ -27,7 +27,6 @@
 		<button name="답글">답글</button>
 		<input type="submit" value="수정">
 		<input type="button" value="삭제" onclick="location.href='DeleteBoardAction.bo?num=${view.board_num}'">
-		<input type="reset" value="취소">
 	</form>
 	
 </body>

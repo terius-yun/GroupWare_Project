@@ -26,45 +26,54 @@
         function writeForm(value){
         	if(value == "0"){//글쓰기
             	location.href="BoardWrite.bo";
-        	}else if(value == "1"){//개발팀
-        		location.href="Board";
+        		}else if(value == "1"){//개발팀
+        		location.href="BoardDevelopment.bo";
         		}else if(value=="2"){//기획팀
-        			location.href="Board";
-        		}else{//디자인팀
-        			location.href="Board";
+        			location.href="BoardPlan.bo";
+        		}else if(value=="3"){//디자인팀
+        			location.href="BoardCss.bo";
+        		}else {//공지사항
+        			location.href="notice.bo";
         		}
         }
     </script>
     
 </head>
 <body>    
- 
-<div id="wrap">
+ <div id="wrap">
     <br>
-    <div id="topForm">
+     <div id="topForm">
         <c:if test="${sessionScope.sessionID!=null}"></c:if>   
             <input type="button" value="글쓰기" onclick="writeForm(0)">
             <input type="button" value="개발팀" onclick="writeForm(1)">
             <input type="button" value="기획팀" onclick="writeForm(2)">
             <input type="button" value="디자인팀" onclick="writeForm(3)">
-         
-    </div>
+         <c:if test="${sessionScope.sessionID.equals('gd9')}">
+         	<input type="button" value="공지사항 작성" onclick="writeForm(4)">
+         </c:if>
+     </div>
     <br>
-    <div id="board">
+     <div id="board">
         <table id="bList" width="800" border="3" bordercolor="lightgray">
             <tr heigh="30">
-                <td>글번호</td>
                 <td>제목</td>
                 <td>작성자</td>
                 <td>팀명</td>
                 <td>작성일</td>
                 <td>조회수</td>
             </tr>    
+          	<!--공지용 for each새로 생성 -->
+          	<c:forEach var="notice" items="${notices}">
+          		<tr>
+          		<td>${notice.board_notice_title}
+          		</td>
+          		</tr>
+          	</c:forEach>
             <c:forEach var="list" items="${lists}">
 			<tr>
-			<td><div align="center">${list.board_num}</div></td>
 			<!-- 너 수정 -->
 			<td><div align="center">
+			<b style="color: red">공지</b>
 				<a href="boardDetailAction.bo?num=${list.board_num}">
 				${list.board_title}</a></div></td>
 			<!-- 작성자 정보털림 -->
@@ -75,7 +84,7 @@
 			</tr>
 		</c:forEach>
         </table>
-    </div>
+     </div>
     <br>
     <div id="pageForm">
         페이지 번호

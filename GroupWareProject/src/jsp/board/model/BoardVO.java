@@ -10,7 +10,8 @@ public class BoardVO {
 	private String board_readcount;			//읽기 계정
 	private String board_writedate;			//작성일
 	private String board_file; 				//파일
-	private String row_num;
+	private String row_num;					//
+
 	
 	
 	
@@ -19,8 +20,6 @@ public class BoardVO {
 	private String member_email;			//이메일
 	private String member_team;				//부서
 	private String member_rank;				//직급
-	
-	
 	
 	public String getRow_num() {
 		return row_num;

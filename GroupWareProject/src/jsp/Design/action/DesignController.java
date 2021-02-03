@@ -1,4 +1,4 @@
-package jsp.board.action;
+package jsp.Design.action;
 
 import java.io.IOException;
 
@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 //@WebServlet(name = "Board_Controller", urlPatterns = { "/Board_Controller" })
-public class BoardController extends HttpServlet {
+public class DesignController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response)
@@ -22,29 +22,29 @@ public class BoardController extends HttpServlet {
 		ActionForward forward=null; //포워딩될 뷰 url, 포워딩 방식 설정
 		Action action = null;
 		System.out.println("처음 command : "+command);
-		if(command.equals("/BoardListForm.bo")) {
-			action = new BoardList();	
+		if(command.equals("/DesignListForm.bo")) {
+			action = new DesignList();	
 			try {
 				forward=action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if(command.equals("/AddBoard.bo")) {
-			action = new BoardAddAction();
+		}else if(command.equals("/AddDesign.bo")) {
+			action = new DesignAddAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			
-		}else if(command.equals("/BoardWrite.bo")) {
+		}else if(command.equals("/DesignWrite.bo")) {
 			forward = new ActionForward();
 			
 			forward.setRedirect(false);
-			forward.setPath("board/Boardwrite.jsp");
+			forward.setPath("Design/Designwrite.jsp");
 			
-		}else if(command.equals("/Updateboard.bo")) {
-			action = new UpdateBoardAction();
+		}else if(command.equals("/UpdateDesign.bo")) {
+			action = new UpdateDesignAction();
 			try {
 				forward=action.execute(request, response);
 			} catch (Exception e) {
@@ -53,7 +53,7 @@ public class BoardController extends HttpServlet {
 			
 			//게시판 수정 
 		}else if(command.equals("/Updateform.bo")) {
-			action = new BoardUpdateForm();
+			action = new DesignUpdateForm();
 			//상세보기 수정
 			try {
 				forward = action.execute(request, response);
@@ -61,31 +61,21 @@ public class BoardController extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-		}else if(command.equals("/boardDetailAction.bo")) {
+		}else if(command.equals("/DesignDetailAction.bo")) {
 			//상세보기
-			action = new BoardDetailaction();
+			action = new DesignDetailaction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if(command.equals("/DeleteBoardAction.bo")) {
-			action = new BoardDeleteBoardAction();
+		}else if(command.equals("/DeleteDesignAction.bo")) {
+			action = new DesignDeleteBoardAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if(command.equals("notice.bo")) {
-			//공지사항
-			action = new BoardnoticeAction();
-			
-			try {
-				forward= action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
 		}
 		
 		
