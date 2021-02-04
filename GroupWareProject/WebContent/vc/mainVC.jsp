@@ -5,26 +5,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<style>
-			a{
-				text-decoration: none;
-				color:black;
-			}
-			#yo{
-				text-align: center;
-			}
-			#tab2 {
-				border-collapse: collapse;
-			}
-			#tab2 td {
-				border: 1px solid black;
-			}
-			#tab1{
-				margin-top: 100px;
-				margin-bottom: 20px;
-				text-align: center;
-			}
-		</style>
+	<link rel="stylesheet" href="css/hrStyle.css">
 		<script>
 			function openPage(i) {// 연차등록
 				popYear = document.getElementById('yearP').value;//현재 달력의 년
@@ -232,7 +213,7 @@
 				    </td>
 			   </tr>
 			   </table>
-			   <table id="tab2">
+			   <table id="tab2" border="1">
 				<tr id="yo">
 					<td width="100">일</td>
 					<td width="100">월</td>

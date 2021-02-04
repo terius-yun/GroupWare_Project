@@ -1,0 +1,23 @@
+@charset "utf-8";
+* {
+	margin: 0 auto;	
+}
+a{
+   text-decoration: none;
+   color:black;
+}
+#yo{
+   text-align: center;
+}
+#tab2 {
+   border-collapse: collapse;
+    border: 1px solid black;
+}
+#tab1{
+   margin-bottom: 20px;
+   text-align: center;
+}
+#checkin, #checkout {
+	background-color: #39AEA9;
+	color : white;
+}

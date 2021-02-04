@@ -84,7 +84,7 @@ public class HrDAO {
 			conn.setAutoCommit(false);
 			
 			StringBuffer sql = new StringBuffer();
-			sql.append("select*from gw_hr where emp_num=?");
+			sql.append("select*from gw_hr where emp_num=? and hr_checkout IS NOT NULL");
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setString(1, emp_num);
 			rs = pstmt.executeQuery();

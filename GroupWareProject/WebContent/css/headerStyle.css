@@ -1,0 +1,37 @@
+@charset "utf-8";
+* {
+	margin: 0 auto;	
+}
+
+#logoutBtn{
+	float:right;
+}
+#symbolBtn{
+	float:left;
+}
+#wrap2{
+	padding: 30px 0px;
+    background-color: white;
+    text-align: center;
+}
+#wrap{
+	background: lightgray;
+}
+img {
+	widht:50px;
+	height:70px;
+}
+button{
+	border:none;
+	background-color: white;
+	cursor:pointer;
+}
+#footer{
+	background: #4577e5;
+    text-align: center;
+}
+#main{
+	background: white;
+    margin: 30px 30px;
+    padding-bottom: 30px;
+}
