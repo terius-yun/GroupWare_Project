@@ -14,7 +14,7 @@
 
 </head>
 <body>
-	<h1>마이페이지~</h1>
+	<h1 style="text-align: center;">마이 프로필</h1>
 	<table>
 	<c:forEach var="member" items="${requestScope.memberInfo}">
 		<tr>

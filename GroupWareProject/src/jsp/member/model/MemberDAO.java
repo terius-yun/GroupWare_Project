@@ -2,7 +2,6 @@ package jsp.member.model;
  
 import java.sql.*;
 import java.util.ArrayList;
-
 import javax.naming.NamingException;
 
 import jsp.common.util.DBConnection;
@@ -125,7 +124,6 @@ public class MemberDAO {
     
     //마이페이지 정보불러오기
     public ArrayList<MemberVO> getMemberInfo(String emp_num){
-
     	ArrayList<MemberVO> informations = new ArrayList<MemberVO>();
     	try {
     		conn = DBConnection.getConnection();
