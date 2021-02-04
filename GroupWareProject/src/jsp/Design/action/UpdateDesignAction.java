@@ -7,8 +7,8 @@ import javax.servlet.http.HttpSession;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-import jsp.board.model.BoardDAO;
-import jsp.board.model.BoardVO;
+import jsp.Design.model.DesignDAO;
+import jsp.Design.model.DesignVO;
 
 public class UpdateDesignAction extends ActionForward implements Action {
 
@@ -27,31 +27,31 @@ public class UpdateDesignAction extends ActionForward implements Action {
 		
 		
 		
-		BoardDAO bdao = new BoardDAO();
-		BoardVO bvo = new BoardVO();
+		DesignDAO bdao = new DesignDAO();
+		DesignVO bvo = new DesignVO();
 		
 		try {
 			
 			MultipartRequest multi = new MultipartRequest(request,realFolder, fileSize ,"utf-8",new DefaultFileRenamePolicy());
 			
-			bvo.setBoard_num(Integer.parseInt(multi.getParameter("board_num")));
-			bvo.setBoard_title(multi.getParameter("board_title"));
-			bvo.setBoard_content(multi.getParameter("board_content"));
-			String img  = multi.getParameter("board_file02");
-			String file = multi.getFilesystemName("board_file");
+			bvo.setDESIGN_NUM(Integer.parseInt(multi.getParameter("Design_num")));
+			bvo.setDESIGN_TITLE(multi.getParameter("Design_title"));
+			bvo.setDESIGN_CONTENT(multi.getParameter("Design_content"));
+			String img  = multi.getParameter("Design_file02");
+			String file = multi.getFilesystemName("GW_Design_file");
 			if(file == null) {
-				bvo.setBoard_file(img);
+				bvo.setDESIGN_FILE(img);
 			}else{
-				bvo.setBoard_file(file);
+				bvo.setDESIGN_FILE(file);
 			}
-			result = bdao.boardModify(bvo);
+			result = bdao.DesignModify(bvo);
 			if(result==false) {
 				System.out.println("게시판 수정 실패");
 				return null;
 			}
 			System.out.println("게시판 수정 완료");
 			forward.setRedirect(true);
-			forward.setPath("BoardListForm.bo");
+			forward.setPath("DesignListForm.bo");
 			
 			
 		} catch (Exception e) {

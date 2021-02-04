@@ -16,20 +16,20 @@ public class DesignController extends HttpServlet {
 
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response)
 	throws ServletException, IOException{
-		String RequestURI = request.getRequestURI();// *.bo 모든 요청을 수용
+		String RequestURI = request.getRequestURI();// *.dgi 모든 요청을 수용
 		String contextPath =request.getContextPath();//프로젝트 주소
-		String command =RequestURI.substring(contextPath.length());//프로젝트명  뒤부터 길이 구함.(*.bo)
+		String command =RequestURI.substring(contextPath.length());//프로젝트명  뒤부터 길이 구함.(*.dgi)
 		ActionForward forward=null; //포워딩될 뷰 url, 포워딩 방식 설정
 		Action action = null;
 		System.out.println("처음 command : "+command);
-		if(command.equals("/DesignListForm.bo")) {
+		if(command.equals("/DesignListForm.dgi")) {
 			action = new DesignList();	
 			try {
 				forward=action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if(command.equals("/AddDesign.bo")) {
+		}else if(command.equals("/AddDesign.dgi")) {
 			action = new DesignAddAction();
 			try {
 				forward = action.execute(request, response);
@@ -37,13 +37,13 @@ public class DesignController extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-		}else if(command.equals("/DesignWrite.bo")) {
+		}else if(command.equals("/DesignWrite.dgi")) {
 			forward = new ActionForward();
 			
 			forward.setRedirect(false);
 			forward.setPath("Design/Designwrite.jsp");
 			
-		}else if(command.equals("/UpdateDesign.bo")) {
+		}else if(command.equals("/UpdateDesign.dgi")) {
 			action = new UpdateDesignAction();
 			try {
 				forward=action.execute(request, response);
@@ -52,7 +52,7 @@ public class DesignController extends HttpServlet {
 			}
 			
 			//게시판 수정 
-		}else if(command.equals("/Updateform.bo")) {
+		}else if(command.equals("/Updateform.dgi")) {
 			action = new DesignUpdateForm();
 			//상세보기 수정
 			try {
@@ -61,7 +61,7 @@ public class DesignController extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-		}else if(command.equals("/DesignDetailAction.bo")) {
+		}else if(command.equals("/DesignDetailAction.dgi")) {
 			//상세보기
 			action = new DesignDetailaction();
 			try {
@@ -69,8 +69,8 @@ public class DesignController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if(command.equals("/DeleteDesignAction.bo")) {
-			action = new DesignDeleteBoardAction();
+		}else if(command.equals("/DeleteDesignAction.dgi")) {
+			action = new DesignDeleteAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {

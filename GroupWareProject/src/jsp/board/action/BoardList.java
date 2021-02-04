@@ -8,37 +8,39 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import jsp.board.model.BoardDAO;
+import jsp.board.model.BoardVO;
+import jsp.board.model.Paging;
 
 public class BoardList implements Action{
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		BoardDAO bdao = new BoardDAO();
-		List boardlist = new ArrayList();
+		List<BoardVO> boardlist = new ArrayList<BoardVO>();
 		
 		HttpSession session = request.getSession();
 		String empNum= (String) session.getAttribute("sessionID");
 		
-		int page=1;
-		int limit =10;//한 페이지에 보여줄 게시글 10개
-		System.out.println("다음 E");
-		if(request.getParameter("page")!=null) {
-			page=Integer.parseInt(request.getParameter("page"));
-		}
-		
-		int listcount = bdao.getListCount(); //총 리스트 수를 받아옴
-		boardlist = bdao.getBoardList(page,limit); //리스트를 받아옴
-		
-		//총 페이지 수
- 		int maxpage=(int)((double)listcount/limit+0.95); //0.95를 더해서 올림 처리
- 		//현재 페이지에 보여줄 시작 페이지 수(1, 11, 21 등...)
- 		int startpage = (((int) ((double)page / 10 + 0.9)) - 1) * 10 + 1;
- 		//현재 페이지에 보여줄 마지막 페이지 수(10, 20, 30 등...)
-		int endpage = startpage+10-1;
-		
-		//List noticelist=bdao.getNoticeBoardList();
- 		if (endpage> maxpage) endpage= maxpage;
  		//request.setAttribute("notices", noticelist);
+ 		 int totalCount = bdao.getTotalCount();
+ 	    int page = request.getParameter("page") == null ? 1 : Integer.parseInt(request.getParameter("page"));
+ 	     
+ 	    Paging paging = new Paging();
+ 	    paging.setPageNo(page); //get방식의 parameter값으로 반은 page변수, 현재 페이지 번호
+ 	    paging.setPageSize(10); // 한페이지에 불러낼 게시물의 개수 지정
+ 	    paging.setTotalCount(totalCount);
+ 	     
+ 	    page = (page - 1) * 10; //select해오는 기준을 구한다.
+ 	     
+ 	   boardlist = bdao.getListBoard(page, paging.getPageSize());
+ 	     
+ 	    request.setAttribute("lists", boardlist);
+ 	    request.setAttribute("paging", paging);
+
+
+ 	
+ 		String team_name=bdao.getmemberteaminpo(empNum);
+ 		request.setAttribute("team_name", team_name);
 		request.setAttribute("lists", boardlist);
 		ActionForward forward = new ActionForward();
 		forward.setPath("./board/BoardListForm.jsp");

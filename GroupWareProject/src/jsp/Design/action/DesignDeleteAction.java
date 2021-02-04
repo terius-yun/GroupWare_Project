@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import jsp.Design.model.DesignDAO;
 
-public class DesignDeleteBoardAction implements Action {
+public class DesignDeleteAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -26,7 +26,7 @@ public class DesignDeleteBoardAction implements Action {
 	   	
 	   	System.out.println("게시판 삭제 성공");
 	   	forward.setRedirect(true);
-   		forward.setPath("BoardListForm.bo");
+   		forward.setPath("BoardListForm.dgi");
    		return forward;
 	 }
 }

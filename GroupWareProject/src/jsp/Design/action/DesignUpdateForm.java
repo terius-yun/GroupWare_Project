@@ -3,8 +3,8 @@ package jsp.Design.action;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import jsp.board.model.BoardDAO;
-import jsp.board.model.BoardVO;
+import jsp.Design.model.DesignDAO;
+import jsp.Design.model.DesignVO;
 
 public class DesignUpdateForm implements Action {
 	
@@ -13,10 +13,10 @@ public class DesignUpdateForm implements Action {
 		ActionForward forward = new ActionForward();
 		request.setCharacterEncoding("utf-8");
 		
-		BoardDAO bdao = new BoardDAO();
-		BoardVO bvo = new BoardVO();
+		DesignDAO bdao = new DesignDAO();
+		DesignVO bvo = new DesignVO();
 		
-		int num = Integer.parseInt(request.getParameter("board_num"));
+		int num = Integer.parseInt(request.getParameter("Design_num"));
 		bvo = bdao.getDetail(num);
 		
 		if(bvo==null) {
@@ -27,7 +27,7 @@ public class DesignUpdateForm implements Action {
 		
 		request.setAttribute("bvoUpdate", bvo);
 		forward.setRedirect(false);
-		forward.setPath("board/UpdateBoard.jsp");
+		forward.setPath("Design/UpdateDesign.jsp");
 		
 		return forward;
 	}

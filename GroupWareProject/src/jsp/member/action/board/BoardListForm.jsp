@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>        
 <html>
 <head>
-    <title>디자인 게시글</title>
+    <title>전체 게시글</title>
     
     <style type="text/css">
         #wrap {
@@ -16,11 +16,12 @@
         #board, #pageForm, #searchForm{
             text-align :center;
         }
+        
         #bList{
             text-align :center;
         }
     </style>
-
+    
     <script type="text/javascript">
         function writeForm(value){
         	if(value == "0"){//글쓰기
@@ -30,19 +31,15 @@
         		}else if(value=="2"){//기획팀
         			location.href="BoardPlan.bo";
         		}else if(value=="3"){//디자인팀
-        			location.href="DesignListForm.dgi";
+        			location.href="BoardCss.bo";
         		}else {//공지사항
         			location.href="notice.bo";
         		}
         }
-        function PageMove(page){
-            location.href = "BoardListForm.bo?page="+page;
-          }
     </script>
     
 </head>
-<body>  
-<div>자유게시판</div>  
+<body>    
  <div id="wrap">
     <br>
      <div id="topForm">
@@ -58,7 +55,7 @@
     <br>
      <div id="board">
         <table id="bList" width="800" border="3" bordercolor="lightgray">
-            <tr height="30">
+            <tr heigh="30">
                 <td>제목</td>
                 <td>작성자</td>
                 <td>팀명</td>
@@ -68,7 +65,7 @@
           	<!--공지용 for each새로 생성 -->
           	<c:forEach var="notice" items="${notices}">
           		<tr>
-          		<td><!-- ${notice.board_notice_title} -->
+          		<td>${notice.board_notice_title}
           		</td>
           		</tr>
           	</c:forEach>
@@ -77,7 +74,7 @@
 			<!-- 너 수정 -->
 			<td><div align="center">
 			<b style="color: red">공지</b>
-				<a href="BoardDetailAction.bo?num=${list.board_num}">
+				<a href="boardDetailAction.bo?num=${list.board_num}">
 				${list.board_title}</a></div></td>
 			<!-- 작성자 정보털림 -->
 			<td><div align="center">${list.member_name}</div></td>
@@ -89,28 +86,9 @@
         </table>
      </div>
     <br>
-    <div class="toolbar-bottom">
-  <div class="toolbar mt-lg">
-    <div class="sorter">
-      <ul class="pagination">
-        <li><a href="javascript:PageMove(${paging.firstPageNo})">맨앞으로</a></li>
-        <li><a href="javascript:PageMove(${paging.prevPageNo})">앞으로</a></li>
-              <c:forEach var="i" begin="${paging.startPageNo}" end="${paging.endPageNo}" step="1">
-                  <c:choose>
-                      <c:when test="${i eq paging.pageNo}">
-                <li class="active"><a href="javascript:PageMove(${i})">${i}</a></li>
-                      </c:when>
-                      <c:otherwise>
-                        <li><a href="javascript:PageMove(${i})">${i}</a></li>
-                      </c:otherwise>
-                  </c:choose>
-              </c:forEach>
-        <li><a href="javascript:PageMove(${paging.nextPageNo})">뒤로</a></li>
-        <li><a href="javascript:PageMove(${paging.finalPageNo})">맨뒤로</a></li>
-      </ul>
+    <div id="pageForm">
+        페이지 번호
     </div>
-  </div>
-</div>
     <br>
     <div id="searchForm">
         <form>

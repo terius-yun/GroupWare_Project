@@ -35,16 +35,17 @@ public class BoardDAO {
 		System.out.println("getListCount--------------");
 		try {
 			conn=ds.getConnection();
-			System.out.println("getConnection : "+conn);
+			System.out.println("ds : "+ds);
+			System.out.println("ds.toString() : "+ds.toString());
+			System.out.println("getConnection : "+conn.toString());
 			//pstmt 문제될수있음
 			pstmt=conn.prepareStatement("select count(*) from GW_BOARD");
 			
 			rs = pstmt.executeQuery();
-			System.out.println("rs : "+rs.toString());
 			if(rs.next()) {
 				x=rs.getInt(1);
 			}
-			
+			System.out.println("rs : "+rs.toString());
 		} catch (Exception e) {
 			System.out.println("getListCount e : " + e);
 		}finally {
@@ -56,7 +57,7 @@ public class BoardDAO {
 		return x;
 	}
 	
-	public List getBoardList(int page, int limit) {
+	public List<BoardVO> getBoardList(int page, int limit) {
 		String board_list_sql="select * from " + 
 				"(select rownum rnum,t2.board_num, t2.board_title, t1.member_name, t2.board_writedate, t2.board_readcount, t1.member_team " + 
 				"from gw_member t1 inner join gw_board t2 on t1.emp_num=t2.emp_num order by t2.board_num desc) " + 
@@ -262,11 +263,128 @@ public class BoardDAO {
 		}
 		return false;
 	}
-	//검색
-	public void JoinBoard(BoardVO board) {
-		
+	//getmemberteaminpo
+	public String getmemberteaminpo(String emp_num) {
+		String sql="select member_team from gw_member where emp_num=?";
+		String memberteam="";
+		try {
+			
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, emp_num);
+			rs= pstmt.executeQuery();
+			while(rs.next()) {
+				memberteam=rs.getString("member_team");
+				
+			}
+			
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try{
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null) conn.close();
+				if(rs!=null)rs.close();
+				}
+				catch(Exception ex){}			
+		}
+		return memberteam;
+	}
+	public String getmemberRank(String emp_num) {
+		String sql="select member_rank from gw_member where emp_num=?";
+		String memberrank="";
+		try {
+			
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, emp_num);
+			rs= pstmt.executeQuery();
+			while(rs.next()) {
+				memberrank=rs.getString("member_rank");
+				
+			}
+			
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try{
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null) conn.close();
+				if(rs!=null)rs.close();
+				}
+				catch(Exception ex){}			
+		}
+		return memberrank;
 	}
 	
-	
+	//total
+	public int getTotalCount(){
+	    int total = 0;
+	     String sql="";
+	    try {
+	      conn = ds.getConnection();
+	       
+	      sql = "select count(*) from gw_board";
+	      pstmt = conn.prepareStatement(sql);
+	       
+	      rs = pstmt.executeQuery();
+	      if(rs.next()){
+	        total = rs.getInt(1);
+	      }
+	    } catch (Exception e){
+	      e.printStackTrace();
+	    } finally {
+	    	try{
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null) conn.close();
+				}
+				catch(Exception e){}
+		
+	    }
+	    return total;
+	}
+	//페이지기능구현
+	 public ArrayList<BoardVO> getListBoard(int startRow, int endRow) {
+		 
+		    ArrayList<BoardVO> list = new ArrayList<BoardVO>();
+		     String sql="";
+		    try {
+		      conn = ds.getConnection();
+		       
+		      sql = "select * from " + 
+		      		"(select rownum rnum,t2.board_num, t2.board_title, t1.member_name, t2.board_writedate, t2.board_readcount, t1.member_team " + 
+		      		"from gw_member t1 inner join gw_board t2 on t1.emp_num=t2.emp_num order by t2.board_num desc)" + 
+		      		"WHERE rnum>=? and rnum<=?";
 
+		      pstmt = conn.prepareStatement(sql);
+		      pstmt.setInt(1, startRow);
+		      pstmt.setInt(2, endRow);
+		      rs = pstmt.executeQuery();
+		       
+		      while(rs.next()) {
+		        
+		        BoardVO dto = new BoardVO();
+		        dto .setBoard_num(rs.getInt("board_num"));
+		        dto .setBoard_title(rs.getString("board_title"));
+		        dto .setBoard_readcount(rs.getString("board_readcount"));
+		        dto .setBoard_writedate(rs.getString("board_writedate"));
+		        dto.setMember_team(rs.getString("member_team"));
+		        dto.setMember_name(rs.getString("member_name"));
+		        list.add(dto);
+		      }
+		       
+		    } catch (Exception e){
+		      e.printStackTrace();
+		    } finally {
+		    	try{
+					if(pstmt!=null)pstmt.close();
+					if(conn!=null) conn.close();
+					if(rs!=null)rs.close();
+					}
+					catch(Exception ex){}	
+		    }
+		    return list;
+		  }
 }

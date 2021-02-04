@@ -3,8 +3,8 @@ package jsp.Design.action;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import jsp.board.model.BoardDAO;
-import jsp.board.model.BoardVO;
+import jsp.Design.model.DesignDAO;
+import jsp.Design.model.DesignVO;
 
 public class DesignDetailaction implements Action {
 
@@ -12,8 +12,8 @@ public class DesignDetailaction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
 		
-		BoardDAO bdao= new BoardDAO();
-		BoardVO bvo= new BoardVO();
+		DesignDAO bdao= new DesignDAO();
+		DesignVO bvo= new DesignVO();
 		
 		//글번호
 		int num = Integer.parseInt(request.getParameter("num"));
@@ -30,7 +30,7 @@ public class DesignDetailaction implements Action {
 		request.setAttribute("view", bvo);
 		ActionForward forward = new ActionForward();
 		forward.setRedirect(false);//dispatcher 호출
-		forward.setPath("board/Boardview.jsp");
+		forward.setPath("Design/Designview.jsp");
 		
 		
 		return forward;

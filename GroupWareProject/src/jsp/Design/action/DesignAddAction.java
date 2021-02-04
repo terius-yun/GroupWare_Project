@@ -59,7 +59,7 @@ public class DesignAddAction implements Action{
 			System.out.println("게시판 등록 완료");
 			
 			forward.setRedirect(true);
-			forward.setPath("DesignListForm.bo");
+			forward.setPath("DesignListForm.dgi");
 			
 		}catch (Exception e) {
 			e.printStackTrace();

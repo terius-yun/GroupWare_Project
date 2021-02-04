@@ -4,7 +4,7 @@ package jsp.board.model;
 
 public class BoardVO {
 	private int board_num;				//스택
-	private String emp_num;					//사번
+	private String emp_num;					//아이디
 	private String board_title;				//글 제목
 	private String board_content;			//글 내용
 	private String board_readcount;			//읽기 계정
@@ -12,15 +12,19 @@ public class BoardVO {
 	private String board_file; 				//파일
 	private String row_num;					//
 
-	
-	
-	
+	private String member_administrator;	//랭크구분숫자
 	private String member_name;				//이름
 	private String member_pNum;				//전화번호
 	private String member_email;			//이메일
 	private String member_team;				//부서
 	private String member_rank;				//직급
 	
+	public String getMember_administrator() {
+		return member_administrator;
+	}
+	public void setMember_administrator(String member_administrator) {
+		this.member_administrator = member_administrator;
+	}
 	public String getRow_num() {
 		return row_num;
 	}

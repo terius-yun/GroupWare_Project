@@ -162,7 +162,7 @@ public class DesignDAO {
 	//조회수
 	public void setReadCountUpdate(int num)throws Exception{
 		
-		String sql="update GW_Design_BOARD set BOARD_READCOUNT = "+
+		String sql="update GW_Design_BOARD set Design_READCOUNT = "+
 		"Design_readcount+1 where Design_num = "+num;
 		
 		try {
@@ -186,7 +186,7 @@ public class DesignDAO {
 		try {
 			conn = ds.getConnection();
 			pstmt = 
-			conn.prepareStatement("select * from gw_board where board_num = ?");
+			conn.prepareStatement("select * from gw_Design_BOARD where Design_num = ?");
 			pstmt.setInt(1, num);
 			
 			rs= pstmt.executeQuery();
@@ -262,6 +262,61 @@ public class DesignDAO {
 		}
 		return false;
 	}
+	public String getmemberteaminpo(String emp_num) {
+		String sql="select member_team from gw_member where emp_num=?";
+		String memberteam="";
+		try {
+			
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, emp_num);
+			rs= pstmt.executeQuery();
+			while(rs.next()) {
+				memberteam=rs.getString("member_team");
+				
+			}
+			
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try{
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null) conn.close();
+				if(rs!=null)rs.close();
+				}
+				catch(Exception ex){}			
+		}
+		return memberteam;
+	}
+	public String getmemberRank(String emp_num) {
+		String sql="select member_rank from gw_member where emp_num=?";
+		String memberrank="";
+		try {
+			
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, emp_num);
+			rs= pstmt.executeQuery();
+			while(rs.next()) {
+				memberrank=rs.getString("member_rank");
+				
+			}
+			
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try{
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null) conn.close();
+				if(rs!=null)rs.close();
+				}
+				catch(Exception ex){}			
+		}
+		return memberrank;
+	}
+	
 	//검색
 	public void JoinBoard(DesignVO board) {
 		

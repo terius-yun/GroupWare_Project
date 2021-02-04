@@ -43,7 +43,7 @@ public class BoardController extends HttpServlet {
 			forward.setRedirect(false);
 			forward.setPath("board/Boardwrite.jsp");
 			
-		}else if(command.equals("/Updateboard.bo")) {
+		}else if(command.equals("/UpdateBoard.bo")) {
 			action = new UpdateBoardAction();
 			try {
 				forward=action.execute(request, response);
@@ -61,7 +61,7 @@ public class BoardController extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-		}else if(command.equals("/boardDetailAction.bo")) {
+		}else if(command.equals("/BoardDetailAction.bo")) {
 			//상세보기
 			action = new BoardDetailaction();
 			try {
