@@ -1,0 +1,41 @@
+@charset "utf-8";
+*{ 
+	margin : 0 auto;
+	text-align:center;
+	background-color:#d4e6f9;
+}
+#wrap{
+	background-color: white;
+	width:400px;
+	padding: 40px;
+	border:1px solid lightgray;
+	margin-top: 275px;
+}
+#login{
+	background-color: #4577e5;
+	border-radius: 3px;
+	border: solid 2px lightgray;
+	color: white;
+}
+.join{
+	text-align:left;
+	border: 1px solid lightgray;
+}
+.bg {
+	background-color:white;
+}
+img {
+		width: 200px;
+		height: 65px;
+		margin-bottom:30px;
+}
+table{
+	border: 1px solid lightgray;
+	background-color: white;
+	padding: 40px;
+}
+td {
+	padding: 5px;
+	font-weight: bold;
+	background-color:white;
+}

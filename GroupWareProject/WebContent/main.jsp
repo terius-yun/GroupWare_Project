@@ -10,6 +10,9 @@
 			#footer{
 				clear: both;
 			}
+		 	body{
+		 		width: 1050px;
+		 	}
 		</style>
 		<meta charset="utf-8">
 		<title>메인 화면</title>
@@ -19,6 +22,7 @@
 		        <div id="header">
 		            <jsp:include page="header.jsp" />
 		        </div>
+		        <hr>
 		        <div id="main">
 		        <c:set var="contentPage" value="${param.contentPage}"/>
 		        <c:choose>

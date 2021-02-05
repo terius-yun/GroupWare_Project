@@ -15,23 +15,24 @@
     text-align: center;
 }
 #wrap{
-	background: lightgray;
+	background: white;
 }
 img {
 	widht:50px;
 	height:70px;
 }
-button{
+.btn{
 	border:none;
 	background-color: white;
 	cursor:pointer;
+	outline: none;
 }
+
 #footer{
+	position:absolute;
+	bottom:0px;
+	height:10%;
+	width:1050px;
 	background: #4577e5;
     text-align: center;
-}
-#main{
-	background: white;
-    margin: 30px 30px;
-    padding-bottom: 30px;
 }
