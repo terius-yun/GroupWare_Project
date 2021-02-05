@@ -25,6 +25,16 @@
 	      <servlet-name>VCController</servlet-name>
 	      <url-pattern>*.vc</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+   		<description>Controller</description>
+   		<servlet-name>CalendarFrontController</servlet-name>
+   		<servlet-class>Gp.calendar.action.CalendarFrontController</servlet-class>
+   	</servlet>
+   	<servlet-mapping>
+   		<servlet-name>CalendarFrontController</servlet-name>
+   		<url-pattern>*.cal</url-pattern>
+   	</servlet-mapping>
 
 	<resource-ref>
     	<description>connection</description><!-- 설명 -->

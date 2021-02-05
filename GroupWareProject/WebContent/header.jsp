@@ -11,7 +11,9 @@
 			function changeView(value){
 				if(value == "0"){//홈페이지 이동
 					location.href="main.do";
-				}else if(value == "1"){//일정
+				}else if(value == "1"){
+					location.href="CalendarDetail.cal";
+				}else if(value == "2"){
 					location.href="#";
 				}else if(value == "2"){//게시판
 					location.href="#";
