@@ -64,7 +64,29 @@ public class CalendarFrontController extends HttpServlet {
 			}catch(Exception e) {
 				e.printStackTrace();
 			}
+		}else if(command.equals("/CalendarDevDelete.cal")) {
+			action = new CalendarDevDelete();
+			try {
+				forward=action.execute(request, response);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/CalendarDisDelete.cal")) {
+			action= new CalendarDisDelete();
+			try {
+				forward=action.execute(request, response);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/CalendarPlaDelete.cal")) {
+			action=new CalendarPlaDelete();
+			try {
+				forward=action.execute(request, response);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
 		}
+		
 		
 		
 		System.out.println("위에 결과"+action);

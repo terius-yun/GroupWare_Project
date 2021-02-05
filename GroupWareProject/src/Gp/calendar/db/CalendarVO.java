@@ -65,12 +65,12 @@ public class CalendarVO {
 	public void setCal_num(String cal_num) {
 		this.cal_num = cal_num;
 	}
-	@Override
-	public String toString() {
-		return "CalendarVO [cal_title=" + cal_title + ", cal_member=" + cal_member + ", cal_content=" + cal_content
-				+ ", cal_start_date=" + cal_start_date + ", cal_end_date=" + cal_end_date + ", emp_num=" + emp_num
-				+ ", member_team=" + member_team + ", member_administrator=" + member_administrator + "]";
-	}
+	
+
+	
+	
+
+	
 	
 	
 	

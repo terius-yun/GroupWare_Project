@@ -5,9 +5,13 @@
 <head>
 <meta charset="utf-8">
 <title>Insert title here</title>
+<script type="text/javascript">
+	
+</script>
 </head>
 <body>
 <form action="CalendarAddUpdateAction.cal" name="updateForm" method="post">
+<script type="text/javascript" src="script/update.js"></script>
 <table>
 	<tr>
 		<td><label for="pName">프로젝트 이름</label></td>
@@ -26,7 +30,7 @@
 		<td><jsp:include page="../datepicker/index.jsp"></jsp:include></td>
 	</tr>
 </table>
-<input type="submit" value="수정">
+<input type="submit" value="수정" onclick="return update()">
 <input type="reset" value="취소">
 </form>
 </body>

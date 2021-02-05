@@ -1,3 +1,5 @@
+<%@page import="Gp.calendar.db.CalendarVO"%>
+<%@page import="Gp.calendar.db.CalendarDAO"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <!DOCTYPE html>
