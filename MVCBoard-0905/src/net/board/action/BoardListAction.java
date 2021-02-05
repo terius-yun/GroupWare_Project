@@ -13,7 +13,7 @@ import net.board.db.BoardDAO;
 		List boardlist=new ArrayList();
 		
 		int page=1;
-		int limit=3;//한 페이지에 보여줄 개시글 10개
+		int limit=10;//한 페이지에 보여줄 개시글 10개
 		System.out.println("다음E");
 		if(request.getParameter("page")!=null){
 			page=Integer.parseInt(request.getParameter("page"));

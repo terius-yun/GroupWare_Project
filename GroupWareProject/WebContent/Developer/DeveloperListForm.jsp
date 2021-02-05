@@ -11,7 +11,7 @@
 
 <html>
 <head>
-    <title>자유 게시판</title>
+    <title>개발팀</title>
     
     <style type="text/css">
         #wrap {
@@ -21,7 +21,7 @@
         #topForm{
             text-align :right;
         }
-        #board, #pageForm, #searchForm{
+        #Developer, #pageForm, #searchForm{
             text-align :center;
         }
         #bList{
@@ -32,15 +32,15 @@
     <script type="text/javascript">
         function writeForm(value){
         	if(value == "0"){//글쓰기
-            	location.href="BoardWrite.bo";
-        		}else if(value == "1"){//개발팀
-        		location.href="DeveloperListForm.dp";
+            	location.href="DeveloperWrite.dp";
+        		}else if(value == "1"){//자유게시판
+        		location.href="BoardListForm.bo";
         		}else if(value=="2"){//기획팀
-        			location.href="PlanListForm.pl";
+        			location.href="DeveloperPlan.dp";
         		}else if(value=="3"){//디자인팀
         			location.href="DesignListForm.dgi";
         		}else {//공지사항
-        			location.href="notice.bo";
+        			location.href="notice.dp";
         		}
         }
         
@@ -54,7 +54,7 @@
      <div id="topForm">
         <c:if test="${sessionScope.sessionID!=null}"></c:if>   
             <input type="button" value="글쓰기" onclick="writeForm(0)">
-            <input type="button" value="개발팀" onclick="writeForm(1)">
+            <input type="button" value="자유게시판" onclick="writeForm(1)">
             <input type="button" value="기획팀" onclick="writeForm(2)">
             <input type="button" value="디자인팀" onclick="writeForm(3)">
          <c:if test="${sessionScope.sessionID.equals('gd9')}">
@@ -62,7 +62,7 @@
          </c:if>
      </div>
     <br>
-     <div id="board">
+     <div id="Developer">
         <table id="bList" width="800" border="3" bordercolor="lightgray">
             <tr height="30">
                 <td>제목</td>
@@ -72,24 +72,19 @@
                 <td>조회수</td>
             </tr>    
           	<!--공지용 for each새로 생성 -->
-          	<c:forEach var="notice" items="${notices}">
-          		<tr>
-          		<td><!-- ${notice.board_notice_title} -->
-          		</td>
-          		</tr>
-          	</c:forEach>
+          	
             <c:forEach var="list" items="${lists}">
 			<tr>
 			<!-- 너 수정 -->
 			<td><div align="center">
 			<b style="color: red">공지</b>
-				<a href="BoardDetailAction.bo?num=${list.board_num}">
-				${list.board_title}</a></div></td>
+				<a href="DeveloperDetailAction.dp?num=${list.developer_num}">
+				${list.developer_title}</a></div></td>
 			<!-- 작성자 정보 -->
 			<td><div align="center">${list.member_name}</div></td>
-			<td><div align="center">${list.member_team }</div></td>
-			<td><div align="center">${list.board_writedate}</div></td>
-			<td><div align="center">${list.board_readcount}</div></td>
+			<td><div align="center">${list.member_team}</div></td>
+			<td><div align="center">${list.developer_writedate}</div></td>
+			<td><div align="center">${list.developer_readcount}</div></td>
 			</tr>
 		</c:forEach>
         </table>
@@ -100,11 +95,11 @@
     	<tr align=center height=20>
 			<td colspan=7 style="font-family: Tahoma; font-size: 10pt;">
 				<%if(nowpage<=1){ %> [이전]&nbsp; <%}else{ %> <a
-				href="./BoardListForm.bo?page=<%=nowpage-1 %>">[이전]</a>&nbsp; <%} %> <%for(int a=startpage;a<=endpage;a++){
+				href="./DeveloperListForm.dp?page=<%=nowpage-1 %>">[이전]</a>&nbsp; <%} %> <%for(int a=startpage;a<=endpage;a++){
 				if(a==nowpage){%> [<%=a %>] <%}else{ %> <a
-				href="./BoardListForm.bo?page=<%=a %>">[<%=a %>]
+				href="./DeveloperListForm.dp?page=<%=a %>">[<%=a %>]
 			</a>&nbsp; <%} %> <%} %> <%if(nowpage>=maxpage){ %> [다음] <%}else{ %> <a
-				href="./BoardListForm.bo?page=<%=nowpage+1 %>">[다음]</a> <%} %>
+				href="./DeveloperListForm.dp?page=<%=nowpage+1 %>">[다음]</a> <%} %>
 			</td>
 		</tr>
 	</table>

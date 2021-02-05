@@ -34,9 +34,9 @@
         	if(value == "0"){//글쓰기
             	location.href="DesignWrite.dgi";
         		}else if(value == "1"){//개발팀
-        		location.href="BoardDevelopment.dgi";
+        		location.href="DeveloperListForm.dp";
         		}else if(value=="2"){//기획팀
-        			location.href="BoardPlan.dgi";
+        			location.href="PlanListForm.pl";
         		}else if(value=="3"){//자유게시판
         			location.href="BoardListForm.bo";
         		}else {//공지사항
@@ -84,20 +84,31 @@
 			<!-- 너 수정 -->
 			<td><div align="center">
 			<b style="color: red">공지</b>
-				<a href="DesignDetailAction.dgi?num=${list.DESIGN_NUM}">
+				<a href="DesignDetailAction.dgi?num=${list.	design_num}">
 				${list.design_title}</a></div></td>
 			<!-- 작성자 정보털림 -->
 			<td><div align="center">${list.member_name}</div></td>
 			<td><div align="center">${list.member_team }</div></td>
-			<td><div align="center">${list.DESIGN_WRITEDATE}</div></td>
-			<td><div align="center">${list.DESIGN_READCOUNT}</div></td>
+			<td><div align="center">${list.design_writedate}</div></td>
+			<td><div align="center">${list.design_readcount}</div></td>
 			</tr>
 		</c:forEach>
         </table>
      </div>
     <br>
     <div id="pageForm">
-        페이지 번호
+    <table>
+        <tr align=center height=20>
+			<td colspan=7 style="font-family: Tahoma; font-size: 10pt;">
+				<%if(nowpage<=1){ %> [이전]&nbsp; <%}else{ %> <a
+				href="./DesignListForm.bo?page=<%=nowpage-1 %>">[이전]</a>&nbsp; <%} %> <%for(int a=startpage;a<=endpage;a++){
+				if(a==nowpage){%> [<%=a %>] <%}else{ %> <a
+				href="./DesignListForm.bo?page=<%=a %>">[<%=a %>]
+			</a>&nbsp; <%} %> <%} %> <%if(nowpage>=maxpage){ %> [다음] <%}else{ %> <a
+				href="./DesignListForm.bo?page=<%=nowpage+1 %>">[다음]</a> <%} %>
+			</td>
+		</tr>
+	</table>
     </div>
     <br>
     <div id="searchForm">

@@ -12,15 +12,15 @@
 </head>
 <body>
 	<h1><a href="main.do">홈</a>/등록</h1>
-	<form action="AddDesign.dgi" method="post"
+	<form action="AddPlan.pl" method="post"
 	enctype="multipart/form-data">
 		<table>
 		  <tr align="center" valign="middle">
 		   <td colspan="4" style="margin-left: auto;">게시판
 		   </td></tr>
-		  <tr> <td>제 목</td><td><input name="design_title" type="text"></td></tr>
-		  <tr> <td>내 용</td><td><textarea rows="13" cols="50" name="design_content"></textarea></td></tr>
-		  <tr> <td>파일 첨부</td><td><input type="file" name="gw_design_file"></td></tr>
+		  <tr> <td>제 목</td><td><input name="plan_title" type="text"></td></tr>
+		  <tr> <td>내 용</td><td><textarea rows="13" cols="50" name="plan_content"></textarea></td></tr>
+		  <tr> <td>파일 첨부</td><td><input type="file" name="gw_plan_file"></td></tr>
 		</table>
 		<input type="submit" value="등록"><input type="reset" value="취소">
 	</form>

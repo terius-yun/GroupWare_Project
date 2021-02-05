@@ -3,13 +3,13 @@ package jsp.Design.model;
 
 
 public class DesignVO {
-	private int DESIGN_NUM;
-	private String EMP_NUM
-	,DESIGN_TITLE
-	,DESIGN_CONTENT
-	,DESIGN_READCOUNT
-	,DESIGN_WRITEDATE
-	,DESIGN_FILE;
+	private int design_num;
+	private String emp_num
+	,design_title
+	,design_content
+	,design_readcount
+	,design_writedate
+	,gw_design_file;
 	
 	private String member_name;				//이름
 	private String member_pNum;				//전화번호
@@ -17,47 +17,48 @@ public class DesignVO {
 	private String member_team;				//부서
 	private String member_rank;				//직급
 	
-	public int getDESIGN_NUM() {
-		return DESIGN_NUM;
+	
+	public int getDesign_num() {
+		return design_num;
 	}
-	public void setDESIGN_NUM(int dESIGN_NUM) {
-		DESIGN_NUM = dESIGN_NUM;
+	public void setDesign_num(int design_num) {
+		this.design_num = design_num;
 	}
-	public String getEMP_NUM() {
-		return EMP_NUM;
+	public String getEmp_num() {
+		return emp_num;
 	}
-	public void setEMP_NUM(String eMP_NUM) {
-		EMP_NUM = eMP_NUM;
+	public void setEmp_num(String emp_num) {
+		this.emp_num = emp_num;
 	}
-	public String getDESIGN_TITLE() {
-		return DESIGN_TITLE;
+	public String getDesign_title() {
+		return design_title;
 	}
-	public void setDESIGN_TITLE(String dESIGN_TITLE) {
-		DESIGN_TITLE = dESIGN_TITLE;
+	public void setDesign_title(String design_title) {
+		this.design_title = design_title;
 	}
-	public String getDESIGN_CONTENT() {
-		return DESIGN_CONTENT;
+	public String getDesign_content() {
+		return design_content;
 	}
-	public void setDESIGN_CONTENT(String dESIGN_CONTENT) {
-		DESIGN_CONTENT = dESIGN_CONTENT;
+	public void setDesign_content(String design_content) {
+		this.design_content = design_content;
 	}
-	public String getDESIGN_READCOUNT() {
-		return DESIGN_READCOUNT;
+	public String getDesign_readcount() {
+		return design_readcount;
 	}
-	public void setDESIGN_READCOUNT(String dESIGN_READCOUNT) {
-		DESIGN_READCOUNT = dESIGN_READCOUNT;
+	public void setDesign_readcount(String design_readcount) {
+		this.design_readcount = design_readcount;
 	}
-	public String getDESIGN_WRITEDATE() {
-		return DESIGN_WRITEDATE;
+	public String getDesign_writedate() {
+		return design_writedate;
 	}
-	public void setDESIGN_WRITEDATE(String dESIGN_WRITEDATE) {
-		DESIGN_WRITEDATE = dESIGN_WRITEDATE;
+	public void setDesign_writedate(String design_writedate) {
+		this.design_writedate = design_writedate;
 	}
-	public String getDESIGN_FILE() {
-		return DESIGN_FILE;
+	public String getgw_design_file() {
+		return gw_design_file;
 	}
-	public void setDESIGN_FILE(String dESIGN_FILE) {
-		DESIGN_FILE = dESIGN_FILE;
+	public void setgw_design_file(String gw_design_file) {
+		this.gw_design_file = gw_design_file;
 	}
 	public String getMember_name() {
 		return member_name;

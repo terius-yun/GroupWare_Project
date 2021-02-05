@@ -1,25 +1,25 @@
-package jsp.Design.action;
+package jsp.plan.action;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import jsp.Design.model.DesignDAO;
-import jsp.Design.model.DesignVO;
+import jsp.plan.model.PlanDAO;
+import jsp.plan.model.PlanVO;
 
-public class DesignDetailaction implements Action {
+public class planDetailaction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
 		
-		DesignDAO bdao= new DesignDAO();
-		DesignVO bvo= new DesignVO();
+		PlanDAO bdao= new PlanDAO();
+		PlanVO bvo= new PlanVO();
 		
 		//글번호
 		int num = Integer.parseInt(request.getParameter("num"));
 		
 		bdao.setReadCountUpdate(num);//조회수 증가
-		bvo= bdao.getDetail(num); //글의 내용 DesignDAO에 내용을 DesignVO저장
+		bvo= bdao.getDetail(num); //글의 내용 planDAO에 내용을 planVO저장
 		
 		if(bvo==null) {//글의 내용이 없으면
 			System.out.println("상세보기 실패");
@@ -30,7 +30,7 @@ public class DesignDetailaction implements Action {
 		request.setAttribute("view", bvo);
 		ActionForward forward = new ActionForward();
 		forward.setRedirect(false);//dispatcher 호출
-		forward.setPath("Design/Designview.jsp");
+		forward.setPath("plan/Planview.jsp");
 		
 		
 		return forward;

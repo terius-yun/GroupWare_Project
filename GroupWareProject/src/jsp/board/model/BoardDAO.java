@@ -32,28 +32,26 @@ public class BoardDAO {
 	//리스트
 	public int getListCount() {
 		int x= 0;
-		System.out.println("getListCount--------------");
+		
 		try {
 			conn=ds.getConnection();
-			System.out.println("ds : "+ds);
-			System.out.println("ds.toString() : "+ds.toString());
-			System.out.println("getConnection : "+conn.toString());
-			//pstmt 문제될수있음
-			pstmt=conn.prepareStatement("select count(*) from GW_BOARD");
+			System.out.println("getConnection");
 			
+			pstmt=conn.prepareStatement("select count(*) from gw_board");
 			rs = pstmt.executeQuery();
+			
 			if(rs.next()) {
 				x=rs.getInt(1);
 			}
-			System.out.println("rs : "+rs.toString());
-		} catch (Exception e) {
-			System.out.println("getListCount e : " + e);
+			
+		}catch (Exception e) {
+			e.printStackTrace();
 		}finally {
 			if(rs!=null) try{rs.close();}catch(SQLException ex){}
 			if(pstmt!=null) try{pstmt.close();}catch(SQLException ex){}
 			if(conn!=null) try{conn.close();}catch(SQLException ex){}
 		}
-		System.out.println("getListCount--------------");
+		
 		return x;
 	}
 	
@@ -319,32 +317,7 @@ public class BoardDAO {
 		return memberrank;
 	}
 	
-	//total
-	public int getTotalCount(){
-	    int total = 0;
-	     String sql="";
-	    try {
-	      conn = ds.getConnection();
-	       
-	      sql = "select count(*) from gw_board";
-	      pstmt = conn.prepareStatement(sql);
-	       
-	      rs = pstmt.executeQuery();
-	      if(rs.next()){
-	        total = rs.getInt(1);
-	      }
-	    } catch (Exception e){
-	      e.printStackTrace();
-	    } finally {
-	    	try{
-				if(pstmt!=null)pstmt.close();
-				if(conn!=null) conn.close();
-				}
-				catch(Exception e){}
-		
-	    }
-	    return total;
-	}
+	
 	//페이지기능구현
 	 public ArrayList<BoardVO> getListBoard(int startRow, int endRow) {
 		 

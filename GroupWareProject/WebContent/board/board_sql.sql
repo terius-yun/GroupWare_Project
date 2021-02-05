@@ -55,6 +55,6 @@ alter table GW_DEVELOPER_BOARD add gw_DEVELOPER_file varchar2(100);
 alter table GW_NOTICE_BOARD add gw_NOTICE_file varchar2(100);
 alter table GW_PLAN_BOARD add gw_PLAN_file varchar2(100);
 
-
+ select m.member_administrator from GW_MEMBER m inner join gw_board b on m.emp_num=b.emp_num where member_administrator='2' or member_administrator='3';
 
 

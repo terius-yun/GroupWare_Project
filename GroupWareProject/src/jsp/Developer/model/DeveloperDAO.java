@@ -1,4 +1,4 @@
-package jsp.Design.model;
+package jsp.Developer.model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,18 +13,18 @@ import javax.sql.DataSource;
 
 import jsp.common.util.DBConnection;
 
-public class DesignDAO {
+public class DeveloperDAO {
 	DataSource ds;
 	Connection conn;
 	PreparedStatement pstmt;
 	ResultSet rs;
 	
-	public DesignDAO(){
+	public DeveloperDAO(){
 		try {
 			Context init = new InitialContext();
 			ds = (DataSource) init.lookup("java:comp/env/jdbc/sign");
 		} catch (Exception e) {
-			System.out.println("Design dao e : "+e);
+			System.out.println("Developer dao e : "+e);
 			return;
 		}
 		
@@ -32,60 +32,59 @@ public class DesignDAO {
 	//리스트
 	public int getListCount() {
 		int x= 0;
-		System.out.println("getListCount--------------");
+		
 		try {
 			conn=ds.getConnection();
-			System.out.println("getConnection : "+conn);
-			//pstmt 문제될수있음
-			pstmt=conn.prepareStatement("select count(*) from gw_Design_board");
+			System.out.println("getConnection");
 			
+			pstmt=conn.prepareStatement("select count(*) from gw_Developer_board");
 			rs = pstmt.executeQuery();
-			System.out.println("rs : "+rs.toString());
+			
 			if(rs.next()) {
 				x=rs.getInt(1);
 			}
 			
-		} catch (Exception e) {
-			System.out.println("getListCount e : " + e);
+		}catch (Exception e) {
+			e.printStackTrace();
 		}finally {
 			if(rs!=null) try{rs.close();}catch(SQLException ex){}
 			if(pstmt!=null) try{pstmt.close();}catch(SQLException ex){}
 			if(conn!=null) try{conn.close();}catch(SQLException ex){}
 		}
-		System.out.println("getListCount--------------");
+		
 		return x;
 	}
 	
-	public List getDesignList(int page, int limit) {
-		String board_list_sql="select * from " + 
-				"(select rownum rnum,t2.Design_num, t2.Design_title, t1.member_name, t2.Design_writedate, t2.Design_readcount, t1.member_team " + 
-				"from gw_member t1 inner join gw_Design_board t2 on t1.emp_num=t2.emp_num order by t2.Design_num desc) " + 
+	public List<DeveloperVO> getDeveloperList(int page, int limit) {
+		String Developer_list_sql="select * from " + 
+				"(select rownum rnum,t2.Developer_num, t2.Developer_title, t1.member_name, t2.Developer_writedate, t2.Developer_readcount, t1.member_team " + 
+				"from gw_member t1 inner join gw_Developer_board t2 on t1.emp_num=t2.emp_num order by t2.Developer_num desc) " + 
 				"WHERE rnum>=? and rnum<=?";
 		
-		List<DesignVO> list = new ArrayList<DesignVO>();
+		List<DeveloperVO> list = new ArrayList<DeveloperVO>();
 		
-		int startrow=(page-1)*10+1;//이게뭐지?
-		int endrow=startrow+limit-1;//이것도뭐지
+		int startrow=(page-1)*10+1;
+		int endrow=startrow+limit-1;
 		try {
 			conn = ds.getConnection();
-			pstmt = conn.prepareStatement(board_list_sql);
+			pstmt = conn.prepareStatement(Developer_list_sql);
 			pstmt.setInt(1, startrow);
 			pstmt.setInt(2, endrow);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				DesignVO bvo = new DesignVO();
-				bvo.setDesign_num(rs.getInt("design_num"));
-				bvo.setDesign_title(rs.getString("design_title"));
+				DeveloperVO bvo = new DeveloperVO();
+				bvo.setdeveloper_num(rs.getInt("developer_num"));
+				bvo.setdeveloper_title(rs.getString("developer_title"));
 				bvo.setMember_name(rs.getString("member_name"));
-				bvo.setDesign_writedate(rs.getString("design_writedate"));
-				bvo.setDesign_readcount(rs.getString("design_readcount"));
+				bvo.setdeveloper_writedate(rs.getString("developer_writedate"));
+				bvo.setdeveloper_readcount(rs.getString("developer_readcount"));
 				bvo.setMember_team(rs.getString("member_team"));
 				list.add(bvo);
 			}
 			return list;
 		} catch (Exception e) {
-			System.out.println("getDesignList : "+e);
+			System.out.println("getDeveloperList : "+e);
 		}finally {
 			if(rs!=null) try{rs.close();}catch(SQLException ex){}
 			if(pstmt!=null) try{pstmt.close();}catch(SQLException ex){}
@@ -94,11 +93,11 @@ public class DesignDAO {
 		return null;
 	}
 	//등록 이름, 팀명
-	public DesignVO getNameTeam(String empNum) {
-		DesignVO teamVO = new DesignVO();
+	public DeveloperVO getNameTeam(String empNum) {
+		DeveloperVO teamVO = new DeveloperVO();
 		try {
 			conn = ds.getConnection();
-			pstmt= conn.prepareStatement("select member_name from gw_Design_board where emp_num='?'");
+			pstmt= conn.prepareStatement("select member_name from gw_member where emp_num='?'");
 			pstmt.setString(1, empNum);
 			rs=pstmt.executeQuery();
 			
@@ -118,7 +117,7 @@ public class DesignDAO {
 		return teamVO;	
 	}
 	//등록 
-	public boolean insertDesign(DesignVO bvo) {
+	public boolean insertDeveloper(DeveloperVO bvo) {
 		
 		int num = 0;
 		String sql="";
@@ -127,22 +126,22 @@ public class DesignDAO {
 		
 		try {
 			conn = ds.getConnection();
-			pstmt = conn.prepareStatement("select max(Design_num) from gw_Design_board");
+			pstmt = conn.prepareStatement("select max(Developer_num) from gw_Developer_board");
 			rs = pstmt.executeQuery();
 			
 			if(rs.next())
 				num = rs.getInt(1)+1;
 			else
 				num=1;
-			sql="insert into gw_Design_board(Design_num,emp_num,Design_title,Design_content,Design_readcount,gw_Design_file)"
+			sql="insert into gw_Developer_board(Developer_num,emp_num,Developer_title,Developer_content,Developer_readcount,gw_Developer_file)"
 					+ " values(?,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			pstmt.setString(2, bvo.getEmp_num());
-			pstmt.setString(3, bvo.getDesign_title());
-			pstmt.setString(4, bvo.getDesign_content());
+			pstmt.setString(3, bvo.getdeveloper_title());
+			pstmt.setString(4, bvo.getdeveloper_content());
 			pstmt.setInt(5, 0);
-			pstmt.setString(6, bvo.getgw_design_file());
+			pstmt.setString(6, bvo.getgw_developer_file());
 			
 			result=pstmt.executeUpdate();
 			if(result==0) {
@@ -150,7 +149,7 @@ public class DesignDAO {
 			}
 			return true;
 		} catch (Exception e) {
-			System.out.println("boardInsert : "+e);
+			System.out.println("developerInsert : "+e);
 		}finally {
 			if(rs!=null) try{rs.close();}catch(SQLException ex){}
 			if(pstmt!=null) try{pstmt.close();}catch(SQLException ex){}
@@ -162,8 +161,8 @@ public class DesignDAO {
 	//조회수
 	public void setReadCountUpdate(int num)throws Exception{
 		
-		String sql="update GW_Design_BOARD set Design_READCOUNT = "+
-		"Design_readcount+1 where Design_num = "+num;
+		String sql="update gw_developer_board set developer_READCOUNT = "+
+		"Developer_readcount+1 where Developer_num = "+num;
 		
 		try {
 			conn= ds.getConnection();
@@ -181,23 +180,23 @@ public class DesignDAO {
 		
 	}
 	//글의 내용 상세보기 출력
-	public DesignVO getDetail(int num) throws Exception{
-		DesignVO bvo = null;
+	public DeveloperVO getDetail(int num) throws Exception{
+		DeveloperVO bvo = null;
 		try {
 			conn = ds.getConnection();
 			pstmt = 
-			conn.prepareStatement("select * from gw_Design_BOARD where Design_num = ?");
+			conn.prepareStatement("select * from gw_Developer_board where Developer_num = ?");
 			pstmt.setInt(1, num);
 			
 			rs= pstmt.executeQuery();
 			
 			if(rs.next()) {
-				bvo = new DesignVO();
-				bvo.setDesign_num(num);//Design
-				bvo.setDesign_title(rs.getString("DESIGN_TITLE"));
-				bvo.setDesign_content(rs.getString("DESIGN_CONTENT"));
-				bvo.setDesign_writedate(rs.getString("DESIGN_WRITEDATE"));
-				bvo.setgw_design_file(rs.getString("gw_DESIGN_FILE"));
+				bvo = new DeveloperVO();
+				bvo.setdeveloper_num(num);
+				bvo.setdeveloper_title(rs.getString("developer_title"));
+				bvo.setdeveloper_content(rs.getString("developer_content"));
+				bvo.setdeveloper_writedate(rs.getString("developer_writedate"));
+				bvo.setgw_developer_file(rs.getString("gw_developer_file"));
 				}
 			return bvo;
 		}catch (Exception e) {
@@ -212,22 +211,22 @@ public class DesignDAO {
 	
 	
 	//수정
-	public boolean DesignModify(DesignVO bvo) throws Exception{
+	public boolean DeveloperModify(DeveloperVO bvo) throws Exception{
 		
-		String sql="update GW_Design_BOARD set Design_title=?,"
-				+ " Design_content=?,gw_Design_file=? where Design_num=?";
+		String sql="update gw_Developer_board set Developer_title=?,"
+				+ " Developer_content=?,gw_developer_file=? where Developer_num=?";
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, bvo.getDesign_title());
-			pstmt.setString(2, bvo.getDesign_content());
-			pstmt.setString(3, bvo.getgw_design_file());
-			pstmt.setInt(4,bvo.getDesign_num());
+			pstmt.setString(1, bvo.getdeveloper_title());
+			pstmt.setString(2, bvo.getdeveloper_content());
+			pstmt.setString(3, bvo.getgw_developer_file());
+			pstmt.setInt(4,bvo.getdeveloper_num());
 			pstmt.executeUpdate();
 			
 			return true;
 		} catch (Exception e) {
-			System.out.println("boardModify : "+ e);
+			System.out.println("DeveloperModify : "+ e);
 		}finally {
 			if(rs!=null)try{rs.close();}catch(SQLException ex){}
 			if(pstmt!=null)try{pstmt.close();}catch(SQLException ex){}
@@ -237,14 +236,14 @@ public class DesignDAO {
 		return false;
 	}
 	//삭제
-	public boolean DesignDelete(int num) {
-		String board_delete_sql="delete from gw_Design_BOARD where Design_num=?";
+	public boolean DeveloperDelete(int num) {
+		String Developer_delete_sql="delete from gw_Developer_board where Developer_num=?";
 		
 		int result=0;
 		
 		try {
 			conn = ds.getConnection();
-			pstmt=conn.prepareStatement(board_delete_sql);
+			pstmt=conn.prepareStatement(Developer_delete_sql);
 			pstmt.setInt(1, num);
 			result=pstmt.executeUpdate();
 			if(result==0)return false;
@@ -252,7 +251,7 @@ public class DesignDAO {
 			return true;
 			
 		} catch (Exception e) {
-			System.out.println("DesignDelete 지우기 : "+e);
+			System.out.println("DeveloperDelete 지우기 : "+e);
 		}finally {
 			try{
 				if(pstmt!=null)pstmt.close();
@@ -262,6 +261,7 @@ public class DesignDAO {
 		}
 		return false;
 	}
+	//getmemberteaminpo
 	public String getmemberteaminpo(String emp_num) {
 		String sql="select member_team from gw_member where emp_num=?";
 		String memberteam="";
@@ -317,10 +317,47 @@ public class DesignDAO {
 		return memberrank;
 	}
 	
-	//검색
-	public void JoinBoard(DesignVO board) {
-		
-	}
+	
+	//페이지기능구현
+	 public ArrayList<DeveloperVO> getListDeveloper(int startRow, int endRow) {
+		 
+		    ArrayList<DeveloperVO> list = new ArrayList<DeveloperVO>();
+		     String sql="";
+		    try {
+		      conn = ds.getConnection();
+		       
+		      sql = "select * from " + 
+		      		"(select rownum rnum,t2.Developer_num, t2.Developer_title, t1.member_name, t2.Developer_writedate, t2.Developer_readcount, t1.member_team " + 
+		      		"from gw_member t1 inner join gw_Developer_board t2 on t1.emp_num=t2.emp_num order by t2.Developer_num desc)" + 
+		      		"WHERE rnum>=? and rnum<=?";
 
-
+		      pstmt = conn.prepareStatement(sql);
+		      pstmt.setInt(1, startRow);
+		      pstmt.setInt(2, endRow);
+		      rs = pstmt.executeQuery();
+		       
+		      while(rs.next()) {
+		        
+		        DeveloperVO dto = new DeveloperVO();
+		        dto .setdeveloper_num(rs.getInt("developer_num"));
+		        dto .setdeveloper_title(rs.getString("developer_title"));
+		        dto .setdeveloper_readcount(rs.getString("developer_readcount"));
+		        dto .setdeveloper_writedate(rs.getString("Developer_writedate"));
+		        dto.setMember_team(rs.getString("member_team"));
+		        dto.setMember_name(rs.getString("member_name"));
+		        list.add(dto);
+		      }
+		       
+		    } catch (Exception e){
+		      e.printStackTrace();
+		    } finally {
+		    	try{
+					if(pstmt!=null)pstmt.close();
+					if(conn!=null) conn.close();
+					if(rs!=null)rs.close();
+					}
+					catch(Exception ex){}	
+		    }
+		    return list;
+		  }
 }

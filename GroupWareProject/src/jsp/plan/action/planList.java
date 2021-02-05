@@ -1,4 +1,4 @@
-package jsp.Design.action;
+package jsp.plan.action;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,17 +7,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import jsp.Design.model.DesignDAO;
-import jsp.Design.model.DesignVO;
+import jsp.plan.model.PlanDAO;
+import jsp.plan.model.PlanVO;
 
 
 
-public class DesignList implements Action{
+public class planList implements Action{
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		DesignDAO bdao = new DesignDAO();
-		List<DesignVO> Designlist = new ArrayList<DesignVO>();
+		PlanDAO bdao = new PlanDAO();
+		List<PlanVO> planlist = new ArrayList<PlanVO>();
 		
 		HttpSession session = request.getSession();
 		String empNum= (String) session.getAttribute("sessionID");
@@ -30,7 +30,7 @@ public class DesignList implements Action{
 		}
 		
 		int listcount = bdao.getListCount(); //총 리스트 수를 받아옴
-		Designlist = bdao.getDesignList(page, limit);//리스트를 받아옴
+		planlist = bdao.getplanList(page, limit);//리스트를 받아옴
 		
 		
 		//총 페이지 수
@@ -50,9 +50,9 @@ public class DesignList implements Action{
 		request.setAttribute("listcount",listcount);
  		String team_name=bdao.getmemberteaminpo(empNum);
  		request.setAttribute("team_name", team_name);
-		request.setAttribute("lists", Designlist);
+		request.setAttribute("lists", planlist);
 		ActionForward forward = new ActionForward();
-		forward.setPath("./Design/DesignListForm.jsp");
+		forward.setPath("./plan/PlanListForm.jsp");
 		forward.setRedirect(false);
 		
 		return forward;

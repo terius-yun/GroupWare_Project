@@ -13,20 +13,20 @@
 </head>
 <body>
 	<h1><a href="main.do">홈</a>/등록</h1>
-	<form action="Updateform.dgi" method="post">
-	<input type="hidden"name="design_num"value="${view.design_num}">
+	<form action="Updateform.pl" method="post">
+	<input type="hidden"name="plan_num"value="${view.plan_num}">
 	
 		<table>
 		  <tr align="center" valign="middle">
 		   <td colspan="4" style="margin-left: auto;">게시판
 		   </td></tr>
-		  <tr> <td>제 목</td><td>${view.design_title}</td></tr>
-		  <tr> <td>내 용</td><td>${view.design_content}</td></tr>
-		  <tr> <td>파일 첨부</td><td><img src="UploadFolder/${view.gw_design_file}"><br>${view.gw_design_file}</td></tr>
+		  <tr> <td>제 목</td><td>${view.plan_title}</td></tr>
+		  <tr> <td>내 용</td><td>${view.plan_content}</td></tr>
+		  <tr> <td>파일 첨부</td><td><img src="UploadFolder/${view.gw_plan_file}"><br>${view.gw_plan_file}</td></tr>
 		</table>
 		<button name="답글">답글</button>
 		<input type="submit" value="수정">
-		<input type="button" value="삭제" onclick="location.href='DeleteDesignAction.dgi?num=${view.design_num}'">
+		<input type="button" value="삭제" onclick="location.href='DeletePlanAction.pl?num=${view.plan_num}'">
 	</form>
 	
 </body>
