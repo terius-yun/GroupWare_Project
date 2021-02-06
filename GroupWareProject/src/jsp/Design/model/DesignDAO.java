@@ -11,6 +11,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import jsp.board.model.BoardVO;
 import jsp.common.util.DBConnection;
 
 public class DesignDAO {
@@ -28,6 +29,84 @@ public class DesignDAO {
 			return;
 		}
 		
+		
+	}
+	//검색
+	public int SearchCount(String searchName,String searchValue) {
+		int x= 0;
+				try {
+			conn=ds.getConnection();
+			System.out.println("getConnection");
+			if(searchName.equals("title")) {
+				String sql = "select count(*) from gw_Design_board where upper(Design_title) like upper('%"+searchValue+"%')";
+				pstmt=conn.prepareStatement(sql);
+			}
+			else {
+				String sql = "select count(*) from gw_member where upper(member_name) like upper('%"+searchValue+"%')";
+				pstmt=conn.prepareStatement(sql);
+			}
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				x=rs.getInt(1);
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			if(rs!=null) try{rs.close();}catch(SQLException ex){}
+			if(pstmt!=null) try{pstmt.close();}catch(SQLException ex){}
+			if(conn!=null) try{conn.close();}catch(SQLException ex){}
+		}
+	return x;
+	}
+	//검색
+	public List<DesignVO> Search(int page, int limit,String searchName,String searchValue) {
+		System.out.println("Search메소드 실행");
+		String board_list_sql="select * from " + 
+				"(select rownum rnum,t2.Design_num, t2.Design_title, t1.member_name, t2.Design_writedate, t2.Design_readcount, t1.member_team " + 
+				"from gw_member t1 inner join gw_Design_board t2 on t1.emp_num=t2.emp_num order by t2.Design_num desc) " + 
+				"WHERE rnum>=? and rnum<=? ";
+		if(searchName.equals("title")) {
+			board_list_sql+= "and upper(Design_title) like upper(?)";
+		}else {
+			board_list_sql+="and upper(member_name) like upper(?)";
+		}
+		
+		List<DesignVO> list = new ArrayList<DesignVO>();
+		
+		int startrow=(page-1)*10+1;//이게뭐지?
+		int endrow=startrow+limit-1;//이것도뭐지
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(board_list_sql);
+			pstmt.setInt(1, startrow);
+			pstmt.setInt(2, endrow);
+			pstmt.setString(3, "%"+searchValue+"%");
+			rs = pstmt.executeQuery();
+			System.out.println("query 문 실행");
+			while(rs.next()) {
+				DesignVO bvo = new DesignVO();
+				bvo.setDesign_num(rs.getInt("Design_num"));
+				bvo.setDesign_title(rs.getString("Design_title"));
+				System.out.println("Design_title : "+rs.getString("Design_title"));
+				bvo.setMember_name(rs.getString("member_name"));
+				bvo.setDesign_writedate(rs.getString("Design_writedate"));
+				bvo.setDesign_readcount(rs.getString("Design_readcount"));
+				bvo.setMember_team(rs.getString("member_team"));
+				System.out.println("list : "+bvo.toString());
+				
+				list.add(bvo);
+			}
+			
+			
+		} catch (Exception e) {
+			System.out.println("getboardList : "+e);
+		}finally {
+			if(rs!=null) try{rs.close();}catch(SQLException ex){}
+			if(pstmt!=null) try{pstmt.close();}catch(SQLException ex){}
+			if(conn!=null) try{conn.close();}catch(SQLException ex){}
+		}
+		return list;
 	}
 	//리스트
 	public int getListCount() {
@@ -193,6 +272,7 @@ public class DesignDAO {
 			
 			if(rs.next()) {
 				bvo = new DesignVO();
+				bvo.setEmp_num(rs.getString("emp_num"));
 				bvo.setDesign_num(num);//Design
 				bvo.setDesign_title(rs.getString("DESIGN_TITLE"));
 				bvo.setDesign_content(rs.getString("DESIGN_CONTENT"));

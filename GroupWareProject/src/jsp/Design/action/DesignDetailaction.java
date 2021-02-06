@@ -31,8 +31,6 @@ public class DesignDetailaction implements Action {
 		ActionForward forward = new ActionForward();
 		forward.setRedirect(false);//dispatcher 호출
 		forward.setPath("Design/Designview.jsp");
-		
-		
 		return forward;
 	}
 

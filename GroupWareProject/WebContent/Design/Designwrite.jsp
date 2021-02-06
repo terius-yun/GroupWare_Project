@@ -18,6 +18,7 @@
 		  <tr align="center" valign="middle">
 		   <td colspan="4" style="margin-left: auto;">게시판
 		   </td></tr>
+		   <input type="hidden" name="id" value="${sessionID}">
 		  <tr> <td>제 목</td><td><input name="design_title" type="text"></td></tr>
 		  <tr> <td>내 용</td><td><textarea rows="13" cols="50" name="design_content"></textarea></td></tr>
 		  <tr> <td>파일 첨부</td><td><input type="file" name="gw_design_file"></td></tr>

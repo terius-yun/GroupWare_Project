@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 import jsp.board.model.BoardDAO;
 import jsp.board.model.BoardVO;
 
-public class BoardList implements Action{
+public class BoardList2 implements Action{
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {

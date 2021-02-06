@@ -103,6 +103,15 @@ public class BoardVO {
 	public void setBoard_file(String board_file) {
 		this.board_file = board_file;
 	}
+	@Override
+	public String toString() {
+		return "BoardVO [board_num=" + board_num + ", emp_num=" + emp_num + ", board_title=" + board_title
+				+ ", board_content=" + board_content + ", board_readcount=" + board_readcount + ", board_writedate="
+				+ board_writedate + ", board_file=" + board_file + ", row_num=" + row_num + ", member_administrator="
+				+ member_administrator + ", member_name=" + member_name + ", member_pNum=" + member_pNum
+				+ ", member_email=" + member_email + ", member_team=" + member_team + ", member_rank=" + member_rank
+				+ "]";
+	}
 	
 	
 }

@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import jsp.Design.action.DesignSearch;
+
 
 //@WebServlet(name = "Developer_Controller", urlPatterns = { "/Developer_Controller" })
 public class DeveloperController extends HttpServlet {
@@ -76,12 +78,10 @@ public class DeveloperController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if(command.equals("notice.dp")) {
-			//공지사항
-			action = new DevelopernoticeAction();
-			
+		}else if(command.equals("/DeveloperSearch.dp")) {
+			action = new DeveloperSearch();
 			try {
-				forward= action.execute(request, response);
+				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

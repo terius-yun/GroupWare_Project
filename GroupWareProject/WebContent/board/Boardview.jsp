@@ -35,7 +35,6 @@ function button_event(){
 		  <tr> <td>내 용</td><td>${view.board_content}</td></tr>
 		  <tr> <td>파일 첨부</td><td><img src="UploadFolder/${view.board_file}"><br>${view.board_file}</td></tr>
 		</table>
-		<button name="답글">답글</button>
 		<c:if test="${view.emp_num==sessionID}">
 		<input type="submit" value="수정">
 		<input type="button" value="삭제" onclick="button_event();">

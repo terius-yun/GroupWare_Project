@@ -1,6 +1,6 @@
 insert into GW_BOARD VALUES(2,'test1','title','content',44,sysdate);
 alter table gw_board drop primary key;
-alter table gw_design_board add foreign key(emp_num) references gw_member(emp_num);
+
 
 select t1.member_name,t2.BOARD_NUM, t2.BOARD_READCOUNT,
 t2.BOARD_CONTENT,t2.BOARD_TITLE, t2.BOARD_WRITEDATE
@@ -11,6 +11,13 @@ select * from GW_BOARD;
 
 alter table gw_board
 add PRIMARY key (board_num);
+
+
+alter table gw_DESIGN_board add foreign key(emp_num) references gw_member(emp_num);
+alter table gw_DEVELOPER_board add foreign key(emp_num) references gw_member(emp_num);
+alter table gw_NOTICE_board add foreign key(emp_num) references gw_member(emp_num);
+alter table gw_PLAN_board add foreign key(emp_num) references gw_member(emp_num);
+
 
 create table gw_board(
 	board_num number(4)not null primary key,

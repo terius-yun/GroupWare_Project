@@ -42,9 +42,9 @@ public class DeveloperAddAction implements Action{
 			//bvo.setMember_name(multi.getParameter("member_name"));
 			//bvo.setMember_team(multi.getParameter("member_team"));
 			bvo.setEmp_num(empNum);
-			bvo.setdeveloper_title(multi.getParameter("developer_title"));
-			bvo.setdeveloper_content(multi.getParameter("developer_content"));
-			bvo.setgw_developer_file(multi.getFilesystemName("gw_developer_file"));
+			bvo.setdeveloper_title(multi.getParameter("Developer_title"));
+			bvo.setdeveloper_content(multi.getParameter("Developer_content"));
+			bvo.setgw_developer_file(multi.getFilesystemName("gw_Developer_file"));
 			
 			System.out.println("bvo title: "+bvo.getdeveloper_title()+" bvo content "+bvo.getdeveloper_content());
 			

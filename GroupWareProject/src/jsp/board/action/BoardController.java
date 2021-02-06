@@ -76,16 +76,15 @@ public class BoardController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if(command.equals("notice.bo")) {
-			//공지사항
-			action = new BoardnoticeAction();
+			
+		}else if(command.equals("/BoardSearch.bo")) {
+			action = new BoardSearch();
 			
 			try {
 				forward= action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
 		}
 		
 		

@@ -111,17 +111,15 @@
 	</table>
     </div>
     <br>
-    <div id="searchForm">
-        <form>
-            <select name="opt">
-                <option value="0">제목</option>
-                <option value="1">내용</option>
-                <option value="2">제목+내용</option>
-                <option value="3">글쓴이</option>
-            </select>
-            <input type="text" size="20" name="condition"/>&nbsp;
-            <input type="submit" value="검색"/>
-        </form>    
+     <div id="searchForm">
+        <form action="PlanSearch.pl" method="post">
+               <select name="searchName" size="1"> 
+                  <option value="id">아이디</option>
+                  <option value="title">글제목</option>
+               </select> 
+               <input type="text" name="searchValue"> 
+               <input type="submit" value="찾기">
+            </form>   
     </div>
 </div>    
  

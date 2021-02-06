@@ -54,7 +54,81 @@ public class BoardDAO {
 		
 		return x;
 	}
-	
+	public int SearchCount(String searchName,String searchValue) {
+		int x= 0;
+				try {
+			conn=ds.getConnection();
+			System.out.println("getConnection");
+			if(searchName.equals("title")) {
+				String sql = "select count(*) from gw_board where upper(board_title) like upper('%"+searchValue+"%')";
+				pstmt=conn.prepareStatement(sql);
+			}
+			else {
+				String sql = "select count(*) from gw_member where upper(member_name) like upper('%"+searchValue+"%')";
+				pstmt=conn.prepareStatement(sql);
+			}
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				x=rs.getInt(1);
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			if(rs!=null) try{rs.close();}catch(SQLException ex){}
+			if(pstmt!=null) try{pstmt.close();}catch(SQLException ex){}
+			if(conn!=null) try{conn.close();}catch(SQLException ex){}
+		}
+	return x;
+	}
+	public List<BoardVO> Search(int page, int limit,String searchName,String searchValue) {
+		System.out.println("Search메소드 실행");
+		String board_list_sql="select * from " + 
+				"(select rownum rnum,t2.board_num, t2.board_title, t1.member_name, t2.board_writedate, t2.board_readcount, t1.member_team " + 
+				"from gw_member t1 inner join gw_board t2 on t1.emp_num=t2.emp_num order by t2.board_num desc) " + 
+				"WHERE rnum>=? and rnum<=? ";
+		if(searchName.equals("title")) {
+			board_list_sql+= "and upper(board_title) like upper(?)";
+		}else {
+			board_list_sql+="and upper(member_name) like upper(?)";
+		}
+		
+		List<BoardVO> list = new ArrayList<BoardVO>();
+		
+		int startrow=(page-1)*10+1;//이게뭐지?
+		int endrow=startrow+limit-1;//이것도뭐지
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(board_list_sql);
+			pstmt.setInt(1, startrow);
+			pstmt.setInt(2, endrow);
+			pstmt.setString(3, "%"+searchValue+"%");
+			rs = pstmt.executeQuery();
+			System.out.println("query 문 실행");
+			while(rs.next()) {
+				BoardVO bvo = new BoardVO();
+				bvo.setBoard_num(rs.getInt("board_num"));
+				bvo.setBoard_title(rs.getString("board_title"));
+				System.out.println("board_title : "+rs.getString("board_title"));
+				bvo.setMember_name(rs.getString("member_name"));
+				bvo.setBoard_writedate(rs.getString("board_writedate"));
+				bvo.setBoard_readcount(rs.getString("board_readcount"));
+				bvo.setMember_team(rs.getString("member_team"));
+				System.out.println("list : "+bvo.toString());
+				
+				list.add(bvo);
+			}
+			
+			
+		} catch (Exception e) {
+			System.out.println("getboardList : "+e);
+		}finally {
+			if(rs!=null) try{rs.close();}catch(SQLException ex){}
+			if(pstmt!=null) try{pstmt.close();}catch(SQLException ex){}
+			if(conn!=null) try{conn.close();}catch(SQLException ex){}
+		}
+		return list;
+	}
 	public List<BoardVO> getBoardList(int page, int limit) {
 		String board_list_sql="select * from " + 
 				"(select rownum rnum,t2.board_num, t2.board_title, t1.member_name, t2.board_writedate, t2.board_readcount, t1.member_team " + 

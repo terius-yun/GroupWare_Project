@@ -22,8 +22,6 @@ public class BoardAddAction implements Action{
 		String realFolder ="";//파일 업로드
 		String saveFolder ="UploadFolder";
 		
-		HttpSession session = request.getSession();
-		String empNum= (String) session.getAttribute("sessionID");
 		
 		int fileSize=5*1024*1024;//이미지 첨부파일크기
 		
@@ -41,7 +39,7 @@ public class BoardAddAction implements Action{
 			
 			//bvo.setMember_name(multi.getParameter("member_name"));
 			//bvo.setMember_team(multi.getParameter("member_team"));
-			bvo.setEmp_num(empNum);
+			bvo.setEmp_num(multi.getParameter("id"));
 			bvo.setBoard_title(multi.getParameter("board_title"));
 			bvo.setBoard_content(multi.getParameter("board_content"));
 			bvo.setBoard_file(multi.getFilesystemName("board_file"));

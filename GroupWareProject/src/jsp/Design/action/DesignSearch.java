@@ -1,4 +1,4 @@
-package jsp.board.action;
+package jsp.Design.action;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,23 +7,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import jsp.board.model.BoardDAO;
-import jsp.board.model.BoardVO;
+import jsp.Design.model.DesignDAO;
+import jsp.Design.model.DesignVO;
 
-public class BoardList implements Action{
+
+public class DesignSearch implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		BoardDAO bdao = new BoardDAO();
-		List<BoardVO> boardlist = new ArrayList<BoardVO>();
+		DesignDAO bdao = new DesignDAO();
+		List<DesignVO> boardlist = new ArrayList<DesignVO>();
+		String searchName=request.getParameter("searchName");
+		String searchValue=request.getParameter("searchValue");
+		System.out.print("searchValue : "+searchValue);
 		
 		int page=1;
 		int limit=10;//한 페이지에 보여줄 게시글 10개
 		if(request.getParameter("page")!=null) {
 			page=Integer.parseInt(request.getParameter("page"));
 		}
-		int listcount=bdao.getListCount();// 총 리스트 수를 받아옴
-		boardlist = bdao.getBoardList(page, limit);// 리스트를 받아옴
+		int listcount=bdao.SearchCount(searchName, searchValue);// 총 리스트 수를 받아옴
+		boardlist = bdao.Search(page, limit, searchName, searchValue);// 리스트를 받아옴
 		//총 페이지 수
 		int maxpage=(int)((double)listcount/limit+0.95);//0.95를 더해서 올림 처리
 		//현재 페이지에 보여줄 시작 페이지 수(1,11,21 등...)
@@ -38,19 +42,14 @@ public class BoardList implements Action{
  		request.setAttribute("endpage", endpage); //현재 페이지에 표시할 끝 페이지 수
 		request.setAttribute("listcount",listcount); //글 수
 		
-		HttpSession session = request.getSession();
-		String empNum= (String) session.getAttribute("sessionID");
 		
-
- 		String team_name=bdao.getmemberteaminpo(empNum);
- 		request.setAttribute("team_name", team_name);
 		request.setAttribute("lists", boardlist);
+		
 		ActionForward forward = new ActionForward();
-		forward.setPath("./board/BoardListForm.jsp");
+		forward.setPath("./Design/DesignListForm.jsp");
 		forward.setRedirect(false);
 		
 		return forward;
 	}
 
-	
 }
