@@ -9,7 +9,18 @@
 <style>
 	td{border: 1px solid;}
 </style>
+<script type="text/javascript">
+function button_event(){
+	if (confirm("정말 삭제하시겠습니까??") == true){
+	    
+	    location.href='DeleteBoardAction.bo?num=${view.board_num}'
+	}else{   //취소
 
+	    return;
+
+	}
+}
+</script>
 </head>
 <body>
 	<h1><a href="main.do">홈</a>/등록</h1>
@@ -25,9 +36,16 @@
 		  <tr> <td>파일 첨부</td><td><img src="UploadFolder/${view.board_file}"><br>${view.board_file}</td></tr>
 		</table>
 		<button name="답글">답글</button>
+		<c:if test="${view.emp_num==sessionID}">
 		<input type="submit" value="수정">
-		<input type="button" value="삭제" onclick="location.href='DeleteBoardAction.bo?num=${view.board_num}'">
+		<input type="button" value="삭제" onclick="button_event();">
+		</c:if>
+		<c:if test="${view.emp_num!=sessionID}">
+		<input type="hidden" value="수정">
+		<input type="hidden" value="삭제" onclick="button_event();">
+		</c:if>
+		
+		
 	</form>
-	
 </body>
 </html>

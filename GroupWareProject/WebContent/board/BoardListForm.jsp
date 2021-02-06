@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>        
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>   
 <%
 	int listcount=((Integer)request.getAttribute("listcount")).intValue();
 	int nowpage=((Integer)request.getAttribute("page")).intValue();
@@ -82,7 +82,6 @@
 			<tr>
 			<!-- 너 수정 -->
 			<td><div align="center">
-			<b style="color: red">공지</b>
 				<a href="BoardDetailAction.bo?num=${list.board_num}">
 				${list.board_title}</a></div></td>
 			<!-- 작성자 정보 -->

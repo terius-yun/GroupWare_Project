@@ -58,7 +58,7 @@ public class DeveloperAddAction implements Action{
 			System.out.println("게시판 등록 완료");
 			
 			forward.setRedirect(true);
-			forward.setPath("developerListForm.dp");
+			forward.setPath("DeveloperListForm.dp");
 			
 		}catch (Exception e) {
 			e.printStackTrace();

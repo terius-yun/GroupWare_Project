@@ -36,7 +36,7 @@
         		}else if(value == "1"){//자유게시판
         		location.href="BoardListForm.bo";
         		}else if(value=="2"){//기획팀
-        			location.href="DeveloperPlan.dp";
+        			location.href="PlanListForm.pl";
         		}else if(value=="3"){//디자인팀
         			location.href="DesignListForm.dgi";
         		}else {//공지사항
@@ -77,7 +77,7 @@
 			<tr>
 			<!-- 너 수정 -->
 			<td><div align="center">
-			<b style="color: red">공지</b>
+			
 				<a href="DeveloperDetailAction.dp?num=${list.developer_num}">
 				${list.developer_title}</a></div></td>
 			<!-- 작성자 정보 -->

@@ -83,7 +83,7 @@
 			<tr>
 			<!-- 너 수정 -->
 			<td><div align="center">
-			<b style="color: red">공지</b>
+			
 				<a href="PlanDetailAction.pl?num=${list.plan_num}">
 				${list.plan_title}</a></div></td>
 			<!-- 작성자 정보털림 -->

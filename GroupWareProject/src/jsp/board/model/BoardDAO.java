@@ -192,6 +192,7 @@ public class BoardDAO {
 			
 			if(rs.next()) {
 				bvo = new BoardVO();
+				bvo.setEmp_num(rs.getString("emp_num"));
 				bvo.setBoard_num(num);
 				bvo.setBoard_title(rs.getString("board_title"));
 				bvo.setBoard_content(rs.getString("board_content"));

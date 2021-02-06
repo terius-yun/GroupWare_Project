@@ -23,6 +23,7 @@
 		  <tr> <td>파일 첨부</td><td><input type="file" name="board_file"></td></tr>
 		</table>
 		<input type="submit" value="등록"><input type="reset" value="취소">
+		
 	</form>
 </body>
 </html>

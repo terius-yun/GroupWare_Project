@@ -12,14 +12,31 @@ select * from GW_BOARD;
 alter table gw_board
 add PRIMARY key (board_num);
 
-create table gw_design_board(
-	design_num number(4)not null primary key,
+create table gw_board(
+	board_num number(4)not null primary key,
 	emp_num varchar2(40),	
-	design_title varchar2(40),
-	design_content varchar2(3000),
-	design_readcount varchar2(40),
-	design_writedate date default sysdate
+	board_title varchar2(40),
+	board_content varchar2(3000),
+	board_readcount varchar2(40),
+	board_writedate date default sysdate,
+	board_file varchar2(100)
 );
+--테이블 명
+--gw_DESIGN_board
+--gw_DEVELOPER_board
+--gw_NOTICE_board
+--gw_PLAN_board
+--나머지 변수명들board에 들감
+-- DESIGN
+-- DEVELOPER
+-- NOTICE
+-- PLAN
+--파일이름
+--gw_DESIGN_file varchar2(100);
+--gw_DEVELOPER_file varchar2(100);
+--gw_NOTICE_file varchar2(100);
+--gw_PLAN_file varchar2(100);
+
 drop table gw_board;
 
 insert into gw_board values(
