@@ -59,8 +59,8 @@ public class MainVCFormAction implements Action {
 		VcDAO vdao = VcDAO.getInstance();
 		ArrayList<VcVO> list = vdao.VcInfo(emp_num , cal_year);
 		
+		System.out.println("dao에서 최초 받아오는 값 = "+list);
 		
-		if(list !=null) {//dao를 통해 가져온 정보가 있을때만.
 			//list value값만큼 배열 초기화
 			String [] start_date = new String[list.size()];
 			String [] end_date = new String[list.size()];
@@ -130,7 +130,7 @@ public class MainVCFormAction implements Action {
 		    request.setAttribute("endDay", endDay);				
 		    request.setAttribute("content", content);
 			request.setAttribute("vcCount", vcCount);
-		}
+		
 		request.setAttribute("cal_year", cal_year);
 		request.setAttribute("cal_month", cal_month);
 		

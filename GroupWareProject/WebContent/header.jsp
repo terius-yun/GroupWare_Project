@@ -35,7 +35,7 @@
 	<body>
 		<div id = "wrap">
 			<p id="wrap2">
-				<button id="symbolBtn" ><img src="img/symbol.png"></button>
+				<button id="symbolBtn" class = "btn btn-primary"><img src="img/symbol.png"></button>
 				<button id="homeBtn"class = "btn btn-primary" onclick = "changeView(0)"><img src="img/home.png"></button>
 		        <button id="sceduleBtn" class="btn btn-primary" onclick="changeView(1)"><img src="img/schedule.png"></button>
 		        <button id="boardBtn" class="btn btn-primary" onclick="changeView(2)"><img src="img/board.png"></button>

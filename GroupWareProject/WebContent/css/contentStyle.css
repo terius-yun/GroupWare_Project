@@ -1,0 +1,23 @@
+@charset "utf-8";
+.imgbtn {
+		width: 100px;
+		height:130px;
+		margin: 20px;
+		background-color:white;
+		text-align:center;
+		padding:30px;
+		border: 1px solid #4577e5;
+	}
+	.wimgbtn {
+		background-color:#4577e5;
+	}
+#con {
+	text-align: center;
+	background: white;
+    text-align: center;
+    margin-top:120px;
+}
+button{
+	border:none;
+	background-color:white;
+}
