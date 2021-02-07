@@ -36,6 +36,47 @@
    		<url-pattern>*.cal</url-pattern>
    	</servlet-mapping>
 
+	<servlet>
+        <description>Controller</description>
+        <display-name>BoardController</display-name>
+        <servlet-name>BoardController</servlet-name>
+        <servlet-class>jsp.board.action.BoardController</servlet-class>
+   	</servlet><!-- 자유게시판 -->
+   	<servlet-mapping>
+        <servlet-name>BoardController</servlet-name>
+        <url-pattern>*.bo</url-pattern>
+   	</servlet-mapping>
+   	<servlet>
+   		<description>Controller</description>
+   		<display-name>DesignController</display-name>
+   		<servlet-name>DesignController</servlet-name>
+   		<servlet-class>jsp.Design.action.DesignController</servlet-class>
+   	</servlet>
+   	<servlet-mapping><!-- 디자인 게시판 -->
+   		<servlet-name>DesignController</servlet-name>
+   		<url-pattern>*.dgi</url-pattern>
+   	</servlet-mapping>
+   	<servlet>
+   		<description>Controller</description>
+   		<display-name>DeveloperController</display-name>
+   		<servlet-name>DeveloperController</servlet-name>
+   		<servlet-class>jsp.Developer.action.DeveloperController</servlet-class>
+   	</servlet>
+  <servlet-mapping><!-- 개발자게시판 -->
+  	<servlet-name>DeveloperController</servlet-name>
+  	<url-pattern>*.dp</url-pattern>
+  </servlet-mapping>
+   	 <servlet>
+        <description>Controller</description>
+        <display-name>planController</display-name>
+        <servlet-name>planController</servlet-name>
+        <servlet-class>jsp.plan.action.planController</servlet-class>
+   	</servlet><!-- 기획 -->
+   	<servlet-mapping>
+        <servlet-name>planController</servlet-name>
+        <url-pattern>*.pl</url-pattern>
+   	</servlet-mapping>
+
 	<resource-ref>
     	<description>connection</description><!-- 설명 -->
     	<res-ref-name>jdbc/sign</res-ref-name><!-- server의 context.xml파일의 name과 동일 -->

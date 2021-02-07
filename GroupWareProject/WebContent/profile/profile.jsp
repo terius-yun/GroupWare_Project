@@ -11,10 +11,14 @@
 		location.href="updateProfile.do";
 	}
 </script>
-
+<style type="text/css">
+	body {
+		text-align: center;
+	}
+</style>
 </head>
 <body>
-	<h1 style="text-align: center;">마이 프로필</h1>
+	<h1>마이 프로필</h1>
 	<table>
 	<c:forEach var="member" items="${requestScope.memberInfo}">
 		<tr>
@@ -63,6 +67,7 @@
 		</tr>
 		</c:forEach>
 	</table>
+	<br>
 	<button id="updateBtn" onclick="updateProfile()">수정</button>
 </body>
 </html>

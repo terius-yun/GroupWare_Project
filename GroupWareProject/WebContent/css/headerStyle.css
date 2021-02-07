@@ -29,8 +29,7 @@ img {
 }
 
 #footer{
-	position:absolute;
-	bottom:0px;
+	margin-top: 120px;
 	height:10%;
 	width:1050px;
 	background: #4577e5;

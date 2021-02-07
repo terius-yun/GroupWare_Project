@@ -6,6 +6,11 @@
 		<meta charset="UTF-8">
 		<title>프로필 수정</title>
 	</head>
+	<style type="text/css">
+	body {
+		text-align: center;
+		}
+	</style>
 	<body>
 	<h1>프로필 수정하기</h1>
 		<form action="MemberProfileUpdateAction.do" method="post">
@@ -31,8 +36,10 @@
 					<td><input type="text" name="member_bank_account"></td>
 				</tr>
 			</table>
+			<br>
 			<input type="submit" value="완료">
 		</form>
+		<br>
 		<p>이외의 다른 항목의 수정은 관리자에게 문의하십시오.</p>
 	</body>
 </html>

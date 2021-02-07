@@ -13,10 +13,8 @@
 					location.href="main.do";
 				}else if(value == "1"){
 					location.href="CalendarDetail.cal";
-				}else if(value == "2"){
-					location.href="#";
-				}else if(value == "2"){//게시판
-					location.href="#";
+				}else if(value == "2"){//게시판 이동
+					location.href="BoardListForm.bo";
 				}else if(value == "3"){//출결,연차
 					location.href="MainHRFormAction.vc";
 				}else if(value == "4"){//주소록

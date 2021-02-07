@@ -25,7 +25,7 @@
     <!--
     <Manager pathname="" />
     -->
-                <!-- 설정을 위한 코드추가 -->
+    <!-- 설정을 위한 코드추가 -->
                     <Resource auth="Container"
                     	name="jdbc/sign" 
                         driverClassName="oracle.jdbc.driver.OracleDriver"
