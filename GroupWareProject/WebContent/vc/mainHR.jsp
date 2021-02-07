@@ -209,7 +209,9 @@ function changeMonth(changeValue){// 월 이동
 function VcCal(){
 				location.href="MainVCFormAction.vc";
 }
-
+function HrCal(){
+	location.href="MainHRFormAction.vc";
+}
 </script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -232,7 +234,18 @@ function VcCal(){
    month = Integer.parseInt(cal_month);
 %>
 <body>
-<button onclick="VcCal()">연차</button>
+	<div id="navbar">
+		<div id="page">
+			<ul class="ulbtn">
+				<li><button class="pagelink check" onclick="VcCal()">연차</button></li>
+				<li><button class="pagelink check" onclick="HrCal()">근태</button></li>
+			</ul>
+		</div>
+		<div id="hrbtn">
+	        <input class="check" type="submit" value="출근" formaction="MainHRCheckinAction.vc">
+	        <input class="check" type="submit" value="퇴근" formaction="MainHRCheckoutAction.vc">
+	   	</div>
+   	</div>
 <form action="" method="post" id="frm" name="frm">
    <table id="tab1">
       <tr>
@@ -249,12 +262,6 @@ function VcCal(){
             </td>
                 <td width=200><%=nowYear + "-" + (nowMonth+1) + "-" + nowDay%></td>
             </tr>
-            <tr>
-            	<td colspan="6">
-	               <input type="submit" value="출근" formaction="MainHRCheckinAction.vc">
-	               <input type="submit" value="퇴근" formaction="MainHRCheckoutAction.vc">
-              	</td>
-            </tr> 
    </table>
    <table id="tab2" border="1">
       <tr id="yo">
@@ -266,7 +273,7 @@ function VcCal(){
          <td width="100">토</td>
          <td width="100">일</td>
       </tr>
-      <tr height='50'>
+      <tr height='100'>
          <%
          
          //날짜 셋팅
@@ -299,7 +306,7 @@ function VcCal(){
             
             // 날짜
             for( int i = 1; i <= end; i++){
-               out.println("<td id='day"+i+"'>" + i);
+               out.println("<td class='day' id='day"+i+"'>" + i);
                if( hrCount != 0 ){
                   for(int j = 0; j <hrCount; j++){
                      if(startYear[j]<= year
@@ -309,7 +316,7 @@ function VcCal(){
                            && startDay[j]== i
                            && startDay[j] <= endDay[j]
                            ){
-                        out.println("<p id='checkin'> 출근 : " + cal_checkin[j] +"</p><hr>");
+                        out.println("<p id='checkin'> 출근 : " + cal_checkin[j] +"</p>");
                          out.println("<p id='checkout'> 퇴근 : " + cal_checkout[j] +"</p>");
                         startDay[j]++;
                      } 
@@ -319,7 +326,7 @@ function VcCal(){
                out.println("</td>");
                br++;
                if((br%7)==0 && i != end){
-                  out.println("</tr><tr height='50'>");
+                  out.println("</tr><tr class='day' height='100'>");
                }
             }
                while((br++)%7 != 0)
