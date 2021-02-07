@@ -16,25 +16,21 @@ a{
     background-color: white;
     color:#4577E5;
 }
+
+#pageBtn{
+	margin-left:96px;
+}
 .ulbtn{
+	float:left;
 	display: flex;
 	list-style: none;
-	margin-left:10px;
 	margin:0;
 	padding-right:12px;
 }
-.hrbtn{
-	display: flex;
+#hrbtn{
+	float:right;
+	margin-right:136px;
 	list-style: none;
-	margin-left:10px;
-	margin:0;
-	padding-right:12px;
-}
-#navbar{
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	background-color:white;
 }
 #yo{
    text-align: center;
@@ -51,9 +47,11 @@ a{
    font-family: 'Noto Sans KR', sans-serif;
    background-color:#4577E5;
    color:white;
+   clear: both;
 }
 #checkin, #checkout {
 	background-color: #39AEA9;
 	color : white;
 	outline:none;
+	font-family: 'Noto Sans KR', sans-serif;
 }

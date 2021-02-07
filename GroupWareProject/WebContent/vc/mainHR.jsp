@@ -234,19 +234,17 @@ function HrCal(){
    month = Integer.parseInt(cal_month);
 %>
 <body>
-	<div id="navbar">
-		<div id="page">
+		<div id="pageBtn">
 			<ul class="ulbtn">
 				<li><button class="pagelink check" onclick="VcCal()">연차</button></li>
 				<li><button class="pagelink check" onclick="HrCal()">근태</button></li>
 			</ul>
 		</div>
-		<div id="hrbtn">
-	        <input class="check" type="submit" value="출근" formaction="MainHRCheckinAction.vc">
-	        <input class="check" type="submit" value="퇴근" formaction="MainHRCheckoutAction.vc">
-	   	</div>
-   	</div>
 <form action="" method="post" id="frm" name="frm">
+   	<div id="hrbtn">
+		<input class="check" type="submit" value="출근" formaction="MainHRCheckinAction.vc">
+		<input class="check" type="submit" value="퇴근" formaction="MainHRCheckoutAction.vc">
+	</div>
    <table id="tab1">
       <tr>
          <td>
