@@ -1,23 +1,59 @@
 @charset "utf-8";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
 * {
 	margin: 0 auto;	
 }
 a{
    text-decoration: none;
-   color:black;
+   color:white;
+}
+ .day {
+        vertical-align: top;
+    }
+.check{
+    width: 45px;
+    border: 1px solid #4577E5;
+    background-color: white;
+    color:#4577E5;
+}
+.ulbtn{
+	display: flex;
+	list-style: none;
+	margin-left:10px;
+	margin:0;
+	padding-right:12px;
+}
+.hrbtn{
+	display: flex;
+	list-style: none;
+	margin-left:10px;
+	margin:0;
+	padding-right:12px;
+}
+#navbar{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color:white;
 }
 #yo{
    text-align: center;
+   background-color: #6192fd;
+   color: white;
+   font-family: 'Noto Sans KR', sans-serif;
 }
 #tab2 {
    border-collapse: collapse;
-    border: 1px solid black;
+    border: 1px solid #EEF0F4;
 }
 #tab1{
-   margin-bottom: 20px;
    text-align: center;
+   font-family: 'Noto Sans KR', sans-serif;
+   background-color:#4577E5;
+   color:white;
 }
 #checkin, #checkout {
 	background-color: #39AEA9;
 	color : white;
+	outline:none;
 }

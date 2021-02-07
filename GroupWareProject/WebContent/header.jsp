@@ -32,23 +32,29 @@
 	</head>
 	<body>
 		<div id = "wrap">
-			<p id="wrap2">
-				<button id="symbolBtn" class = "btn btn-primary"><img src="img/symbol.png"></button>
-				<button id="homeBtn"class = "btn btn-primary" onclick = "changeView(0)"><img src="img/home.png"></button>
-		        <button id="sceduleBtn" class="btn btn-primary" onclick="changeView(1)"><img src="img/schedule.png"></button>
-		        <button id="boardBtn" class="btn btn-primary" onclick="changeView(2)"><img src="img/board.png"></button>
-		        <button id="calBtn" class="btn btn-primary" onclick = "changeView(3)"><img src="img/calendar.png"></button>
-		        <button id="addrBtn" class="btn btn-primary" onclick="changeView(4)"><img src="img/addr.png"></button>
-		        <c:forEach var="member" items="${sessionScope.memberInfo}">
-					<c:choose>
-				        	<c:when test="${member.member_administrator > 1}">
-				        		<button id="profileBtn" class="btn btn-primary" onclick="changeView(7)"><img src="img/addMember.png"></button>
-				        	</c:when> 
-				    </c:choose>
-				</c:forEach>
-		        <button id="proBtn" class="btn btn-primary" onclick="changeView(5)"><img src="img/profile.png"></button>
-		        <button id="logoutBtn" class="btn btn-primary" onclick = "changeView(6)"><img src="img/logout.png"></button>
-			</p>
+			<div id="navbar">
+				<div id="symbolbox">
+					<button id="symbolBtn" class = "btn btn-primary"><img id="symbol" src="img/symbol2.png"></button>
+				</div>
+				<ul id="wrap2">
+						<li><button id="homeBtn"class = "btn btn-primary" onclick = "changeView(0)"><img src="img/home.png"></button></li>
+				       <li><button id="sceduleBtn" class="btn btn-primary" onclick="changeView(1)"><img src="img/schedule.png"></button></li>
+				       <li><button id="boardBtn" class="btn btn-primary" onclick="changeView(2)"><img src="img/board.png"></button></li>
+				       <li><button id="calBtn" class="btn btn-primary" onclick = "changeView(3)"><img src="img/calendar.png"></button></li>
+				       <li><button id="addrBtn" class="btn btn-primary" onclick="changeView(4)"><img src="img/addr.png"></button></li>
+				        <c:forEach var="member" items="${sessionScope.memberInfo}">
+							<c:choose>
+						        	<c:when test="${member.member_administrator > 1}">
+						        		<li><button id="profileBtn" class="btn btn-primary" onclick="changeView(7)"><img src="img/addMember.png"></button></li>
+						        	</c:when> 
+						    </c:choose>
+						</c:forEach>
+				        <li><button id="proBtn" class="btn btn-primary" onclick="changeView(5)"><img src="img/profile.png"></button></li>
+				 </ul>
+				 <div id="logout">
+			        <button id="logoutBtn" class="btn btn-primary" onclick = "changeView(6)"><img src="img/logout.png"></button>
+			     </div>
+		     </div>
 		</div>
 	</body>
 </html>
