@@ -14,10 +14,6 @@
     <title>개발팀</title>
     
     <style type="text/css">
-        #wrap {
-            width: 800px;
-            margin: 0 auto 0 auto;
-        }
         #topForm{
             text-align :right;
         }

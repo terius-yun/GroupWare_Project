@@ -171,47 +171,15 @@ function changeMonth(changeValue){// 월 이동
       }
    }
 }
-//    function submit(submitvalue) {
-//       inbtn = document.getElementById("checkinbtn").value;
-//       outbtn = document.getElementById("checkoutbtn").value;
-      
-//       if(submitvalue == 1){
-//          var form = document.createElement('form');
-//          form.setAttribute("name", "checkout");
-//          form.setAttribute("method","post");
-//          form.setAttribute("action", "MainHRCheckin.vc" );
-         
-//          document.charset="utf-8";
-//             var hiddenField = document.createElement('input');
-//             hiddenField.setAttribute("type", "hidden");
-//             hiddenField.setAttribute("name", "checkin");
-//             hiddenField.setAttribute("value", inbtn);
-//             form.appendChild(hiddenField);
-//       document.body.appendChild(form);
-//       form.submit();
-//       } else if( submitvalue==2){
-//          var form = document.createElement('form');
-//          form.setAttribute("name", "checkout");
-//          form.setAttribute("method","post");
-//          form.setAttribute("action", "MainHRCheckout.vc" );
-         
-//       document.charset="utf-8";
-//             var hiddenField = document.createElement('input');
-//             hiddenField.setAttribute("type", "hidden");
-//             hiddenField.setAttribute("name", "checkout");
-//             hiddenField.setAttribute("value", outbtn);
-//             form.appendChild(hiddenField);
-//       document.body.appendChild(form);
-//       form.submit();
-//       return false;
-//       }
-//    }
 function VcCal(){
 				location.href="MainVCFormAction.vc";
 }
 function HrCal(){
 	location.href="MainHRFormAction.vc";
 }
+function check(){
+		alert("출근하였습니다.");	
+	}
 </script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -242,7 +210,8 @@ function HrCal(){
 		</div>
 <form action="" method="post" id="frm" name="frm">
    	<div id="hrbtn">
-		<input class="check" type="submit" value="출근" formaction="MainHRCheckinAction.vc">
+		<input name="att" class="check" type="submit" value="출근" formaction="MainHRCheckinAction.vc"
+		onclick="check()">
 		<input class="check" type="submit" value="퇴근" formaction="MainHRCheckoutAction.vc">
 	</div>
    <table id="tab1">

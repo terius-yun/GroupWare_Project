@@ -75,7 +75,7 @@
   }
   %>
   <center>
-  <table border=0> <!-- 달력 상단 부분, -->
+  <table border=0 id="tab1"> <!-- 달력 상단 부분, -->
    <tr>
     <td align=left width=200> <!-- 년 도-->
     <a href="CalendarDetail.cal?year=<%out.print(year-1);%>&month=<%out.print(month);%>">◀</a>
@@ -90,8 +90,8 @@
     <td align=right width=200><% out.print(currentYear + "-" + (currentMonth+1) + "-" + currentDate); %></td>
    </tr>
   </table>
-  <table border=1 cellspacing=0> <!-- 달력 부분 -->
-   <tr>
+  <table border=1 cellspacing=0 id="tab2"> <!-- 달력 부분 -->
+   <tr id="yo">
     <td width=100>일</td> <!-- 일=1 -->
     <td width=100>월</td> <!-- 월=2 -->
     <td width=100>화</td> <!-- 화=3 -->

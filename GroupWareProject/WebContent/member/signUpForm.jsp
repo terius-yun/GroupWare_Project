@@ -107,8 +107,10 @@
 	                </tr>
 	            </table>
 	            <br>
+	            <div style="margin:0 auto; text-align:center;">
 	            <input type="submit" value="생성"/>
 	            <input type="button" value="취소" onclick="goMain()">
+	            </div>
 	        </form>
 	    </div>
 	</body>

@@ -26,3 +26,20 @@ table.detailtable td {
   border-right: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
 }
+#yo{
+   text-align: center;
+   background-color: #6192fd;
+   color: white;
+   font-family: 'Noto Sans KR', sans-serif;
+}
+#tab2 {
+   border-collapse: collapse;
+    border: 1px solid #EEF0F4;
+}
+#tab1{
+   text-align: center;
+   font-family: 'Noto Sans KR', sans-serif;
+   background-color:#4577E5;
+   color:white;
+   clear: both;
+}

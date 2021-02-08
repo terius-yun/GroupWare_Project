@@ -68,6 +68,6 @@
 		</c:forEach>
 	</table>
 	<br>
-	<button id="updateBtn" onclick="updateProfile()">수정</button>
+	<button style="border: 1px solid;" id="updateBtn" onclick="updateProfile()">수정</button>
 </body>
 </html>

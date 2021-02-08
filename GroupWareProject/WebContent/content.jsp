@@ -10,11 +10,11 @@
 		if(value == "1"){//출결,연차
 			location.href="MainHRFormAction.vc";
 		}else if(value == "2"){//게시판
-			location.href="#";
+			location.href="BoardListForm.bo";
 		}else if(value == "3"){//주소록
 			location.href="MemberAddressBookAction.do";
 		}else if(value == "4"){//일정
-			location.href="#";
+			location.href="CalendarDetail.cal";
 		}
 	}
 	</script>
