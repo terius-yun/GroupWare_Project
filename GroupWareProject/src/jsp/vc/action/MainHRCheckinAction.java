@@ -21,13 +21,15 @@ public class MainHRCheckinAction implements Action {
 		ActionForward forward = new ActionForward();
 		HttpSession session=request.getSession();
 		//session ID 가져오기
+		
 		String emp_num = (String)session.getAttribute("sessionID");
 		//timestamp 시간 
+		
 		Timestamp checkin = new Timestamp(System.currentTimeMillis());
 		//timestamp 형식 변경
+		
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String hr_checkin = format.format(checkin);
-		System.out.println("date"+checkin);
 		
 		HrVO hvo = new HrVO();
 		
@@ -35,6 +37,7 @@ public class MainHRCheckinAction implements Action {
 		hvo.setHr_checkin(hr_checkin);
 		
 		HrDAO hdao = HrDAO.getInstance();
+		//출근-DAO
 		hdao.checkin(hvo);
 		
 		forward.setRedirect(false);

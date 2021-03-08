@@ -6,186 +6,16 @@
 <html>
 <head>
 <link rel="stylesheet" href="css/hrStyle.css">
-<script type="text/javascript">
-function openPage(i) {// 연차등록
-   popYear = document.getElementById('yearP').value;//현재 달력의 년
-   popMonth = document.getElementById('monthP').value;//현재 달력의 월
-   popDay = i;
-      
-   console.log(document.getElementById('yearP').value);
-   console.log(document.getElementById('monthP').value);
-   console.log(i);
-   
-   YYMMDD = popYear +"/"+ popMonth +"/"+ popDay
 
-   var form = document.createElement('form');
-   form.setAttribute("name","popPost");
-
-   form.setAttribute('method', 'post');
-   form.setAttribute('action', 'AddVCFormAction.vc');
-
-   document.charset = "utf-8";
-      var hiddenField = document.createElement('input');
-      hiddenField.setAttribute('type', 'hidden');
-      hiddenField.setAttribute('name', "YYMMDD");
-      hiddenField.setAttribute('value', YYMMDD);
-      form.appendChild(hiddenField);
-   document.body.appendChild(form);
-   form.submit();
-   return false;
-}
-
-function changeYear(changeValue){// 년도 이동
-   year = document.getElementById('yearP').value
-   if(changeValue == 1){//전년도 이동
-      year--;
-      var form = document.createElement('form');
-      form.setAttribute("name","changeYearForm");
-      form.setAttribute('method', 'post');
-      form.setAttribute('action', 'MainHRFormAction.vc');
-      
-      document.charset = "utf-8";
-         var hiddenField = document.createElement('input');//년 정보
-         hiddenField.setAttribute('type', 'hidden');
-         hiddenField.setAttribute('name', "year");
-         hiddenField.setAttribute('value', year);
-         form.appendChild(hiddenField);
-      document.body.appendChild(form);
-      form.submit();
-      return false;
-   }else{//다음년도 이동
-      year++;
-      var form = document.createElement('form');
-      form.setAttribute("name","changeYearForm");
-      form.setAttribute('method', 'post');
-      form.setAttribute('action', 'MainHRFormAction.vc');
-      
-      document.charset = "utf-8";
-         var hiddenField = document.createElement('input');//년 정보
-         hiddenField.setAttribute('type', 'hidden');
-         hiddenField.setAttribute('name', "year");
-         hiddenField.setAttribute('value', year);
-         form.appendChild(hiddenField);
-      document.body.appendChild(form);
-      form.submit();
-      return false;
-   }
-}
-
-function changeMonth(changeValue){// 월 이동
-   year = document.getElementById('yearP').value
-   month = document.getElementById('monthP').value;
-   if(changeValue == 1){//전달로 가기.
-      month--;
-      if(month <=0){// 1월에서 전달로 가기시 전년으로 이동
-         month = 12;
-         year--;
-         var form = document.createElement('form');
-         form.setAttribute("name","changeMonthForm");
-         form.setAttribute('method', 'post');
-         form.setAttribute('action', 'MainHRFormAction.vc');
-
-         document.charset = "utf-8";
-            var hiddenField = document.createElement('input');//월 정보
-            hiddenField.setAttribute('type', 'hidden');
-            hiddenField.setAttribute('name', "month");
-            hiddenField.setAttribute('value', month);
-            form.appendChild(hiddenField);
-            
-            var hiddenField2 = document.createElement('input');//년 정보
-            hiddenField2.setAttribute('type', 'hidden');
-            hiddenField2.setAttribute('name', "year");
-            hiddenField2.setAttribute('value', year);
-            form.appendChild(hiddenField2);
-         document.body.appendChild(form);
-         form.submit();
-         return false;
-      }else{// 1월에서 전달로 가기를 제외한 움직임
-         var form = document.createElement('form');
-         form.setAttribute("name","changeMonthForm");
-         form.setAttribute('method', 'post');
-         form.setAttribute('action', 'MainHRFormAction.vc');
-
-         document.charset = "utf-8";
-            var hiddenField = document.createElement('input');
-            hiddenField.setAttribute('type', 'hidden');
-            hiddenField.setAttribute('name', "month");
-            hiddenField.setAttribute('value', month);
-            form.appendChild(hiddenField);
-            
-            var hiddenField2 = document.createElement('input');//년 정보
-            hiddenField2.setAttribute('type', 'hidden');
-            hiddenField2.setAttribute('name', "year");
-            hiddenField2.setAttribute('value', year);
-            form.appendChild(hiddenField2);
-         document.body.appendChild(form);
-         form.submit();
-         return false;
-      }
-   }else if(changeValue == 2){//다음달로 가기.
-      month++;
-      if(month > 12){
-         month = 1;
-         year++;
-         var form = document.createElement('form');
-         form.setAttribute("name","changeMonthForm");
-         form.setAttribute('method', 'post');
-         form.setAttribute('action', 'MainHRFormAction.vc');
-
-         document.charset = "utf-8";
-            var hiddenField = document.createElement('input');//월 정보
-            hiddenField.setAttribute('type', 'hidden');
-            hiddenField.setAttribute('name', "month");
-            hiddenField.setAttribute('value', month);
-            form.appendChild(hiddenField);
-            
-            var hiddenField2 = document.createElement('input');//년 정보
-            hiddenField2.setAttribute('type', 'hidden');
-            hiddenField2.setAttribute('name', "year");
-            hiddenField2.setAttribute('value', year);
-            form.appendChild(hiddenField2);
-         document.body.appendChild(form);
-         form.submit();
-         return false;
-      }else{
-         var form = document.createElement('form');
-         form.setAttribute("name","changeMonthForm");
-         form.setAttribute('method', 'post');
-         form.setAttribute('action', 'MainHRFormAction.vc');
-
-         document.charset = "utf-8";
-            var hiddenField = document.createElement('input');//월 정보
-            hiddenField.setAttribute('type', 'hidden');
-            hiddenField.setAttribute('name', "month");
-            hiddenField.setAttribute('value', month);
-            form.appendChild(hiddenField);
-            
-            var hiddenField2 = document.createElement('input');//년 정보
-            hiddenField2.setAttribute('type', 'hidden');
-            hiddenField2.setAttribute('name', "year");
-            hiddenField2.setAttribute('value', year);
-            form.appendChild(hiddenField2);
-         document.body.appendChild(form);
-         form.submit();
-         return false;
-      }
-   }
-}
-function VcCal(){
-				location.href="MainVCFormAction.vc";
-}
-function HrCal(){
-	location.href="MainHRFormAction.vc";
-}
-function check(){
-		alert("출근하였습니다.");	
-	}
-</script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 
 <%
+	boolean logoutFailed = false;
+	if(request.getAttribute("logoutFailed_noCheckOut") != null){
+		logoutFailed = (boolean)request.getAttribute("logoutFailed_noCheckOut");
+	}
    //객체 생성
    Calendar cal = Calendar.getInstance();
 
@@ -210,8 +40,7 @@ function check(){
 		</div>
 <form action="" method="post" id="frm" name="frm">
    	<div id="hrbtn">
-		<input name="att" class="check" type="submit" value="출근" formaction="MainHRCheckinAction.vc"
-		onclick="check()">
+		<button name="att" class="check" onclick="check()">출근</button>
 		<input class="check" type="submit" value="퇴근" formaction="MainHRCheckoutAction.vc">
 	</div>
    <table id="tab1">
@@ -227,7 +56,7 @@ function check(){
                 <% out.print(month); %>월<input type="hidden" id="monthP" value=<%=month%>>
                 <a href="#"  onclick="changeMonth(2)">▶</a>
             </td>
-                <td width=200><%=nowYear + "-" + (nowMonth+1) + "-" + nowDay%></td>
+                <td id="currentDate" width=200><%=nowYear + "-" + (nowMonth+1) + "-" + nowDay%></td>
             </tr>
    </table>
    <table id="tab2" border="1">
@@ -249,7 +78,6 @@ function check(){
          //선택월의 시작요일, 선택월의 마지막날짜
          int start = cal.get(Calendar.DAY_OF_WEEK);
          int end = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
-         System.out.println("이번 달 말일 : " + end);
          int br = 0;
          
             //빈칸    
@@ -261,12 +89,12 @@ function check(){
                }
             }
             //시간 받아오기
-            int []startYear = (int[])request.getAttribute("startYear");//연차가 시작되는 년
-            int []startMonth = (int[])request.getAttribute("startMonth");//연차가 시작되는 월
-            int []startDay = (int[])request.getAttribute("startDay");//연차가 시작되는 일
+            int []startYear = (int[])request.getAttribute("startYear");//달력이 시작되는 년
+            int []startMonth = (int[])request.getAttribute("startMonth");//달력이 시작되는 월
+            int []startDay = (int[])request.getAttribute("startDay");//달력이 시작되는 일
             String[]cal_checkin = (String[])request.getAttribute("cal_checkin");
-            int []endYear = (int[])request.getAttribute("endYear");//연차가 끝나는 년
-            int []endMonth = (int[])request.getAttribute("endMonth");//연차가 끝나는 월
+            int []endYear = (int[])request.getAttribute("endYear");//달력이 끝나는 년
+            int []endMonth = (int[])request.getAttribute("endMonth");//달력이 끝나는 월
             int []endDay = (int[])request.getAttribute("endDay");
             String[]cal_checkout = (String[])request.getAttribute("cal_checkout");
             int hrCount = (int)request.getAttribute("hrCount");
@@ -302,6 +130,172 @@ function check(){
       </tr>
    </table>
    
-</form>   
+</form>
+<script type="text/javascript">	
+	function changeYear(changeValue){// 년도 이동
+	   year = document.getElementById('yearP').value
+	   if(changeValue == 1){//전년도 이동
+	      year--;
+	      var form = document.createElement('form');
+	      form.setAttribute("name","changeYearForm");
+	      form.setAttribute('method', 'post');
+	      form.setAttribute('action', 'MainHRFormAction.vc');
+	      
+	      document.charset = "utf-8";
+	         var hiddenField = document.createElement('input');//년 정보
+	         hiddenField.setAttribute('type', 'hidden');
+	         hiddenField.setAttribute('name', "year");
+	         hiddenField.setAttribute('value', year);
+	         form.appendChild(hiddenField);
+	      document.body.appendChild(form);
+	      form.submit();
+	      return false;
+	   }else{//다음년도 이동
+	      year++;
+	      var form = document.createElement('form');
+	      form.setAttribute("name","changeYearForm");
+	      form.setAttribute('method', 'post');
+	      form.setAttribute('action', 'MainHRFormAction.vc');
+	      
+	      document.charset = "utf-8";
+	         var hiddenField = document.createElement('input');//년 정보
+	         hiddenField.setAttribute('type', 'hidden');
+	         hiddenField.setAttribute('name', "year");
+	         hiddenField.setAttribute('value', year);
+	         form.appendChild(hiddenField);
+	      document.body.appendChild(form);
+	      form.submit();
+	      return false;
+	   }
+	}
+	
+	function changeMonth(changeValue){// 월 이동
+	   year = document.getElementById('yearP').value
+	   month = document.getElementById('monthP').value;
+	   if(changeValue == 1){//전달로 가기.
+	      month--;
+	      if(month <=0){// 1월에서 전달로 가기시 전년으로 이동
+	         month = 12;
+	         year--;
+	         var form = document.createElement('form');
+	         form.setAttribute("name","changeMonthForm");
+	         form.setAttribute('method', 'post');
+	         form.setAttribute('action', 'MainHRFormAction.vc');
+	
+	         document.charset = "utf-8";
+	            var hiddenField = document.createElement('input');//월 정보
+	            hiddenField.setAttribute('type', 'hidden');
+	            hiddenField.setAttribute('name', "month");
+	            hiddenField.setAttribute('value', month);
+	            form.appendChild(hiddenField);
+	            
+	            var hiddenField2 = document.createElement('input');//년 정보
+	            hiddenField2.setAttribute('type', 'hidden');
+	            hiddenField2.setAttribute('name', "year");
+	            hiddenField2.setAttribute('value', year);
+	            form.appendChild(hiddenField2);
+	         document.body.appendChild(form);
+	         form.submit();
+	         return false;
+	      }else{// 1월에서 전달로 가기를 제외한 움직임
+	         var form = document.createElement('form');
+	         form.setAttribute("name","changeMonthForm");
+	         form.setAttribute('method', 'post');
+	         form.setAttribute('action', 'MainHRFormAction.vc');
+	
+	         document.charset = "utf-8";
+	            var hiddenField = document.createElement('input');
+	            hiddenField.setAttribute('type', 'hidden');
+	            hiddenField.setAttribute('name', "month");
+	            hiddenField.setAttribute('value', month);
+	            form.appendChild(hiddenField);
+	            
+	            var hiddenField2 = document.createElement('input');//년 정보
+	            hiddenField2.setAttribute('type', 'hidden');
+	            hiddenField2.setAttribute('name', "year");
+	            hiddenField2.setAttribute('value', year);
+	            form.appendChild(hiddenField2);
+	         document.body.appendChild(form);
+	         form.submit();
+	         return false;
+	      }
+	   }else if(changeValue == 2){//다음달로 가기.
+	      month++;
+	      if(month > 12){//12월에서 다음달로 가기의 움직임
+	         month = 1;
+	         year++;
+	         var form = document.createElement('form');
+	         form.setAttribute("name","changeMonthForm");
+	         form.setAttribute('method', 'post');
+	         form.setAttribute('action', 'MainHRFormAction.vc');
+	
+	         document.charset = "utf-8";
+	            var hiddenField = document.createElement('input');//월 정보
+	            hiddenField.setAttribute('type', 'hidden');
+	            hiddenField.setAttribute('name', "month");
+	            hiddenField.setAttribute('value', month);
+	            form.appendChild(hiddenField);
+	            
+	            var hiddenField2 = document.createElement('input');//년 정보
+	            hiddenField2.setAttribute('type', 'hidden');
+	            hiddenField2.setAttribute('name', "year");
+	            hiddenField2.setAttribute('value', year);
+	            form.appendChild(hiddenField2);
+	         document.body.appendChild(form);
+	         form.submit();
+	         return false;
+	      }else{//12월에서 다음달로 가기를 제외한 움직임
+	         var form = document.createElement('form');
+	         form.setAttribute("name","changeMonthForm");
+	         form.setAttribute('method', 'post');
+	         form.setAttribute('action', 'MainHRFormAction.vc');
+	
+	         document.charset = "utf-8";
+	            var hiddenField = document.createElement('input');//월 정보
+	            hiddenField.setAttribute('type', 'hidden');
+	            hiddenField.setAttribute('name', "month");
+	            hiddenField.setAttribute('value', month);
+	            form.appendChild(hiddenField);
+	            
+	            var hiddenField2 = document.createElement('input');//년 정보
+	            hiddenField2.setAttribute('type', 'hidden');
+	            hiddenField2.setAttribute('name', "year");
+	            hiddenField2.setAttribute('value', year);
+	            form.appendChild(hiddenField2);
+	         document.body.appendChild(form);
+	         form.submit();
+	         return false;
+	      }
+	   }
+	}
+	
+	function VcCal(){//연차관리로 이동
+					location.href="MainVCFormAction.vc";
+	}
+	
+	function HrCal(){//출결관리로 이동
+		location.href="MainHRFormAction.vc";
+	}
+	
+	function check(){// 출근 버튼 클릭시
+	var today = document.getElementById('currentDate').innerText;
+	var day = today.substring(today.lastIndexOf("-")+1);
+	var todayCheckIn = document.getElementById('day'+day).children.length
+		if(todayCheckIn == 0){
+			alert("출근하였습니다.");
+			document.frm.action="MainHRCheckinAction.vc";
+			document.frm.submit();
+		}else{
+			location.href="MainHRFormAction.vc";
+			alert("금일 출근은 이미 처리되었습니다.");	
+		}
+	}
+	<% if(logoutFailed == true){%>
+		document.addEventListener("DOMContentLoaded", function(){
+			alert("퇴근이 처리되지 않았습니다.");
+		});
+	<%}%>
+	
+</script>
 </body>
 </html>

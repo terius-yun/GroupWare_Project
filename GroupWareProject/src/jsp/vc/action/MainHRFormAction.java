@@ -43,14 +43,11 @@ public class MainHRFormAction implements Action{
       }else {
          cal_month = Integer.parseInt(month);
       }
-      System.out.println("출력되어야 하는 달은? : "+ month);
 
       
       cal.set(Integer.parseInt(cal_year),cal_month-1,1);
       
       int endDayOfMonth = cal.getActualMaximum(Calendar.DAY_OF_MONTH);// 월의 말일 구하기
-      System.out.println("이달의 마지막 일::"+endDayOfMonth);
-      System.out.println("년도::"+cal_year);
       
       HrDAO hdao = HrDAO.getInstance();
       ArrayList<HrVO> hrinfo = hdao.HrInfo(emp_num);
@@ -76,22 +73,32 @@ public class MainHRFormAction implements Action{
                hr_checkin[i] = hrinfo.get(i).getHr_checkin();
                hr_checkout[i] = hrinfo.get(i).getHr_checkout();
                
-               startYear[i] = Integer.parseInt(hr_checkin[i].substring(0,4));   
-               endYear[i] = Integer.parseInt(hr_checkout[i].substring(0,4));
-               System.out.println("시작하는 년도 : " + startYear[i]);
+               startYear[i] = Integer.parseInt(hr_checkin[i].substring(0,4));
+               if(hr_checkout[i] != null) {
+            	   endYear[i] = Integer.parseInt(hr_checkout[i].substring(0,4));
+               }else {
+            	   endYear[i] = startYear[i];
+               }
+               
                
                startMonth[i] = Integer.parseInt(hr_checkin[i].substring(5,7));
-               endMonth[i] = Integer.parseInt(hr_checkout[i].substring(5,7));
-               System.out.println("시작하는 월 : " + startMonth[i]);
+               if(hr_checkout[i] != null)
+            	   endMonth[i] = Integer.parseInt(hr_checkout[i].substring(5,7));
+               else
+            	   endMonth[i] = startMonth[i];
                
                startDay[i]= Integer.parseInt(hr_checkin[i].substring(8,10));
-               endDay[i]= Integer.parseInt(hr_checkout[i].substring(8,10));
-               System.out.println("in : " +startDay[i]);
+               if(hr_checkout[i] != null)
+            	   endDay[i]= Integer.parseInt(hr_checkout[i].substring(8,10));
+               else
+            	   endDay[i] = startDay[i];
                
                //달력 내용
                cal_checkin[i] = hr_checkin[i].substring(11,16);
-               cal_checkout[i] = hr_checkout[i].substring(11,16);
-               System.out.println("in ++" +cal_checkin[i]);
+               if(hr_checkout[i] != null)
+            	   cal_checkout[i] = hr_checkout[i].substring(11,16);
+               else
+            	   cal_checkout[i] = "";
 
                hrCount=i+1;
             }

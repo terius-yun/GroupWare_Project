@@ -6,7 +6,14 @@ public class HrVO {
 	private String emp_num;
 	private String hr_checkin;
 	private String hr_checkout;
+	private int null_checkout;
 	
+	public int getNull_checkout() {
+		return null_checkout;
+	}
+	public void setNull_checkout(int null_checkout) {
+		this.null_checkout = null_checkout;
+	}
 	public String getEmp_num() {
 		return emp_num;
 	}
