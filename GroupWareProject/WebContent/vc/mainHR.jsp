@@ -61,13 +61,13 @@
    </table>
    <table id="tab2" border="1">
       <tr id="yo">
+      	<td width="100">일</td>
          <td width="100">월</td>
          <td width="100">화</td>
          <td width="100">수</td>
          <td width="100">목</td>
          <td width="100">금</td>
          <td width="100">토</td>
-         <td width="100">일</td>
       </tr>
       <tr height='100'>
          <%

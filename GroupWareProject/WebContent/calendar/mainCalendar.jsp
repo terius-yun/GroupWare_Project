@@ -100,7 +100,7 @@
     <td width=100>금</td> <!-- 금=6 -->
     <td width=100>토</td> <!-- 토=7 -->
    </tr>
-   <tr height=50>
+   <tr height=100>
    
    <%
    cal.set(year, month, 1); //현재 날짜를 현재 월의 1일로 설정
@@ -193,7 +193,7 @@
 	   
 	   
 	   	   
-    out.println("<td>" + i);
+    out.println("<td class='day'>" + i);
     
    
     for(int k=0; k<=cal_count ; k++){   	  	
@@ -289,7 +289,7 @@
      
     br++;
     if((br%7)==0 && i!=end) {
-     out.println("</tr><tr height=50>");
+     out.println("</tr><tr height=100>");
     }
    }
     
